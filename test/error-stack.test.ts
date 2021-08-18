@@ -2,7 +2,7 @@
 /* eslint-disable no-eval */
 import { debuglog } from 'util';
 import parse from '..';
-import { IFormatMessage } from '../src/index';
+import { IParsedWithoutTrace } from '../src/types';
 
 const log = debuglog('error-stack');
 const mm = `a
@@ -12,7 +12,7 @@ const CASES: [title: string, stack: string | (() => string), object: (argv: any)
   [
     'Error',
     new Error('foo').stack,
-    ({message, type}: IFormatMessage) => {
+    ({message, type}: IParsedWithoutTrace) => {
       expect(message).toBe('foo')
       expect(type).toBe('Error')
     }
@@ -20,7 +20,7 @@ const CASES: [title: string, stack: string | (() => string), object: (argv: any)
   [
     'TypeError',
     new TypeError('foo').stack,
-    ({message, type}: IFormatMessage) => {
+    ({message, type}: IParsedWithoutTrace) => {
       expect(message).toBe('foo')
       expect(type).toBe('TypeError')
     }
@@ -31,7 +31,7 @@ const CASES: [title: string, stack: string | (() => string), object: (argv: any)
       class xxx1Error extends TypeError {}
       return new xxx1Error('foo').stack
     },
-    ({message, type}: IFormatMessage) => {
+    ({message, type}: IParsedWithoutTrace) => {
       expect(message).toBe('foo')
       expect(type).toBe('TypeError')
     }
@@ -67,14 +67,14 @@ const CASES: [title: string, stack: string | (() => string), object: (argv: any)
   [
     'message with multiple lines',
     new Error(mm).stack,
-    ({message}: IFormatMessage) => {
+    ({message}: IParsedWithoutTrace) => {
       expect(message).toBe(mm)
     }
   ],
   [
     'no stack',
     'Error: foo',
-    ({message}: IFormatMessage) => {
+    ({message}: IParsedWithoutTrace) => {
       expect(message).toBe('foo')
     }
   ]

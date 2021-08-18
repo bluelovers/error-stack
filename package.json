@@ -51,12 +51,14 @@
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
+    "crlf-normalize": "^1.0.6",
     "ts-type": "^1.2.39"
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.25",
     "@types/bluebird": "^3.5.36",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.6.1"
+    "@types/node": "^16.6.1",
+    "dts-bundle-generator": "^5.9.0"
   }
 }

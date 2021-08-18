@@ -2,16 +2,38 @@
 
 import { ITSPickExtra } from 'ts-type/lib/type/record';
 
-export interface Source {
+export interface ISource {
+	/**
+	 * The source of the the callee
+	 */
 	source: string;
 	line?: number;
 	col?: number;
 }
-export interface Trace extends Source {
+export interface ITrace extends ISource {
 	callee: string;
 	calleeNote?: string;
+	/**
+	 * Whether the callee is 'eval'
+	 */
 	eval?: boolean;
-	evalTrace: Source;
+	/**
+	 * The source location inside eval content
+	 */
+	evalTrace: ISource;
+}
+export interface IParsedWithoutTrace {
+	/**
+	 * Error type
+	 */
+	type: string;
+	/**
+	 * The message used by Error constructor
+	 */
+	message: string;
+}
+export interface IParsed extends IParsedWithoutTrace {
+	traces: ITrace[];
 }
 export declare function breakBrackets(str: string, first: string, last: string): string[];
 export declare function parseSource(rawSource: string): {
@@ -29,24 +51,30 @@ export declare function parseEvalSource(rawEvalSource: string): {
 		col: string;
 	};
 };
-export declare function parseTrace(trace: string, testEvalSource?: boolean): Trace;
-export declare function parse(stack: string): {
+export declare function parseTrace(trace: string, testEvalSource?: boolean): ITrace;
+export declare function validTrace(trace: ITrace): number | boolean;
+export declare function parse(stack: string): IParsed;
+export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
+export declare function formatEvalTrace({ callee, evalTrace, ...trace }: ITrace): string;
+export declare function formatMessage({ type, message, }: IParsedWithoutTrace): string;
+export declare class ErrorStack implements IParsed {
+	/**
+	 * Error type
+	 */
 	type: string;
+	/**
+	 * The message used by Error constructor
+	 */
 	message: string;
-	traces: Trace[];
-};
-export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<Trace, "source">): string;
-export declare function formatEvalTrace({ callee, evalTrace, ...trace }: Trace): string;
-export declare function formatMessage({ type, message, }: {
-	type: string;
-	message: string;
-}): string;
-export declare class ErrorStack {
-	type: string;
-	message: string;
-	traces: Trace[];
+	traces: ITrace[];
 	constructor(stack: string);
-	filter(filter: (value: Trace, index: number, array: Trace[]) => boolean): this;
+	/**
+	 * filterFunction Function the same as the callback function of Array.prototype.filter(callback)
+	 */
+	filter(filter: (value: ITrace, index: number, array: ITrace[]) => boolean): this;
+	/**
+	 * Format object parsed
+	 */
 	format(): string;
 }
 export declare function parseErrorStack(stack: string): ErrorStack;

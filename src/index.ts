@@ -1,7 +1,9 @@
 import { ITSPickExtra } from 'ts-type/lib/type/record';
+import { lineSplit } from 'crlf-normalize';
+import { IParsed, IParsedWithoutTrace, ITrace } from './types';
 
-const AT = 'at'
-const CR = '\n'
+const AT = 'at' as const
+const CR = '\n' as const
 
 // 1.
 // Error: foo
@@ -11,22 +13,6 @@ const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
-
-export interface Source {
-	// The source of the the callee
-	source: string
-	line?: number
-	col?: number
-}
-
-export interface Trace extends Source{
-	callee: string
-	calleeNote?: string
-	// Whether the callee is 'eval'
-	eval?: boolean
-	// The source location inside eval content
-	evalTrace: Source
-}
 
 function trim(s: string)
 {
@@ -112,7 +98,7 @@ export function parseTrace(trace: string, testEvalSource?: boolean)
 		[rawCallee, rawSource] = [rawSource, rawCallee]
 	}
 
-	const ret: Trace = {} as any
+	const ret: ITrace = {} as any
 
 	if (rawCallee)
 	{
@@ -143,12 +129,17 @@ export function parseTrace(trace: string, testEvalSource?: boolean)
 	return ret
 }
 
-export function parse(stack: string)
+export function validTrace(trace: ITrace)
 {
-	const [rawMessage, ...rawTrace] = stack.split(/\r|\n/g)
+	return trace.line || trace.eval;
+}
+
+export function parse(stack: string): IParsed
+{
+	const [rawMessage, ...rawTrace] = lineSplit(stack)
 
 	// A error message might have multiple lines
-	const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT))
+	const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
 
 	const messageLines = [rawMessage, ...rawTrace.splice(0, index)]
 
@@ -166,7 +157,7 @@ export function formatTrace({
 	source,
 	line,
 	col,
-}: ITSPickExtra<Trace, 'source'>)
+}: ITSPickExtra<ITrace, 'source'>)
 {
 	const sourceTrace = [
 		source,
@@ -189,7 +180,7 @@ export function formatEvalTrace({
 	callee,
 	evalTrace,
 	...trace
-}: Trace)
+}: ITrace)
 {
 	return `${callee} (eval at ${formatTrace({
 		...trace,
@@ -197,25 +188,26 @@ export function formatEvalTrace({
 	})}, ${formatTrace(evalTrace)})`;
 }
 
-export interface IFormatMessage
-{
-	type: string;
-	message: string;
-}
-
 export function formatMessage({
 	type,
 	message,
-}: IFormatMessage)
+}: IParsedWithoutTrace)
 {
 	return `${type}: ${message}`;
 }
 
-export class ErrorStack
+export class ErrorStack implements IParsed
 {
+
+	/**
+	 * Error type
+	 */
 	type: string;
+	/**
+	 * The message used by Error constructor
+	 */
 	message: string;
-	traces: Trace[];
+	traces: ITrace[];
 
 	constructor(stack: string)
 	{
@@ -227,13 +219,19 @@ export class ErrorStack
 		Object.assign(this, parse(stack))
 	}
 
-	filter(filter: (value: Trace, index: number, array: Trace[]) => boolean)
+	/**
+	 * filterFunction Function the same as the callback function of Array.prototype.filter(callback)
+	 */
+	filter(filter: (value: ITrace, index: number, array: ITrace[]) => boolean)
 	{
 		this.traces = this.traces.filter(filter)
 
 		return this
 	}
 
+	/**
+	 * Format object parsed
+	 */
 	format()
 	{
 		const { type, message } = this

@@ -1,3 +1,5 @@
+import { lineSplit } from 'crlf-normalize';
+
 const AT = 'at';
 const CR = '\n';
 const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i;
@@ -80,9 +82,12 @@ function parseTrace(trace, testEvalSource) {
   Object.assign(ret, testEvalSource && REGEX_STARTS_WITH_EVAL_AT.test(rawSource) ? parseEvalSource(rawSource) : parseSource(rawSource));
   return ret;
 }
+function validTrace(trace) {
+  return trace.line || trace.eval;
+}
 function parse(stack) {
-  const [rawMessage, ...rawTrace] = stack.split(/\r|\n/g);
-  const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT));
+  const [rawMessage, ...rawTrace] = lineSplit(stack);
+  const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
   const messageLines = [rawMessage, ...rawTrace.splice(0, index)];
   const [, type, message] = messageLines.join(CR).match(REGEX_MATCH_MESSAGE);
   const traces = rawTrace.map(t => parseTrace(trim(t), true));
@@ -150,5 +155,5 @@ function parseErrorStack(stack) {
   return new ErrorStack(stack);
 }
 
-export { ErrorStack, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatTrace, parse, parseErrorStack, parseEvalSource, parseSource, parseTrace };
+export { ErrorStack, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatTrace, parse, parseErrorStack, parseEvalSource, parseSource, parseTrace, validTrace };
 //# sourceMappingURL=error-stack2.esm.js.map
