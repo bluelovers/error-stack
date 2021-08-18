@@ -1,8 +1,9 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-eval */
-const log = require('util').debuglog('error-stack');
-const parse = require('..').default
+import { debuglog } from 'util';
+import parse from '..';
 
+const log = debuglog('error-stack');
 const mm = `a
 - b`
 
@@ -108,6 +109,7 @@ CASES.forEach(([title, stack, object, only], i) => {
 
 test('invalid stack', () => {
   expect(() => parse()).toThrowError({
+    // @ts-ignore
     instanceOf: TypeError
   })
 })
