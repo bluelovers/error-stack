@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseEvalSource error-stack.test.ts:41:5), <anonymous>:1:1 1`] = `
+Object {
+  "col": "5",
+  "evalCallee": "Object.<anonymous>",
+  "evalCalleeNote": undefined,
+  "evalTrace": Object {
+    "col": "1",
+    "line": "1",
+    "source": "<anonymous>",
+  },
+  "line": "41",
+  "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+}
+`;
+
 exports[`parseSource bin.ts:330:12 1`] = `
 Object {
   "col": "12",
@@ -79,3 +94,13 @@ Object {
   "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
 }
 `;
+
+exports[`parseTrace     at new Promise (<anonymous>) 1`] = `
+Object {
+  "callee": "new Promise",
+  "calleeNote": undefined,
+  "source": "<anonymous>",
+}
+`;
+
+exports[`parseTrace     at new Promise (<anonymous>) 2`] = `"    at new Promise (<anonymous>)"`;

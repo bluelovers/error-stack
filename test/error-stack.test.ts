@@ -38,7 +38,7 @@ const CASES: [title: string, stack: string | (() => string), object: (argv: any)
   ],
   [
     'Eval',
-    eval('new Error("foo")').stack,
+    eval('new Error("foo:eval")').stack,
     ({
       traces: [{
         callee,
@@ -94,6 +94,7 @@ CASES.forEach(([title, stack, object, only], i) => {
       stack = stack()
     }
 
+    log('stack: %s\n', stack)
     stack = stack.trim()
     const parsed = parse(stack)
     log('parsed: %j\n', parsed)
@@ -104,7 +105,7 @@ CASES.forEach(([title, stack, object, only], i) => {
 
     tester(parsed)
 
-    expect(stack).toBe(parsed.format())
+    expect(parsed.format()).toBe(stack)
   })
 })
 

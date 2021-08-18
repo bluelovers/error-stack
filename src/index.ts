@@ -1,8 +1,9 @@
 import { ITSPickExtra } from 'ts-type/lib/type/record';
 import { lineSplit } from 'crlf-normalize';
-import { IParsed, IParsedWithoutTrace, ITrace } from './types';
+import { IParsed, IParsedWithoutTrace, ISource, ITrace } from './types';
 // @ts-ignore
 import ssplit from 'string-split-keep';
+import { trim } from './util/trim';
 
 const AT = 'at' as const
 const CR = '\n' as const
@@ -15,11 +16,6 @@ const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
-
-function trim(s: string)
-{
-	return s.trim();
-}
 
 export function breakBrackets(str: string, first: string, last: string)
 {
@@ -55,15 +51,33 @@ export function breakBrackets(str: string, first: string, last: string)
 	].map(trim)
 }
 
-export function parseSource(rawSource: string)
+export function validPosition(source: {
+	line: string | number,
+	col: string | number,
+})
+{
+	return source.line?.toString().match(/^\d+$/) && source.col?.toString().match(/^\d+$/)
+}
+
+export function parseSource(rawSource: string): ISource
 {
 	const [source, line, col] = ssplit(rawSource, ':', -3);
+
+	if (!col?.length || !line?.length)
+	{
+		return {
+			source: rawSource,
+		}
+	}
+
 	return {
-		source, line, col,
+		source,
+		line,
+		col,
 	}
 }
 
-export function parseEvalSource(rawEvalSource: string)
+export function parseEvalSource(rawEvalSource: string): Omit<ITrace, 'callee' | 'calleeNote' | 'eval'>
 {
 	const [rawTrace, rawEvalTrace] = rawEvalSource
 		.replace(REGEX_STARTS_WITH_EVAL_AT, '')
@@ -71,18 +85,18 @@ export function parseEvalSource(rawEvalSource: string)
 		.map(trim)
 
 	const {
-		source,
-		line,
-		col,
-		// eslint-disable-next-line no-use-before-define
+		eval: ev,
+		callee: evalCallee,
+		calleeNote: evalCalleeNote,
+		...trace
 	} = parseTrace(rawTrace)
 
 	const evalTrace = parseSource(rawEvalTrace)
 
 	return {
-		source,
-		line,
-		col,
+		evalCallee,
+		evalCalleeNote,
+		...trace,
 		evalTrace,
 	}
 }
@@ -133,10 +147,10 @@ export function parseTrace(trace: string, testEvalSource?: boolean)
 
 export function validTrace(trace: ITrace)
 {
-	return trace.line || trace.eval;
+	return trace.eval || typeof trace.line === 'number' || (typeof trace.line === 'string' && /^\d+$/.test(trace.line));
 }
 
-export function parse(stack: string): IParsed
+export function parseStack(stack: string): IParsed
 {
 	const [rawMessage, ...rawTrace] = lineSplit(stack)
 
@@ -181,12 +195,18 @@ export function formatTrace({
 export function formatEvalTrace({
 	callee,
 	evalTrace,
+
+	evalCallee,
+	evalCalleeNote,
+
 	...trace
 }: ITrace)
 {
 	return `${callee} (eval at ${formatTrace({
 		...trace,
-		callee: '<anonymous>',
+		
+		callee: evalCallee ?? '<anonymous>',
+		calleeNote: evalCalleeNote,
 	})}, ${formatTrace(evalTrace)})`;
 }
 
@@ -196,6 +216,15 @@ export function formatMessage({
 }: IParsedWithoutTrace)
 {
 	return `${type}: ${message}`;
+}
+
+export function formatLineTrace(trace: ITrace)
+{
+	return `    at ${
+		trace.eval
+			? formatEvalTrace(trace)
+			: formatTrace(trace)
+	}`
 }
 
 export class ErrorStack implements IParsed
@@ -218,7 +247,7 @@ export class ErrorStack implements IParsed
 			throw new TypeError('stack must be a string')
 		}
 
-		Object.assign(this, parse(stack))
+		Object.assign(this, parseStack(stack))
 	}
 
 	/**
@@ -238,13 +267,7 @@ export class ErrorStack implements IParsed
 	{
 		const { type, message } = this
 		const messageLines = `${formatMessage({ type, message })}`
-		const tracesLines = this.traces.map(
-				trace => `    at ${
-					trace.eval
-						? formatEvalTrace(trace)
-						: formatTrace(trace)
-				}`,
-			)
+		const tracesLines = this.traces.map(formatLineTrace)
 			.join(CR)
 
 		return tracesLines

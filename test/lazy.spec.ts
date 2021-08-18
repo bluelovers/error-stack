@@ -1,5 +1,6 @@
 import { basename } from 'path';
-import { parseSource } from '../src/index';
+import { formatLineTrace, parseEvalSource, parseSource, parseTrace } from '../src/index';
+import { ISource } from '../src/types';
 
 describe('parseSource', () =>
 {
@@ -19,13 +20,55 @@ describe('parseSource', () =>
 		{
 			let actual = parseSource(line);
 
-			expect(actual.line).toMatch(/^\d+$/);
-			expect(actual.col).toMatch(/^\d+$/);
+			_checkPos(actual);
 
 			expect(actual).toMatchSnapshot();
 		});
+	});
+
+});
+
+describe('parseTrace', () =>
+{
+	[
+		'    at new Promise (<anonymous>)',
+	].forEach(line => {
+		test(basename(line), () =>
+		{
+			let actual = parseTrace(line.trim());
+
+			expect(actual).toMatchSnapshot();
+
+			let s = formatLineTrace(actual);
+
+			expect(s).toMatchSnapshot();
+			expect(s).toStrictEqual(line);
+
+		});
+	});
+});
+
+describe('parseEvalSource', () =>
+{
+	[
+		'eval at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5), <anonymous>:1:1',
+	].forEach(line => {
+		test(basename(line), () =>
+		{
+			let actual = parseEvalSource(line);
+
+			_checkPos(actual);
+
+			expect(actual).toMatchSnapshot();
+
+			_checkPos(actual.evalTrace);
+		});
 	})
 
+});
 
-
-})
+function _checkPos(source: ISource)
+{
+	expect(String(source.line)).toMatch(/^\d+$/);
+	expect(String(source.col)).toMatch(/^\d+$/);
+}

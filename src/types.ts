@@ -4,8 +4,8 @@ export interface ISource
 	 * The source of the the callee
 	 */
 	source: string
-	line?: number
-	col?: number
+	line?: string
+	col?: string
 }
 
 export interface ITrace extends ISource
@@ -16,6 +16,10 @@ export interface ITrace extends ISource
 	 * Whether the callee is 'eval'
 	 */
 	eval?: boolean
+
+	evalCallee?: string
+	evalCalleeNote?: string
+
 	/**
 	 * The source location inside eval content
 	 */
