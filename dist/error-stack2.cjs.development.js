@@ -3,17 +3,21 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var crlfNormalize = require('crlf-normalize');
+var ssplit = require('string-split-keep');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var ssplit__default = /*#__PURE__*/_interopDefaultLegacy(ssplit);
+
+function trim(s) {
+  return s.trim();
+}
 
 const AT = 'at';
 const CR = '\n';
 const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i;
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
-
-function trim(s) {
-  return s.trim();
-}
-
 function breakBrackets(str, first, last) {
   if (!str.endsWith(last)) {
     return [str];
@@ -38,8 +42,20 @@ function breakBrackets(str, first, last) {
 
   return [str.slice(0, firstIndex), str.slice(firstIndex + 1, -1)].map(trim);
 }
+function validPosition(source) {
+  var _source$line, _source$col;
+
+  return ((_source$line = source.line) === null || _source$line === void 0 ? void 0 : _source$line.toString().match(/^\d+$/)) && ((_source$col = source.col) === null || _source$col === void 0 ? void 0 : _source$col.toString().match(/^\d+$/));
+}
 function parseSource(rawSource) {
-  const [source, line, col] = rawSource.split(':');
+  const [source, line, col] = ssplit__default['default'](rawSource, ':', -3);
+
+  if (!(col !== null && col !== void 0 && col.length) || !(line !== null && line !== void 0 && line.length)) {
+    return {
+      source: rawSource
+    };
+  }
+
   return {
     source,
     line,
@@ -49,15 +65,16 @@ function parseSource(rawSource) {
 function parseEvalSource(rawEvalSource) {
   const [rawTrace, rawEvalTrace] = rawEvalSource.replace(REGEX_STARTS_WITH_EVAL_AT, '').split(/,\s+/g).map(trim);
   const {
-    source,
-    line,
-    col
+    eval: ev,
+    callee: evalCallee,
+    calleeNote: evalCalleeNote,
+    ...trace
   } = parseTrace(rawTrace);
   const evalTrace = parseSource(rawEvalTrace);
   return {
-    source,
-    line,
-    col,
+    evalCallee,
+    evalCalleeNote,
+    ...trace,
     evalTrace
   };
 }
@@ -87,9 +104,9 @@ function parseTrace(trace, testEvalSource) {
   return ret;
 }
 function validTrace(trace) {
-  return trace.line || trace.eval;
+  return trace.eval || typeof trace.line === 'number' || typeof trace.line === 'string' && /^\d+$/.test(trace.line);
 }
-function parse(stack) {
+function parseStack(stack) {
   const [rawMessage, ...rawTrace] = crlfNormalize.lineSplit(stack);
   const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
   const messageLines = [rawMessage, ...rawTrace.splice(0, index)];
@@ -115,10 +132,13 @@ function formatTrace({
 function formatEvalTrace({
   callee,
   evalTrace,
+  evalCallee,
+  evalCalleeNote,
   ...trace
 }) {
   return `${callee} (eval at ${formatTrace({ ...trace,
-    callee: '<anonymous>'
+    callee: evalCallee !== null && evalCallee !== void 0 ? evalCallee : '<anonymous>',
+    calleeNote: evalCalleeNote
   })}, ${formatTrace(evalTrace)})`;
 }
 function formatMessage({
@@ -127,13 +147,16 @@ function formatMessage({
 }) {
   return `${type}: ${message}`;
 }
+function formatLineTrace(trace) {
+  return `    at ${trace.eval ? formatEvalTrace(trace) : formatTrace(trace)}`;
+}
 class ErrorStack {
   constructor(stack) {
     if (typeof stack !== 'string') {
       throw new TypeError('stack must be a string');
     }
 
-    Object.assign(this, parse(stack));
+    Object.assign(this, parseStack(stack));
   }
 
   filter(filter) {
@@ -150,7 +173,7 @@ class ErrorStack {
       type,
       message
     })}`;
-    const tracesLines = this.traces.map(trace => `    at ${trace.eval ? formatEvalTrace(trace) : formatTrace(trace)}`).join(CR);
+    const tracesLines = this.traces.map(formatLineTrace).join(CR);
     return tracesLines ? messageLines + CR + tracesLines : messageLines;
   }
 
@@ -163,12 +186,14 @@ exports.ErrorStack = ErrorStack;
 exports.breakBrackets = breakBrackets;
 exports['default'] = parseErrorStack;
 exports.formatEvalTrace = formatEvalTrace;
+exports.formatLineTrace = formatLineTrace;
 exports.formatMessage = formatMessage;
 exports.formatTrace = formatTrace;
-exports.parse = parse;
 exports.parseErrorStack = parseErrorStack;
 exports.parseEvalSource = parseEvalSource;
 exports.parseSource = parseSource;
+exports.parseStack = parseStack;
 exports.parseTrace = parseTrace;
+exports.validPosition = validPosition;
 exports.validTrace = validTrace;
 //# sourceMappingURL=error-stack2.cjs.development.js.map

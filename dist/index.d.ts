@@ -7,8 +7,8 @@ export interface ISource {
 	 * The source of the the callee
 	 */
 	source: string;
-	line?: number;
-	col?: number;
+	line?: string;
+	col?: string;
 }
 export interface ITrace extends ISource {
 	callee: string;
@@ -17,6 +17,8 @@ export interface ITrace extends ISource {
 	 * Whether the callee is 'eval'
 	 */
 	eval?: boolean;
+	evalCallee?: string;
+	evalCalleeNote?: string;
 	/**
 	 * The source location inside eval content
 	 */
@@ -36,27 +38,19 @@ export interface IParsed extends IParsedWithoutTrace {
 	traces: ITrace[];
 }
 export declare function breakBrackets(str: string, first: string, last: string): string[];
-export declare function parseSource(rawSource: string): {
-	source: string;
-	line: string;
-	col: string;
-};
-export declare function parseEvalSource(rawEvalSource: string): {
-	source: string;
-	line: number;
-	col: number;
-	evalTrace: {
-		source: string;
-		line: string;
-		col: string;
-	};
-};
+export declare function validPosition(source: {
+	line: string | number;
+	col: string | number;
+}): RegExpMatchArray;
+export declare function parseSource(rawSource: string): ISource;
+export declare function parseEvalSource(rawEvalSource: string): Omit<ITrace, "callee" | "calleeNote" | "eval">;
 export declare function parseTrace(trace: string, testEvalSource?: boolean): ITrace;
-export declare function validTrace(trace: ITrace): number | boolean;
-export declare function parse(stack: string): IParsed;
+export declare function validTrace(trace: ITrace): boolean;
+export declare function parseStack(stack: string): IParsed;
 export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
-export declare function formatEvalTrace({ callee, evalTrace, ...trace }: ITrace): string;
+export declare function formatEvalTrace({ callee, evalTrace, evalCallee, evalCalleeNote, ...trace }: ITrace): string;
 export declare function formatMessage({ type, message, }: IParsedWithoutTrace): string;
+export declare function formatLineTrace(trace: ITrace): string;
 export declare class ErrorStack implements IParsed {
 	/**
 	 * Error type
