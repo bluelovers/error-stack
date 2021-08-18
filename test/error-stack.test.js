@@ -1,8 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-eval */
-const test = require('ava')
-const log = require('util').debuglog('error-stack')
-const parse = require('..')
+const log = require('util').debuglog('error-stack');
+const parse = require('..').default
 
 const mm = `a
 - b`
@@ -12,16 +11,16 @@ const CASES = [
     'Error',
     new Error('foo').stack,
     (t, {message, type}) => {
-      t.is(message, 'foo')
-      t.is(type, 'Error')
+      expect(message).toBe('foo')
+      expect(type).toBe('Error')
     }
   ],
   [
     'TypeError',
     new TypeError('foo').stack,
     (t, {message, type}) => {
-      t.is(message, 'foo')
-      t.is(type, 'TypeError')
+      expect(message).toBe('foo')
+      expect(type).toBe('TypeError')
     }
   ],
   [
@@ -31,8 +30,8 @@ const CASES = [
       return new xxx1Error('foo').stack
     },
     (t, {message, type}) => {
-      t.is(message, 'foo')
-      t.is(type, 'TypeError')
+      expect(message).toBe('foo')
+      expect(type).toBe('TypeError')
     }
   ],
   [
@@ -45,9 +44,9 @@ const CASES = [
         evalTrace
       }]
     }) => {
-      t.is(callee, 'eval')
-      t.is(source, __filename)
-      t.is(evalTrace.source, '<anonymous>')
+      expect(callee).toBe('eval')
+      expect(source).toBe(__filename)
+      expect(evalTrace.source).toBe('<anonymous>')
     }
   ],
   [
@@ -59,28 +58,28 @@ const CASES = [
         {callee, source}
       ]
     }) => {
-      t.is(callee, 'extensions.(anonymous function)')
-      t.is(source, 'a.js')
+      expect(callee).toBe('extensions.(anonymous function)')
+      expect(source).toBe('a.js')
     }
   ],
   [
     'message with multiple lines',
     new Error(mm).stack,
     (t, {message}) => {
-      t.is(message, mm)
+      expect(message).toBe(mm)
     }
   ],
   [
     'no stack',
     'Error: foo',
     (t, {message}) => {
-      t.is(message, 'foo')
+      expect(message).toBe('foo')
     }
   ]
 ]
 
 const createTester = object => (t, parsed) => {
-  t.deepEqual(parsed, object)
+  expect(parsed).toEqual(object)
 }
 
 CASES.forEach(([title, stack, object, only], i) => {
@@ -103,23 +102,21 @@ CASES.forEach(([title, stack, object, only], i) => {
 
     tester(t, parsed)
 
-    t.is(stack, parsed.format(), 'format')
+    expect(stack).toBe(parsed.format())
   })
 })
 
-test('invalid stack', t => {
-  t.throws(() => parse(), {
+test('invalid stack', () => {
+  expect(() => parse()).toThrowError({
     instanceOf: TypeError
   })
 })
 
-test('filter and format', t => {
+test('filter and format', () => {
   const stack = `Error: foo
     at repl:1:11
     at Script.runInThisContext (vm.js:123:20)`
 
-  t.is(
-    parse(stack).filter(({callee}) => !!callee).format(),
-    `Error: foo
-    at Script.runInThisContext (vm.js:123:20)`)
+  expect(parse(stack).filter(({callee}) => !!callee).format()).toBe(`Error: foo
+  at Script.runInThisContext (vm.js:123:20)`)
 })

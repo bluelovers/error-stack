@@ -1,50 +1,46 @@
 {
-  "name": "error-stack",
+  "name": "error-stack2",
   "version": "1.0.3",
   "description": "Parse and manipulate error.stack",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "NODE_DEBUG=error-stack nyc ava --timeout=10s --verbose",
-    "test:dev": "NODE_DEBUG=error-stack nyc ava --timeout=10s --verbose && npm run report:dev",
-    "lint": "eslint .",
-    "fix": "eslint . --fix",
-    "posttest": "npm run report",
-    "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "report:dev": "nyc report --reporter=html && npm run report:open",
-    "report:open": "open coverage/index.html"
-  },
-  "files": [
-    "src/"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kaelzhang/error-stack.git"
-  },
   "keywords": [
     "error-stack",
     "error-stack-parser",
     "formatter",
     "trace"
   ],
-  "engines": {
-    "node": ">= 6"
-  },
-  "ava": {
-    "files": [
-      "test/*.test.js"
-    ]
-  },
-  "author": "kaelzhang",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kaelzhang/error-stack/issues"
+  "author": "kaelzhang",
+  "main": "dist/index.js",
+  "module": "dist/error-stack2.esm.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "test": "tsdx test",
+    "build": "tsdx build --target node",
+    "npm:publish": "yarn run version:bump && npm publish",
+    "npm:publish:lerna": "lerna publish --yes --bump patch",
+    "preversion": "tsdx build && tsdx test",
+    "version:bump": "yt version",
+    "prepublishOnly": "yarn run preversion",
+    "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
+    "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
+    "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
+    "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
+    "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
+    "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
+    "postpublish:git:push": "git push --follow-tags",
+    "postpublish:git:tag": "ynpx --quiet @yarn-tool/tag",
+    "ncu": "yarn-tool ncu -u",
+    "sort-package-json": "yarn-tool sort"
   },
   "devDependencies": {
-    "@ostai/eslint-config": "^3.5.0",
-    "ava": "^3.5.1",
-    "codecov": "^3.6.5",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
-    "nyc": "^15.0.0"
+    "@bluelovers/tsconfig": "^1.0.25",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.6.1"
   }
 }
