@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseSource bin.ts:330:12 1`] = `
+Object {
+  "col": "12",
+  "line": "330",
+  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+}
+`;
+
+exports[`parseSource bin.ts:477:3 1`] = `
+Object {
+  "col": "3",
+  "line": "477",
+  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+}
+`;
+
+exports[`parseSource index.ts:1225:23 1`] = `
+Object {
+  "col": "23",
+  "line": "1225",
+  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+}
+`;
+
+exports[`parseSource index.ts:1228:12 1`] = `
+Object {
+  "col": "12",
+  "line": "1228",
+  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+}
+`;
+
+exports[`parseSource loader:822:12 1`] = `
+Object {
+  "col": "12",
+  "line": "822",
+  "source": "node:internal/modules/cjs/loader",
+}
+`;
+
+exports[`parseSource loader:981:32 1`] = `
+Object {
+  "col": "32",
+  "line": "981",
+  "source": "node:internal/modules/cjs/loader",
+}
+`;
+
+exports[`parseSource loader:1101:14 1`] = `
+Object {
+  "col": "14",
+  "line": "1101",
+  "source": "node:internal/modules/cjs/loader",
+}
+`;
+
+exports[`parseSource loader:1153:10 1`] = `
+Object {
+  "col": "10",
+  "line": "1153",
+  "source": "node:internal/modules/cjs/loader",
+}
+`;
+
+exports[`parseSource run_main:79:12 1`] = `
+Object {
+  "col": "12",
+  "line": "79",
+  "source": "node:internal/modules/run_main",
+}
+`;
+
+exports[`parseSource temp.ts:6:13 1`] = `
+Object {
+  "col": "13",
+  "line": "6",
+  "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
+}
+`;

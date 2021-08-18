@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 /* eslint-disable no-eval */
 import { debuglog } from 'util';
-import parse from '..';
+import parse from '../src/index';
 import { IParsedWithoutTrace } from '../src/types';
 
 const log = debuglog('error-stack');

@@ -1,6 +1,8 @@
 import { ITSPickExtra } from 'ts-type/lib/type/record';
 import { lineSplit } from 'crlf-normalize';
 import { IParsed, IParsedWithoutTrace, ITrace } from './types';
+// @ts-ignore
+import ssplit from 'string-split-keep';
 
 const AT = 'at' as const
 const CR = '\n' as const
@@ -55,7 +57,7 @@ export function breakBrackets(str: string, first: string, last: string)
 
 export function parseSource(rawSource: string)
 {
-	const [source, line, col] = rawSource.split(':')
+	const [source, line, col] = ssplit(rawSource, ':', -3);
 	return {
 		source, line, col,
 	}

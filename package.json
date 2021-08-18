@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "crlf-normalize": "^1.0.6",
+    "string-split-keep": "^1.0.1",
     "ts-type": "^1.2.39"
   },
   "devDependencies": {
