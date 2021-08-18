@@ -2,16 +2,17 @@
 /* eslint-disable no-eval */
 import { debuglog } from 'util';
 import parse from '..';
+import { IFormatMessage } from '../src/index';
 
 const log = debuglog('error-stack');
 const mm = `a
 - b`
 
-const CASES = [
+const CASES: [title: string, stack: string | (() => string), object: (argv: any) => any, only?: boolean][] = [
   [
     'Error',
     new Error('foo').stack,
-    (t, {message, type}) => {
+    ({message, type}: IFormatMessage) => {
       expect(message).toBe('foo')
       expect(type).toBe('Error')
     }
@@ -19,7 +20,7 @@ const CASES = [
   [
     'TypeError',
     new TypeError('foo').stack,
-    (t, {message, type}) => {
+    ({message, type}: IFormatMessage) => {
       expect(message).toBe('foo')
       expect(type).toBe('TypeError')
     }
@@ -30,7 +31,7 @@ const CASES = [
       class xxx1Error extends TypeError {}
       return new xxx1Error('foo').stack
     },
-    (t, {message, type}) => {
+    ({message, type}: IFormatMessage) => {
       expect(message).toBe('foo')
       expect(type).toBe('TypeError')
     }
@@ -38,7 +39,7 @@ const CASES = [
   [
     'Eval',
     eval('new Error("foo")').stack,
-    (t, {
+    ({
       traces: [{
         callee,
         source,
@@ -54,7 +55,7 @@ const CASES = [
     'travis build #2',
     `Error: foo
     at extensions.(anonymous function) (a.js:13:11)`,
-    (t, {
+    ({
       traces: [
         {callee, source}
       ]
@@ -66,20 +67,20 @@ const CASES = [
   [
     'message with multiple lines',
     new Error(mm).stack,
-    (t, {message}) => {
+    ({message}: IFormatMessage) => {
       expect(message).toBe(mm)
     }
   ],
   [
     'no stack',
     'Error: foo',
-    (t, {message}) => {
+    ({message}: IFormatMessage) => {
       expect(message).toBe('foo')
     }
   ]
 ]
 
-const createTester = object => (t, parsed) => {
+const createTester = (object: any) => (parsed: any) => {
   expect(parsed).toEqual(object)
 }
 
@@ -88,7 +89,7 @@ CASES.forEach(([title, stack, object, only], i) => {
     ? test.only
     : test
 
-  tt(`${title || i}`, t => {
+  tt(`${title || i}`, () => {
     if (typeof stack === 'function') {
       stack = stack()
     }
@@ -101,17 +102,15 @@ CASES.forEach(([title, stack, object, only], i) => {
       ? object
       : createTester(object)
 
-    tester(t, parsed)
+    tester(parsed)
 
     expect(stack).toBe(parsed.format())
   })
 })
 
 test('invalid stack', () => {
-  expect(() => parse()).toThrowError({
-    // @ts-ignore
-    instanceOf: TypeError
-  })
+  // @ts-ignore
+  expect(() => parse()).toThrowError(TypeError)
 })
 
 test('filter and format', () => {
@@ -120,5 +119,5 @@ test('filter and format', () => {
     at Script.runInThisContext (vm.js:123:20)`
 
   expect(parse(stack).filter(({callee}) => !!callee).format()).toBe(`Error: foo
-  at Script.runInThisContext (vm.js:123:20)`)
+    at Script.runInThisContext (vm.js:123:20)`)
 })

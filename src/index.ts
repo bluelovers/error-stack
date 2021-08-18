@@ -197,13 +197,16 @@ export function formatEvalTrace({
 	})}, ${formatTrace(evalTrace)})`;
 }
 
+export interface IFormatMessage
+{
+	type: string;
+	message: string;
+}
+
 export function formatMessage({
 	type,
 	message,
-}: {
-	type: string;
-	message: string;
-})
+}: IFormatMessage)
 {
 	return `${type}: ${message}`;
 }
