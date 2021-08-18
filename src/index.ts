@@ -1,3 +1,5 @@
+import { ITSPickExtra } from 'ts-type/lib/type/record';
+
 const AT = 'at'
 const CR = '\n'
 
@@ -10,12 +12,28 @@ const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
 
-function trim(s)
+export interface Source {
+	// The source of the the callee
+	source: string
+	line?: number
+	col?: number
+}
+
+export interface Trace extends Source{
+	callee: string
+	calleeNote?: string
+	// Whether the callee is 'eval'
+	eval?: boolean
+	// The source location inside eval content
+	evalTrace: Source
+}
+
+function trim(s: string)
 {
 	return s.trim();
 }
 
-export function breakBrackets(str, first, last)
+export function breakBrackets(str: string, first: string, last: string)
 {
 	if (!str.endsWith(last))
 	{
@@ -49,7 +67,7 @@ export function breakBrackets(str, first, last)
 	].map(trim)
 }
 
-export function parseSource(rawSource)
+export function parseSource(rawSource: string)
 {
 	const [source, line, col] = rawSource.split(':')
 	return {
@@ -57,7 +75,7 @@ export function parseSource(rawSource)
 	}
 }
 
-export function parseEvalSource(rawEvalSource)
+export function parseEvalSource(rawEvalSource: string)
 {
 	const [rawTrace, rawEvalTrace] = rawEvalSource
 		.replace(REGEX_STARTS_WITH_EVAL_AT, '')
@@ -81,7 +99,7 @@ export function parseEvalSource(rawEvalSource)
 	}
 }
 
-export function parseTrace(trace, testEvalSource)
+export function parseTrace(trace: string, testEvalSource?: boolean)
 {
 	const t = trace.replace(REGEX_REMOVE_AT, '')
 
@@ -94,7 +112,7 @@ export function parseTrace(trace, testEvalSource)
 		[rawCallee, rawSource] = [rawSource, rawCallee]
 	}
 
-	const ret = {}
+	const ret: Trace = {} as any
 
 	if (rawCallee)
 	{
@@ -125,7 +143,7 @@ export function parseTrace(trace, testEvalSource)
 	return ret
 }
 
-export function parse(stack)
+export function parse(stack: string)
 {
 	const [rawMessage, ...rawTrace] = stack.split(/\r|\n/g)
 
@@ -148,7 +166,7 @@ export function formatTrace({
 	source,
 	line,
 	col,
-})
+}: ITSPickExtra<Trace, 'source'>)
 {
 	const sourceTrace = [
 		source,
@@ -171,7 +189,7 @@ export function formatEvalTrace({
 	callee,
 	evalTrace,
 	...trace
-})
+}: Trace)
 {
 	return `${callee} (eval at ${formatTrace({
 		...trace,
@@ -182,6 +200,9 @@ export function formatEvalTrace({
 export function formatMessage({
 	type,
 	message,
+}: {
+	type: string;
+	message: string;
 })
 {
 	return `${type}: ${message}`;
@@ -189,7 +210,11 @@ export function formatMessage({
 
 export class ErrorStack
 {
-	constructor(stack)
+	type: string;
+	message: string;
+	traces: Trace[];
+
+	constructor(stack: string)
 	{
 		if (typeof stack !== 'string')
 		{
@@ -199,7 +224,7 @@ export class ErrorStack
 		Object.assign(this, parse(stack))
 	}
 
-	filter(filter)
+	filter(filter: (value: Trace, index: number, array: Trace[]) => boolean)
 	{
 		this.traces = this.traces.filter(filter)
 
@@ -225,7 +250,7 @@ export class ErrorStack
 	}
 }
 
-export function parseErrorStack(stack)
+export function parseErrorStack(stack: string)
 {
 	return new ErrorStack(stack)
 }

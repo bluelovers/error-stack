@@ -33,13 +33,12 @@
     "start": "tsdx watch",
     "test": "tsdx test",
     "build": "tsdx build --target node",
+    "postbuild": "ynpx dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "npm:publish": "yarn run version:bump && npm publish",
     "npm:publish:bump": "yarn-tool version && npm publish",
-    "npm:publish:lerna": "lerna publish --yes --bump patch",
     "preversion": "tsdx build && tsdx test",
     "version:bump": "yt version",
     "prepublishOnly": "yarn run preversion",
-    "prepublishOnly_": "yarn run prepublishOnly:check-bin && yarn run prepublishOnly:update && yarn run test",
     "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
     "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
     "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
@@ -51,8 +50,12 @@
     "sort-package-json": "yarn-tool sort",
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
+  "dependencies": {
+    "ts-type": "^1.2.39"
+  },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.25",
+    "@types/bluebird": "^3.5.36",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1"
   }
