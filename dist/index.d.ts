@@ -36,6 +36,7 @@ export interface IParsedWithoutTrace {
 }
 export interface IParsed extends IParsedWithoutTrace {
 	traces: ITrace[];
+	rawStack?: string;
 }
 export declare function breakBrackets(str: string, first: string, last: string): string[];
 export declare function validPosition(source: {
@@ -46,7 +47,7 @@ export declare function parseSource(rawSource: string): ISource;
 export declare function parseEvalSource(rawEvalSource: string): Omit<ITrace, "callee" | "calleeNote" | "eval">;
 export declare function parseTrace(trace: string, testEvalSource?: boolean): ITrace;
 export declare function validTrace(trace: ITrace): boolean;
-export declare function parseStack(stack: string): IParsed;
+export declare function parseStack(rawStack: string): IParsed;
 export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
 export declare function formatEvalTrace({ callee, evalTrace, evalCallee, evalCalleeNote, ...trace }: ITrace): string;
 export declare function formatMessage({ type, message, }: IParsedWithoutTrace): string;
@@ -61,6 +62,7 @@ export declare class ErrorStack implements IParsed {
 	 */
 	message: string;
 	traces: ITrace[];
+	readonly rawStack?: string;
 	constructor(stack: string);
 	/**
 	 * filterFunction Function the same as the callback function of Array.prototype.filter(callback)

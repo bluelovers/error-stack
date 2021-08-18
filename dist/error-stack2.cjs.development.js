@@ -106,8 +106,8 @@ function parseTrace(trace, testEvalSource) {
 function validTrace(trace) {
   return trace.eval || typeof trace.line === 'number' || typeof trace.line === 'string' && /^\d+$/.test(trace.line);
 }
-function parseStack(stack) {
-  const [rawMessage, ...rawTrace] = crlfNormalize.lineSplit(stack);
+function parseStack(rawStack) {
+  const [rawMessage, ...rawTrace] = crlfNormalize.lineSplit(rawStack);
   const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
   const messageLines = [rawMessage, ...rawTrace.splice(0, index)];
   const [, type, message] = messageLines.join(CR).match(REGEX_MATCH_MESSAGE);
@@ -115,7 +115,8 @@ function parseStack(stack) {
   return {
     type,
     message,
-    traces
+    traces,
+    rawStack
   };
 }
 function formatTrace({
