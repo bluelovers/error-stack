@@ -41,4 +41,5 @@ export interface IParsedWithoutTrace
 export interface IParsed extends IParsedWithoutTrace
 {
 	traces: ITrace[];
+	rawStack?: string,
 }

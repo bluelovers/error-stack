@@ -150,9 +150,9 @@ export function validTrace(trace: ITrace)
 	return trace.eval || typeof trace.line === 'number' || (typeof trace.line === 'string' && /^\d+$/.test(trace.line));
 }
 
-export function parseStack(stack: string): IParsed
+export function parseStack(rawStack: string): IParsed
 {
-	const [rawMessage, ...rawTrace] = lineSplit(stack)
+	const [rawMessage, ...rawTrace] = lineSplit(rawStack)
 
 	// A error message might have multiple lines
 	const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
@@ -163,7 +163,10 @@ export function parseStack(stack: string): IParsed
 	const traces = rawTrace.map(t => parseTrace(trim(t), true))
 
 	return {
-		type, message, traces,
+		type,
+		message,
+		traces,
+		rawStack,
 	}
 }
 
@@ -239,6 +242,7 @@ export class ErrorStack implements IParsed
 	 */
 	message: string;
 	traces: ITrace[];
+	readonly rawStack?: string;
 
 	constructor(stack: string)
 	{
