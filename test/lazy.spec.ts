@@ -1,5 +1,12 @@
 import { basename } from 'path';
-import { formatLineTrace, parseEvalSource, parseSource, parseTrace } from '../src/index';
+import {
+	parseErrorStack,
+	formatLineTrace,
+	parseEvalSource,
+	parseSource,
+	parseTrace,
+	stringifyErrorStack,
+} from '../src/index';
 import { ISource } from '../src/types';
 
 describe('parseSource', () =>
@@ -62,6 +69,39 @@ describe('parseEvalSource', () =>
 			expect(actual).toMatchSnapshot();
 
 			_checkPos(actual.evalTrace);
+		});
+	})
+
+});
+
+describe('parseErrorStack', () =>
+{
+	[
+		"Error: foo:eval\n    at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)\n    at <anonymous>:1:1",
+
+		`Error: foo:eval
+    at eval (eval at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5), <anonymous>:1:1)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5)
+    at Runtime._execModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:1394:24)
+    at Runtime._loadModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:996:12)
+    at Runtime.requireModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:828:12)
+    at jestAdapter (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at runTestInternal (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:389:16)
+    at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)
+    at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12)`,
+
+
+
+	].forEach(stack => {
+		test(stack, () =>
+		{
+			let actual = parseErrorStack(stack);
+
+			expect(actual).toMatchSnapshot();
+
+			let s = stringifyErrorStack(actual);
+			expect(s).toStrictEqual(stack);
 		});
 	})
 

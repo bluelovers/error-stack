@@ -1,5 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseErrorStack Error: foo:eval
+    at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)
+    at <anonymous>:1:1 1`] = `
+ErrorStack {
+  "message": "foo:eval",
+  "rawStack": "Error: foo:eval
+    at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)
+    at <anonymous>:1:1",
+  "traces": Array [
+    Object {
+      "callee": "eval",
+      "calleeNote": undefined,
+      "col": "1",
+      "eval": true,
+      "evalCallee": "<anonymous>",
+      "evalCalleeNote": undefined,
+      "evalTrace": Object {
+        "col": "1",
+        "line": "1",
+        "source": "<anonymous>",
+      },
+      "line": "1",
+      "source": "",
+    },
+    Object {
+      "callee": undefined,
+      "col": "1",
+      "line": "1",
+      "source": "<anonymous>",
+    },
+  ],
+  "type": "Error",
+}
+`;
+
+exports[`parseErrorStack Error: foo:eval
+    at eval (eval at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5), <anonymous>:1:1)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5)
+    at Runtime._execModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:1394:24)
+    at Runtime._loadModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:996:12)
+    at Runtime.requireModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:828:12)
+    at jestAdapter (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at runTestInternal (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:389:16)
+    at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)
+    at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12) 1`] = `
+ErrorStack {
+  "message": "foo:eval",
+  "rawStack": "Error: foo:eval
+    at eval (eval at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5), <anonymous>:1:1)
+    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5)
+    at Runtime._execModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:1394:24)
+    at Runtime._loadModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:996:12)
+    at Runtime.requireModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:828:12)
+    at jestAdapter (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-circus\\\\build\\\\legacy-code-todo-rewrite\\\\jestAdapter.js:79:13)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at runTestInternal (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:389:16)
+    at runTest (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:481:34)
+    at Object.worker (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\testWorker.js:133:12)",
+  "traces": Array [
+    Object {
+      "callee": "eval",
+      "calleeNote": undefined,
+      "col": "5",
+      "eval": true,
+      "evalCallee": "Object.<anonymous>",
+      "evalCalleeNote": undefined,
+      "evalTrace": Object {
+        "col": "1",
+        "line": "1",
+        "source": "<anonymous>",
+      },
+      "line": "41",
+      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "5",
+      "line": "41",
+      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+    },
+    Object {
+      "callee": "Runtime._execModule",
+      "calleeNote": undefined,
+      "col": "24",
+      "line": "1394",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+    },
+    Object {
+      "callee": "Runtime._loadModule",
+      "calleeNote": undefined,
+      "col": "12",
+      "line": "996",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+    },
+    Object {
+      "callee": "Runtime.requireModule",
+      "calleeNote": undefined,
+      "col": "12",
+      "line": "828",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+    },
+    Object {
+      "callee": "jestAdapter",
+      "calleeNote": undefined,
+      "col": "13",
+      "line": "79",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-circus\\\\build\\\\legacy-code-todo-rewrite\\\\jestAdapter.js",
+    },
+    Object {
+      "callee": "processTicksAndRejections",
+      "calleeNote": undefined,
+      "col": "5",
+      "line": "96",
+      "source": "node:internal/process/task_queues",
+    },
+    Object {
+      "callee": "runTestInternal",
+      "calleeNote": undefined,
+      "col": "16",
+      "line": "389",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js",
+    },
+    Object {
+      "callee": "runTest",
+      "calleeNote": undefined,
+      "col": "34",
+      "line": "481",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js",
+    },
+    Object {
+      "callee": "Object.worker",
+      "calleeNote": undefined,
+      "col": "12",
+      "line": "133",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\testWorker.js",
+    },
+  ],
+  "type": "Error",
+}
+`;
+
 exports[`parseEvalSource error-stack.test.ts:41:5), <anonymous>:1:1 1`] = `
 Object {
   "col": "5",

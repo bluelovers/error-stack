@@ -152,6 +152,11 @@ export function validTrace(trace: ITrace)
 
 export function parseStack(rawStack: string): IParsed
 {
+	if (typeof rawStack !== 'string')
+	{
+		throw new TypeError('stack must be a string')
+	}
+
 	const [rawMessage, ...rawTrace] = lineSplit(rawStack)
 
 	// A error message might have multiple lines
@@ -183,7 +188,7 @@ export function formatTrace({
 		line,
 		col,
 	]
-		.filter(Boolean)
+		.filter(v => typeof v !== 'undefined')
 		.join(':')
 
 	const note = calleeNote
@@ -246,11 +251,6 @@ export class ErrorStack implements IParsed
 
 	constructor(stack: string)
 	{
-		if (typeof stack !== 'string')
-		{
-			throw new TypeError('stack must be a string')
-		}
-
 		Object.assign(this, parseStack(stack))
 	}
 
@@ -269,15 +269,23 @@ export class ErrorStack implements IParsed
 	 */
 	format()
 	{
-		const { type, message } = this
-		const messageLines = `${formatMessage({ type, message })}`
-		const tracesLines = this.traces.map(formatLineTrace)
-			.join(CR)
-
-		return tracesLines
-			? messageLines + CR + tracesLines
-			: messageLines
+		return stringifyErrorStack(this)
 	}
+}
+
+/**
+ * Format object parsed
+ */
+export function stringifyErrorStack(parsed: IParsed)
+{
+	const { type, message } = parsed
+	const messageLines = `${formatMessage({ type, message })}`
+	const tracesLines = parsed.traces.map(formatLineTrace)
+		.join(CR)
+
+	return tracesLines
+		? messageLines + CR + tracesLines
+		: messageLines
 }
 
 export function parseErrorStack(stack: string)
