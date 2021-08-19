@@ -4,4 +4,4 @@ node_js:
   - lts/*
   - node
 before_install:
-  - npm i --force -g typescript@next ts-jest @bluelovers/tsdx ts-node @yarn-tool/require-resolve
+  - yarn add typescript@next ts-jest @bluelovers/tsdx ts-node @yarn-tool/require-resolve

@@ -21,7 +21,7 @@ jobs:
           node-version: 16
       - name: install
         run: |
-          npm i --force -g typescript@next ts-jest @bluelovers/tsdx ts-node @yarn-tool/require-resolve
+          yarn add typescript@next ts-jest @bluelovers/tsdx ts-node @yarn-tool/require-resolve
           yarn install --frozen-lockfile
       - uses: artiomtr/jest-coverage-report-action@master
         with:
