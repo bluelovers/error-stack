@@ -5,11 +5,11 @@ import {
 	parseEvalSource,
 	parseSource,
 	parseTrace,
-	stringifyErrorStack,
+	stringifyErrorStack, parseMessage,
 } from '../src/index';
 import { ISource } from '../src/types';
 
-describe('parseSource', () =>
+describe(parseSource.name, () =>
 {
 	[
 		'G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:6:13',
@@ -35,7 +35,7 @@ describe('parseSource', () =>
 
 });
 
-describe('parseTrace', () =>
+describe(parseTrace.name, () =>
 {
 	[
 		'    at new Promise (<anonymous>)',
@@ -74,7 +74,7 @@ describe('parseEvalSource', () =>
 
 });
 
-describe('parseErrorStack', () =>
+describe(parseErrorStack.name, () =>
 {
 	[
 		"Error: foo:eval\n    at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)\n    at <anonymous>:1:1",
@@ -91,7 +91,30 @@ describe('parseErrorStack', () =>
     at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)
     at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12)`,
 
+		`AggregateErrorExtra: ggregateError:
+    at Object
+    at Object.<anonymous> (G:\\Users\\The Project\\nodejs-yarn\\ws-error\\packages\\lazy-aggregate-error\\test\\temp.ts:9:9)
+    at Module._compile (node:internal/modules/cjs/loader:1101:14)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)`,
 
+		`Error: 
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:31:16)
+    at Module._compile (node:internal/modules/cjs/loader:1101:14)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)`,
 
 	].forEach(stack => {
 		test(stack, () =>
@@ -102,6 +125,22 @@ describe('parseErrorStack', () =>
 
 			let s = stringifyErrorStack(actual);
 			expect(s).toStrictEqual(stack);
+		});
+	})
+
+});
+
+describe(parseMessage.name, () =>
+{
+	[
+		'Error: ',
+	].forEach(line => {
+		test(basename(line), () =>
+		{
+			let actual = parseMessage(line);
+
+			expect(actual).toMatchSnapshot();
+			expect(line.indexOf(actual.type + ':')).toStrictEqual(0)
 		});
 	})
 

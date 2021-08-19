@@ -12,7 +12,7 @@ const CR = '\n' as const
 // Error: foo
 // 2.
 // TypeError: foo
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*): ([\s\S]*)$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
@@ -150,13 +150,8 @@ export function validTrace(trace: ITrace)
 	return trace.eval || typeof trace.line === 'number' || (typeof trace.line === 'string' && /^\d+$/.test(trace.line));
 }
 
-export function parseStack(rawStack: string): IParsed
+export function parseBody(rawStack: string)
 {
-	if (typeof rawStack !== 'string')
-	{
-		throw new TypeError('stack must be a string')
-	}
-
 	const [rawMessage, ...rawTrace] = lineSplit(rawStack)
 
 	// A error message might have multiple lines
@@ -164,7 +159,34 @@ export function parseStack(rawStack: string): IParsed
 
 	const messageLines = [rawMessage, ...rawTrace.splice(0, index)]
 
-	const [, type, message] = messageLines.join(CR).match(REGEX_MATCH_MESSAGE)
+	return {
+		messageLines,
+		rawTrace,
+	}
+}
+
+export function parseMessage(body: string): IParsedWithoutTrace
+{
+	const [, type, message] = body.match(REGEX_MATCH_MESSAGE)
+
+	return {
+		type,
+		message,
+	}
+}
+
+export function parseStack(rawStack: string): IParsed
+{
+	if (typeof rawStack !== 'string')
+	{
+		throw new TypeError('stack must be a string')
+	}
+
+	const { messageLines, rawTrace } = parseBody(rawStack);
+
+	const { type, message
+} = parseMessage(messageLines.join(CR))
+
 	const traces = rawTrace.map(t => parseTrace(trim(t), true))
 
 	return {
@@ -223,7 +245,7 @@ export function formatMessage({
 	message,
 }: IParsedWithoutTrace)
 {
-	return `${type}: ${message}`;
+	return `${type}: ${message ?? ''}`;
 }
 
 export function formatLineTrace(trace: ITrace)
