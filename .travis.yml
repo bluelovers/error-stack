@@ -1,7 +1,0 @@
-language: node_js
-sudo: false
-node_js:
-  - lts/*
-  - node
-before_install:
-  - yarn add typescript@next ts-jest @bluelovers/tsdx ts-node @yarn-tool/require-resolve jest
