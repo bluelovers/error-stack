@@ -7,7 +7,7 @@ function trim(s) {
 
 const AT = 'at';
 const CR = '\n';
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):\s+([\s\S]+)$/i;
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*): ([\s\S]*)$/i;
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
 function breakBrackets(str, first, last) {
@@ -98,11 +98,35 @@ function parseTrace(trace, testEvalSource) {
 function validTrace(trace) {
   return trace.eval || typeof trace.line === 'number' || typeof trace.line === 'string' && /^\d+$/.test(trace.line);
 }
-function parseStack(rawStack) {
+function parseBody(rawStack) {
   const [rawMessage, ...rawTrace] = lineSplit(rawStack);
   const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
   const messageLines = [rawMessage, ...rawTrace.splice(0, index)];
-  const [, type, message] = messageLines.join(CR).match(REGEX_MATCH_MESSAGE);
+  return {
+    messageLines,
+    rawTrace
+  };
+}
+function parseMessage(body) {
+  const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
+  return {
+    type,
+    message
+  };
+}
+function parseStack(rawStack) {
+  if (typeof rawStack !== 'string') {
+    throw new TypeError('stack must be a string');
+  }
+
+  const {
+    messageLines,
+    rawTrace
+  } = parseBody(rawStack);
+  const {
+    type,
+    message
+  } = parseMessage(messageLines.join(CR));
   const traces = rawTrace.map(t => parseTrace(trim(t), true));
   return {
     type,
@@ -118,7 +142,7 @@ function formatTrace({
   line,
   col
 }) {
-  const sourceTrace = [source, line, col].filter(Boolean).join(':');
+  const sourceTrace = [source, line, col].filter(v => typeof v !== 'undefined').join(':');
   const note = calleeNote ? ` [${calleeNote}]` : '';
   return callee ? `${callee}${note} (${sourceTrace})` : sourceTrace;
 }
@@ -138,17 +162,13 @@ function formatMessage({
   type,
   message
 }) {
-  return `${type}: ${message}`;
+  return `${type}: ${message !== null && message !== void 0 ? message : ''}`;
 }
 function formatLineTrace(trace) {
   return `    at ${trace.eval ? formatEvalTrace(trace) : formatTrace(trace)}`;
 }
 class ErrorStack {
   constructor(stack) {
-    if (typeof stack !== 'string') {
-      throw new TypeError('stack must be a string');
-    }
-
     Object.assign(this, parseStack(stack));
   }
 
@@ -158,22 +178,25 @@ class ErrorStack {
   }
 
   format() {
-    const {
-      type,
-      message
-    } = this;
-    const messageLines = `${formatMessage({
-      type,
-      message
-    })}`;
-    const tracesLines = this.traces.map(formatLineTrace).join(CR);
-    return tracesLines ? messageLines + CR + tracesLines : messageLines;
+    return stringifyErrorStack(this);
   }
 
+}
+function stringifyErrorStack(parsed) {
+  const {
+    type,
+    message
+  } = parsed;
+  const messageLines = `${formatMessage({
+    type,
+    message
+  })}`;
+  const tracesLines = parsed.traces.map(formatLineTrace).join(CR);
+  return tracesLines ? messageLines + CR + tracesLines : messageLines;
 }
 function parseErrorStack(stack) {
   return new ErrorStack(stack);
 }
 
-export { ErrorStack, breakBrackets, parseErrorStack as default, formatEvalTrace, formatLineTrace, formatMessage, formatTrace, parseErrorStack, parseEvalSource, parseSource, parseStack, parseTrace, validPosition, validTrace };
+export { ErrorStack, breakBrackets, parseErrorStack as default, formatEvalTrace, formatLineTrace, formatMessage, formatTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
 //# sourceMappingURL=error-stack2.esm.js.map

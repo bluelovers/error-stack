@@ -47,6 +47,11 @@ export declare function parseSource(rawSource: string): ISource;
 export declare function parseEvalSource(rawEvalSource: string): Omit<ITrace, "callee" | "calleeNote" | "eval">;
 export declare function parseTrace(trace: string, testEvalSource?: boolean): ITrace;
 export declare function validTrace(trace: ITrace): boolean;
+export declare function parseBody(rawStack: string): {
+	messageLines: string[];
+	rawTrace: string[];
+};
+export declare function parseMessage(body: string): IParsedWithoutTrace;
 export declare function parseStack(rawStack: string): IParsed;
 export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
 export declare function formatEvalTrace({ callee, evalTrace, evalCallee, evalCalleeNote, ...trace }: ITrace): string;
@@ -73,6 +78,10 @@ export declare class ErrorStack implements IParsed {
 	 */
 	format(): string;
 }
+/**
+ * Format object parsed
+ */
+export declare function stringifyErrorStack(parsed: IParsed): string;
 export declare function parseErrorStack(stack: string): ErrorStack;
 export default parseErrorStack;
 

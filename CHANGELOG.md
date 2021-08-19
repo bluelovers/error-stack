@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.5...error-stack2@1.0.6) (2021-08-19)
+
+
+### 🐛　Bug Fixes
+
+* support empty message ([0ebfccb](https://github.com/bluelovers/error-stack/commit/0ebfccb36762055e4cba244bd3a941db1bb6da25))
+* support `eval at <anonymous> (:1:1)` ([1bd29d3](https://github.com/bluelovers/error-stack/commit/1bd29d3af83739d58bfa4c109430ab37244f85e3))
+
+
+### ⚙️　Continuous Integration
+
+* add `@yarn-tool/require-resolve` ([9a6766c](https://github.com/bluelovers/error-stack/commit/9a6766c279b3662694f20e5fcd9286973544f76c))
+* add `--force` ([330eb4e](https://github.com/bluelovers/error-stack/commit/330eb4e997d79baa831739e763890a00b934cd55))
+* update test and ci ([770b7c2](https://github.com/bluelovers/error-stack/commit/770b7c2faec0f6b1095e7e77e674cb32ff29e573))
+
+
+### 🔖　Miscellaneous
+
+* . ([082f043](https://github.com/bluelovers/error-stack/commit/082f043864f246cefc347134b1d5847292eaa88a))
+* . ([d49f064](https://github.com/bluelovers/error-stack/commit/d49f064d586ac9d6138bd5751107ca49690e96ed))
+* . ([18c18d5](https://github.com/bluelovers/error-stack/commit/18c18d518c1a61b7e4d9da53c0f2cc21ee43e77e))
+* . ([be7f4e5](https://github.com/bluelovers/error-stack/commit/be7f4e549645075cee173f75d14ca526f1dec9bb))
+
+
+
+
+
 ## [1.0.5](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.4...error-stack2@1.0.5) (2021-08-18)
 
 
