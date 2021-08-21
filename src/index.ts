@@ -4,6 +4,8 @@ import { IParsed, IParsedWithoutTrace, ISource, ITrace } from './types';
 // @ts-ignore
 import ssplit from 'string-split-keep';
 import { trim } from './util/trim';
+import { isUnset } from './util/isUnset';
+import { isNumOnly } from './util/isNumOnly';
 
 const AT = 'at' as const
 const CR = '\n' as const
@@ -12,7 +14,7 @@ const CR = '\n' as const
 // Error: foo
 // 2.
 // TypeError: foo
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*): ([\s\S]*)$/i
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):(?: ([\s\S]*))?$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
@@ -56,7 +58,17 @@ export function validPosition(source: {
 	col: string | number,
 })
 {
-	return source.line?.toString().match(/^\d+$/) && source.col?.toString().match(/^\d+$/)
+	if (!isUnset(source))
+	{
+		if (typeof source === 'object' && isUnset(source.line) && isUnset(source.col))
+		{
+			return null
+		}
+
+		return isNumOnly(source.line) && isNumOnly(source.col)
+	}
+
+	return false
 }
 
 export function parseSource(rawSource: string): ISource

@@ -42,7 +42,7 @@ export declare function breakBrackets(str: string, first: string, last: string):
 export declare function validPosition(source: {
 	line: string | number;
 	col: string | number;
-}): RegExpMatchArray;
+}): boolean;
 export declare function parseSource(rawSource: string): ISource;
 export declare function parseEvalSource(rawEvalSource: string): Omit<ITrace, "callee" | "calleeNote" | "eval">;
 export declare function parseTrace(trace: string, testEvalSource?: boolean): ITrace;

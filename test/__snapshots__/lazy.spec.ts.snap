@@ -1,5 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`parseBody Error: 1`] = `
+Object {
+  "messageLines": Array [
+    "Error:",
+  ],
+  "rawTrace": Array [],
+}
+`;
+
+exports[`parseBody loader:1101:14) 1`] = `
+Object {
+  "messageLines": Array [
+    "Error:",
+  ],
+  "rawTrace": Array [
+    "    at G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:20:8",
+    "    at new Promise (<anonymous>)",
+    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:19:1)",
+    "    at Module._compile (node:internal/modules/cjs/loader:1101:14)",
+  ],
+}
+`;
+
 exports[`parseErrorStack AggregateErrorExtra: ggregateError:
     at Object
     at Object.<anonymous> (G:\\Users\\The Project\\nodejs-yarn\\ws-error\\packages\\lazy-aggregate-error\\test\\temp.ts:9:9)

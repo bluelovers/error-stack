@@ -5,9 +5,11 @@ import {
 	parseEvalSource,
 	parseSource,
 	parseTrace,
-	stringifyErrorStack, parseMessage,
+	stringifyErrorStack, parseMessage, parseBody, validPosition,
 } from '../src/index';
 import { ISource } from '../src/types';
+import { inspect } from 'util';
+import { isNumOnly } from '../src/util/isNumOnly';
 
 describe(parseSource.name, () =>
 {
@@ -143,6 +145,168 @@ describe(parseMessage.name, () =>
 			expect(line.indexOf(actual.type + ':')).toStrictEqual(0)
 		});
 	})
+
+});
+
+describe(parseBody.name, () =>
+{
+	[
+
+		`Error:
+    at G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:20:8
+    at new Promise (<anonymous>)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:19:1)
+    at Module._compile (node:internal/modules/cjs/loader:1101:14)`,
+
+		`Error:`,
+
+	].forEach(line =>
+	{
+		test(basename(line), () =>
+		{
+			let actual = parseBody(line);
+
+			expect(actual).toMatchSnapshot();
+
+		});
+	})
+
+});
+
+describe(validPosition.name, () =>
+{
+	describe('true', () =>
+	{
+
+		[
+
+			{
+				line: 1,
+				col: '2',
+			},
+
+			{
+				line: '1',
+				col: '2',
+			},
+
+			{
+				line: 1,
+				col: '2',
+			},
+
+			{
+				line: 1,
+				col: 2,
+			},
+
+		].forEach(line =>
+		{
+			test(inspect(line), () =>
+			{
+				let actual = validPosition(line);
+
+				expect(actual).toBeTruthy();
+
+			});
+		});
+
+	});
+
+	describe('false', () =>
+	{
+
+		[
+
+			{
+				line: void 0,
+				col: 2,
+			},
+
+			{
+				line: null,
+				col: 2,
+			},
+
+			{
+				line: void 0,
+				col: null,
+			},
+
+			{},
+
+			null,
+
+			{
+				line: '0',
+				col: '+2',
+			},
+
+			{
+				line: '0',
+				col: '1e',
+			},
+
+		].forEach(line =>
+		{
+			test(inspect(line), () =>
+			{
+				let actual = validPosition(line as any);
+
+				expect(actual).toBeFalsy();
+
+			});
+		});
+
+	});
+
+});
+
+describe(isNumOnly.name, () =>
+{
+	describe('true', () =>
+	{
+
+		[
+
+			1,
+			'1',
+
+		].forEach(line =>
+		{
+			test(inspect(line), () =>
+			{
+				let actual = isNumOnly(line);
+
+				expect(actual).toBeTruthy();
+
+			});
+		});
+
+	});
+
+	describe('false', () =>
+	{
+
+		[
+
+			void 0,
+			null,
+
+			1.1,
+
+		].forEach(line =>
+		{
+			test(inspect(line), () =>
+			{
+				let actual = isNumOnly(line as any);
+
+				expect(actual).toBeFalsy();
+
+			});
+		});
+
+	});
 
 });
 

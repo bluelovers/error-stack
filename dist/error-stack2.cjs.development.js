@@ -13,9 +13,21 @@ function trim(s) {
   return s.trim();
 }
 
+function isUnset(v) {
+  return typeof v === 'undefined' || v === null;
+}
+
+function isNumOnly(v) {
+  if (typeof v === 'number' || typeof v === 'string') {
+    return /^\d+$/.test(v.toString());
+  }
+
+  return false;
+}
+
 const AT = 'at';
 const CR = '\n';
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*): ([\s\S]*)$/i;
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):(?: ([\s\S]*))?$/i;
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
 function breakBrackets(str, first, last) {
@@ -43,9 +55,15 @@ function breakBrackets(str, first, last) {
   return [str.slice(0, firstIndex), str.slice(firstIndex + 1, -1)].map(trim);
 }
 function validPosition(source) {
-  var _source$line, _source$col;
+  if (!isUnset(source)) {
+    if (typeof source === 'object' && isUnset(source.line) && isUnset(source.col)) {
+      return null;
+    }
 
-  return ((_source$line = source.line) === null || _source$line === void 0 ? void 0 : _source$line.toString().match(/^\d+$/)) && ((_source$col = source.col) === null || _source$col === void 0 ? void 0 : _source$col.toString().match(/^\d+$/));
+    return isNumOnly(source.line) && isNumOnly(source.col);
+  }
+
+  return false;
 }
 function parseSource(rawSource) {
   const [source, line, col] = ssplit__default['default'](rawSource, ':', -3);
