@@ -24,6 +24,8 @@ export interface ITrace extends ISource
 	 * The source location inside eval content
 	 */
 	evalTrace: ISource
+
+	indent?: string,
 }
 
 export interface IParsedWithoutTrace

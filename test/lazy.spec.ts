@@ -44,7 +44,7 @@ describe(parseTrace.name, () =>
 	].forEach(line => {
 		test(basename(line), () =>
 		{
-			let actual = parseTrace(line.trim());
+			let actual = parseTrace(line);
 
 			expect(actual).toMatchSnapshot();
 

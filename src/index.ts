@@ -19,6 +19,8 @@ const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):(?: ([\s\S]*))?$/i
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
 
+const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
+
 export function breakBrackets(str: string, first: string, last: string)
 {
 	if (!str.endsWith(last))
@@ -91,7 +93,9 @@ export function parseSource(rawSource: string): ISource
 
 export function parseEvalSource(rawEvalSource: string): Omit<ITrace, 'callee' | 'calleeNote' | 'eval'>
 {
-	const [rawTrace, rawEvalTrace] = rawEvalSource
+	const { indent, line } = _detectIndent(rawEvalSource);
+
+	const [rawTrace, rawEvalTrace] = line
 		.replace(REGEX_STARTS_WITH_EVAL_AT, '')
 		.split(/,\s+/g)
 		.map(trim)
@@ -110,12 +114,25 @@ export function parseEvalSource(rawEvalSource: string): Omit<ITrace, 'callee' | 
 		evalCalleeNote,
 		...trace,
 		evalTrace,
+		indent,
+	}
+}
+
+export function _detectIndent(trace: string)
+{
+	const [, indent, line] = REGEX_MATCH_INDENT.exec(trace)
+
+	return {
+		indent,
+		line,
 	}
 }
 
 export function parseTrace(trace: string, testEvalSource?: boolean)
 {
-	const t = trace.replace(REGEX_REMOVE_AT, '')
+	const { indent, line } = _detectIndent(trace);
+
+	const t = line.replace(REGEX_REMOVE_AT, '')
 
 	let [
 		rawCallee, rawSource,
@@ -153,6 +170,8 @@ export function parseTrace(trace: string, testEvalSource?: boolean)
 			? parseEvalSource(rawSource)
 			: parseSource(rawSource),
 	)
+
+	ret.indent = indent
 
 	return ret
 }
@@ -196,10 +215,11 @@ export function parseStack(rawStack: string): IParsed
 
 	const { messageLines, rawTrace } = parseBody(rawStack);
 
-	const { type, message
-} = parseMessage(messageLines.join(CR))
+	const {
+		type, message,
+	} = parseMessage(messageLines.join(CR))
 
-	const traces = rawTrace.map(t => parseTrace(trim(t), true))
+	const traces = rawTrace.map(t => parseTrace(t, true))
 
 	return {
 		type,
@@ -246,7 +266,7 @@ export function formatEvalTrace({
 {
 	return `${callee} (eval at ${formatTrace({
 		...trace,
-		
+
 		callee: evalCallee ?? '<anonymous>',
 		calleeNote: evalCalleeNote,
 	})}, ${formatTrace(evalTrace)})`;
@@ -262,7 +282,7 @@ export function formatMessage({
 
 export function formatLineTrace(trace: ITrace)
 {
-	return `    at ${
+	return `${trace.indent ?? '    '}at ${
 		trace.eval
 			? formatEvalTrace(trace)
 			: formatTrace(trace)
