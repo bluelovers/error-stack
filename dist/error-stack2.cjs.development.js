@@ -30,7 +30,7 @@ function isNumOnly(v) {
 
 const AT = 'at';
 const CR = '\n';
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):(?: ([\s\S]*))?$/i;
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?: \[(\w+)\])?:(?: ([\s\S]*))?$/i;
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
 const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
@@ -217,13 +217,14 @@ function parseBody(rawStack, detectMessage) {
 }
 function parseMessage(body) {
   try {
-    const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
+    const [, type, code, message] = body.match(REGEX_MATCH_MESSAGE);
     return {
       type,
+      code,
       message
     };
   } catch (e) {
-    e.message = `Failed to parse body.\nreason: ${e.message}\nbody=${util.inspect(body)}`;
+    e.message = `Failed to parse error message.\nreason: ${e.message}\nbody=${util.inspect(body)}`;
     errcode__default['default'](e, {
       body
     });
@@ -242,11 +243,13 @@ function parseStack(rawStack, detectMessage) {
     } = parseBody(rawStack, detectMessage);
     const {
       type,
+      code,
       message
     } = parseMessage(rawMessage);
     const traces = rawTrace.map(t => parseTrace(t, true));
     return {
       type,
+      code,
       message,
       traces,
       rawMessage,
@@ -286,8 +289,13 @@ function formatEvalTrace({
 }
 function formatMessage({
   type,
+  code,
   message
 }) {
+  if (code !== null && code !== void 0 && code.length) {
+    type += ` [${code}]`;
+  }
+
   return `${type}: ${message !== null && message !== void 0 ? message : ''}`;
 }
 function formatRawLineTrace(trace) {
@@ -331,14 +339,7 @@ function formatTraces(traces) {
 function stringifyErrorStack(parsed) {
   var _parsed$traces$map, _parsed$traces;
 
-  const {
-    type,
-    message
-  } = parsed;
-  const messageLines = `${formatMessage({
-    type,
-    message
-  })}`;
+  const messageLines = `${formatMessage(parsed)}`;
   const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatTraceLine)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(CR);
   return tracesLines ? messageLines + CR + tracesLines : messageLines;
 }

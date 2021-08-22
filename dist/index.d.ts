@@ -42,6 +42,7 @@ export interface IParsedWithoutTrace {
 	 * Error type
 	 */
 	type: string;
+	code?: string;
 	/**
 	 * The message used by Error constructor
 	 */
@@ -77,7 +78,7 @@ export declare function parseMessage(body: string): IParsedWithoutTrace;
 export declare function parseStack(rawStack: string, detectMessage?: string): IParsed;
 export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
 export declare function formatEvalTrace({ callee, evalTrace, evalCallee, evalCalleeNote, ...trace }: IEvalTrace): string;
-export declare function formatMessage({ type, message, }: IParsedWithoutTrace): string;
+export declare function formatMessage({ type, code, message, }: IParsedWithoutTrace): string;
 export declare function formatRawLineTrace(trace: IRawLineTrace): string;
 export declare function isRawLineTrace(trace: ITraceValue): trace is IRawLineTrace;
 export declare function isEvalTrace(trace: ITraceValue): trace is IEvalTrace;
@@ -87,6 +88,7 @@ export declare class ErrorStack implements IParsed {
 	 * Error type
 	 */
 	type: string;
+	code?: string;
 	/**
 	 * The message used by Error constructor
 	 */
