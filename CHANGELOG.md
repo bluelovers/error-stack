@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.6...error-stack2@1.0.7) (2021-08-22)
+
+
+### 🐛　Bug Fixes
+
+* update type ([a3d2201](https://github.com/bluelovers/error-stack/commit/a3d220185e378f6de678eada352d53bfb7c843db))
+
+
+### ✨　Features
+
+* support give message when parse ([a2185c0](https://github.com/bluelovers/error-stack/commit/a2185c093638ba4102aa0cd0cfa435744111fc68))
+* support detect indent ([a684d83](https://github.com/bluelovers/error-stack/commit/a684d83440bb26ff47d6f1430bda509c400b09ef))
+
+
+### 📦　Code Refactoring
+
+* remove `messageLines` ([53cbeff](https://github.com/bluelovers/error-stack/commit/53cbeff4666b6f58df47482a70ebc18e6b7e124a))
+* update code ([786124c](https://github.com/bluelovers/error-stack/commit/786124c044f4a3316c4d6eb028e7e4e75b0976bc))
+
+
+
+
+
 ## [1.0.6](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.5...error-stack2@1.0.6) (2021-08-19)
 
 
