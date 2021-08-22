@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "crlf-normalize": "^1.0.6",
+    "err-code": "^3.0.1",
     "string-split-keep": "^1.0.1",
     "ts-type": "^1.2.39",
     "tslib": "^2.3.1"

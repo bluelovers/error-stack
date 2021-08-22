@@ -6,6 +6,8 @@ import ssplit from 'string-split-keep';
 import { trim } from './util/trim';
 import { isUnset } from './util/isUnset';
 import { isNumOnly } from './util/isNumOnly';
+import errcode from 'err-code';
+import { inspect } from 'util';
 
 const AT = 'at' as const
 const CR = '\n' as const
@@ -266,11 +268,24 @@ export function parseBody(rawStack: string, detectMessage?: string)
 
 export function parseMessage(body: string): IParsedWithoutTrace
 {
-	const [, type, message] = body.match(REGEX_MATCH_MESSAGE)
+	try
+	{
+		const [, type, message] = body.match(REGEX_MATCH_MESSAGE)
 
-	return {
-		type,
-		message,
+		return {
+			type,
+			message,
+		}
+	}
+	catch (e: any)
+	{
+		e.message = `Failed to parse body.\nreason: ${e.message}\nbody=${inspect(body)}`;
+
+		errcode(e, {
+			body,
+		});
+
+		throw e
 	}
 }
 
@@ -281,21 +296,33 @@ export function parseStack(rawStack: string, detectMessage?: string): IParsed
 		throw new TypeError('stack must be a string')
 	}
 
-	const { rawMessage, rawTrace } = parseBody(rawStack, detectMessage);
+	try
+	{
+		const { rawMessage, rawTrace } = parseBody(rawStack, detectMessage);
 
-	const {
-		type, message,
-	} = parseMessage(rawMessage)
+		const {
+			type, message,
+		} = parseMessage(rawMessage)
 
-	const traces = rawTrace.map(t => parseTrace(t, true))
+		const traces = rawTrace.map(t => parseTrace(t, true))
 
-	return {
-		type,
-		message,
-		traces,
-		rawMessage,
-		rawTrace,
-		rawStack,
+		return {
+			type,
+			message,
+			traces,
+			rawMessage,
+			rawTrace,
+			rawStack,
+		}
+	}
+	catch (e: any)
+	{
+		errcode(e, {
+			rawStack,
+			detectMessage,
+		});
+
+		throw e;
 	}
 }
 
