@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.10](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.9...error-stack2@1.0.10) (2021-08-22)
+
+
+### ✨　Features
+
+* try debug ([e4dbc36](https://github.com/bluelovers/error-stack/commit/e4dbc36bad980590cbb00db57c116a8b27b630fa))
+
+
+
+
+
 ## [1.0.9](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.8...error-stack2@1.0.9) (2021-08-22)
 
 **Note:** Version bump only for package error-stack2

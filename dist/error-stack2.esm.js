@@ -1,5 +1,7 @@
 import { R_CRLF, lineSplit } from 'crlf-normalize';
 import ssplit from 'string-split-keep';
+import errcode from 'err-code';
+import { inspect } from 'util';
 
 function trim(s) {
   return s.trim();
@@ -205,34 +207,50 @@ function parseBody(rawStack, detectMessage) {
   };
 }
 function parseMessage(body) {
-  const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
-  return {
-    type,
-    message
-  };
+  try {
+    const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
+    return {
+      type,
+      message
+    };
+  } catch (e) {
+    e.message = `Failed to parse body.\nreason: ${e.message}\nbody=${inspect(body)}`;
+    errcode(e, {
+      body
+    });
+    throw e;
+  }
 }
 function parseStack(rawStack, detectMessage) {
   if (typeof rawStack !== 'string') {
     throw new TypeError('stack must be a string');
   }
 
-  const {
-    rawMessage,
-    rawTrace
-  } = parseBody(rawStack, detectMessage);
-  const {
-    type,
-    message
-  } = parseMessage(rawMessage);
-  const traces = rawTrace.map(t => parseTrace(t, true));
-  return {
-    type,
-    message,
-    traces,
-    rawMessage,
-    rawTrace,
-    rawStack
-  };
+  try {
+    const {
+      rawMessage,
+      rawTrace
+    } = parseBody(rawStack, detectMessage);
+    const {
+      type,
+      message
+    } = parseMessage(rawMessage);
+    const traces = rawTrace.map(t => parseTrace(t, true));
+    return {
+      type,
+      message,
+      traces,
+      rawMessage,
+      rawTrace,
+      rawStack
+    };
+  } catch (e) {
+    errcode(e, {
+      rawStack,
+      detectMessage
+    });
+    throw e;
+  }
 }
 function formatTrace({
   callee,

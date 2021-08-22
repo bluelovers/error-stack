@@ -4,10 +4,13 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var crlfNormalize = require('crlf-normalize');
 var ssplit = require('string-split-keep');
+var errcode = require('err-code');
+var util = require('util');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var ssplit__default = /*#__PURE__*/_interopDefaultLegacy(ssplit);
+var errcode__default = /*#__PURE__*/_interopDefaultLegacy(errcode);
 
 function trim(s) {
   return s.trim();
@@ -213,34 +216,50 @@ function parseBody(rawStack, detectMessage) {
   };
 }
 function parseMessage(body) {
-  const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
-  return {
-    type,
-    message
-  };
+  try {
+    const [, type, message] = body.match(REGEX_MATCH_MESSAGE);
+    return {
+      type,
+      message
+    };
+  } catch (e) {
+    e.message = `Failed to parse body.\nreason: ${e.message}\nbody=${util.inspect(body)}`;
+    errcode__default['default'](e, {
+      body
+    });
+    throw e;
+  }
 }
 function parseStack(rawStack, detectMessage) {
   if (typeof rawStack !== 'string') {
     throw new TypeError('stack must be a string');
   }
 
-  const {
-    rawMessage,
-    rawTrace
-  } = parseBody(rawStack, detectMessage);
-  const {
-    type,
-    message
-  } = parseMessage(rawMessage);
-  const traces = rawTrace.map(t => parseTrace(t, true));
-  return {
-    type,
-    message,
-    traces,
-    rawMessage,
-    rawTrace,
-    rawStack
-  };
+  try {
+    const {
+      rawMessage,
+      rawTrace
+    } = parseBody(rawStack, detectMessage);
+    const {
+      type,
+      message
+    } = parseMessage(rawMessage);
+    const traces = rawTrace.map(t => parseTrace(t, true));
+    return {
+      type,
+      message,
+      traces,
+      rawMessage,
+      rawTrace,
+      rawStack
+    };
+  } catch (e) {
+    errcode__default['default'](e, {
+      rawStack,
+      detectMessage
+    });
+    throw e;
+  }
 }
 function formatTrace({
   callee,
