@@ -1,4 +1,4 @@
-import { ITSPickExtra } from 'ts-type/lib/type/record';
+import { ITSPickExtra, ITSRequireAtLeastOne } from 'ts-type/lib/type/record';
 import { lineSplit, R_CRLF } from 'crlf-normalize';
 import { IParsed, IParsedWithoutTrace, ISource, ITrace } from './types';
 // @ts-ignore
@@ -363,7 +363,7 @@ export class ErrorStack implements IParsed
 /**
  * Format object parsed
  */
-export function stringifyErrorStack(parsed: IParsed)
+export function stringifyErrorStack(parsed: ITSRequireAtLeastOne<IParsed, 'traces' | 'rawTrace'>)
 {
 	const { type, message } = parsed
 	const messageLines = `${formatMessage({ type, message })}`

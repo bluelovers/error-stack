@@ -23,7 +23,7 @@ export interface ITrace extends ISource
 	/**
 	 * The source location inside eval content
 	 */
-	evalTrace: ISource
+	evalTrace?: ISource
 
 	indent?: string,
 }
