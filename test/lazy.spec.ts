@@ -7,7 +7,7 @@ import {
 	parseTrace,
 	stringifyErrorStack, parseMessage, parseBody, validPosition, parseStack,
 } from '../src/index';
-import { ISource } from '../src/types';
+import { IParsed, ISource } from '../src/types';
 import { inspect } from 'util';
 import { isNumOnly } from '../src/util/isNumOnly';
 
@@ -343,6 +343,127 @@ describe(parseStack.name, () =>
 			expect(actual).toMatchSnapshot(line[1]);
 
 			expect(stringifyErrorStack(actual)).toStrictEqual(line[0][0])
+
+		});
+	})
+
+});
+
+describe(stringifyErrorStack.name, () =>
+{
+	([
+
+		{
+			"type": "AggregateErrorExtra",
+			"message": "ggregateError: \nat Object",
+			traces: [
+				{
+					callee: 'Object.<anonymous>',
+					calleeNote: undefined,
+					source: 'G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts',
+					line: '11',
+					col: '9',
+					indent: '    '
+				},
+				{
+					callee: 'Module._compile',
+					calleeNote: undefined,
+					source: 'node:internal/modules/cjs/loader',
+					line: '1101',
+					col: '14',
+					indent: '    '
+				},
+				{
+					callee: 'Module.m._compile',
+					calleeNote: undefined,
+					source: 'C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts',
+					line: '1225',
+					col: '23',
+					indent: '    '
+				},
+				{
+					callee: 'Module._extensions..js',
+					calleeNote: undefined,
+					source: 'node:internal/modules/cjs/loader',
+					line: '1153',
+					col: '10',
+					indent: '    '
+				},
+				{
+					callee: 'Object.require.extensions.<computed>',
+					calleeNote: 'as .ts',
+					source: 'C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts',
+					line: '1228',
+					col: '12',
+					indent: '    '
+				},
+				{
+					callee: 'Module.load',
+					calleeNote: undefined,
+					source: 'node:internal/modules/cjs/loader',
+					line: '981',
+					col: '32',
+					indent: '    '
+				},
+				{
+					callee: 'Function.Module._load',
+					calleeNote: undefined,
+					source: 'node:internal/modules/cjs/loader',
+					line: '822',
+					col: '12',
+					indent: '    '
+				},
+				{
+					callee: 'Function.executeUserEntryPoint',
+					calleeNote: 'as runMain',
+					source: 'node:internal/modules/run_main',
+					line: '79',
+					col: '12',
+					indent: '    '
+				},
+				{
+					callee: 'main',
+					calleeNote: undefined,
+					source: 'C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts',
+					line: '330',
+					col: '12',
+					indent: '    '
+				},
+				{
+					callee: 'Object.<anonymous>',
+					calleeNote: undefined,
+					source: 'C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts',
+					line: '477',
+					col: '3',
+					indent: '    '
+				}
+			],
+		},
+
+		{
+			"type": "AggregateErrorExtra",
+			"message": "ggregateError: \nat Object",
+			rawTrace: [
+				'    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)',
+				'    at Module._compile (node:internal/modules/cjs/loader:1101:14)',
+				'    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)',
+				'    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)',
+				'    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)',
+				'    at Module.load (node:internal/modules/cjs/loader:981:32)',
+				'    at Function.Module._load (node:internal/modules/cjs/loader:822:12)',
+				'    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)',
+				'    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)',
+				'    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)'
+			],
+		},
+
+	] as Partial<IParsed>[]).forEach(line =>
+	{
+		test(inspect(line), () =>
+		{
+			let actual = stringifyErrorStack(line as any);
+
+			expect(actual).toMatchSnapshot();
 
 		});
 	})

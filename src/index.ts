@@ -184,7 +184,7 @@ export function validTrace(trace: ITrace)
 export function parseBody(rawStack: string, detectMessage?: string)
 {
 	let rawTrace: string[];
-	let messageLines: string[]
+	let rawMessage: string
 
 	if (!isUnset(detectMessage))
 	{
@@ -206,25 +206,23 @@ export function parseBody(rawStack: string, detectMessage?: string)
 			{
 				rawTrace = lineSplit(m.input.replace(m[0], ''));
 
-				messageLines = lineSplit(mf)
+				rawMessage = mf
 			}
 		}
 	}
 
-	if (!messageLines?.length)
+	if (!rawMessage?.length)
 	{
-		let rawMessage: string;
-
 		([rawMessage, ...rawTrace] = lineSplit(rawStack));
 
 		// A error message might have multiple lines
 		const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
 
-		messageLines = [rawMessage, ...rawTrace.splice(0, index)]
+		rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(CR)
 	}
 
 	return {
-		messageLines,
+		rawMessage,
 		rawTrace,
 	}
 }
@@ -246,11 +244,11 @@ export function parseStack(rawStack: string, detectMessage?: string): IParsed
 		throw new TypeError('stack must be a string')
 	}
 
-	const { messageLines, rawTrace } = parseBody(rawStack, detectMessage);
+	const { rawMessage, rawTrace } = parseBody(rawStack, detectMessage);
 
 	const {
 		type, message,
-	} = parseMessage(messageLines.join(CR))
+	} = parseMessage(rawMessage)
 
 	const traces = rawTrace.map(t => parseTrace(t, true))
 
@@ -258,6 +256,8 @@ export function parseStack(rawStack: string, detectMessage?: string): IParsed
 		type,
 		message,
 		traces,
+		rawMessage,
+		rawTrace,
 		rawStack,
 	}
 }
@@ -367,7 +367,7 @@ export function stringifyErrorStack(parsed: IParsed)
 {
 	const { type, message } = parsed
 	const messageLines = `${formatMessage({ type, message })}`
-	const tracesLines = parsed.traces.map(formatLineTrace)
+	const tracesLines = (parsed.traces?.map(formatLineTrace) ?? parsed.rawTrace)
 		.join(CR)
 
 	return tracesLines
