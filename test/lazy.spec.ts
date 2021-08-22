@@ -5,7 +5,7 @@ import {
 	parseEvalSource,
 	parseSource,
 	parseTrace,
-	stringifyErrorStack, parseMessage, parseBody, validPosition, parseStack,
+	stringifyErrorStack, parseMessage, parseBody, validPosition, parseStack, formatMessage,
 } from '../src/index';
 import { IParsed, ISource } from '../src/types';
 import { inspect } from 'util';
@@ -137,13 +137,18 @@ describe(parseMessage.name, () =>
 {
 	[
 		'Error: ',
+		`AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"`,
 	].forEach(line => {
 		test(basename(line), () =>
 		{
 			let actual = parseMessage(line);
 
 			expect(actual).toMatchSnapshot();
-			expect(line.indexOf(actual.type + ':')).toStrictEqual(0)
+
+			let s = formatMessage(actual);
+
+			expect(line.startsWith(s)).toBeTruthy()
 		});
 	})
 

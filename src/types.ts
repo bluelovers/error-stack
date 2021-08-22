@@ -54,6 +54,7 @@ export interface IParsedWithoutTrace
 	 * Error type
 	 */
 	type: string;
+	code?: string;
 	/**
 	 * The message used by Error constructor
 	 */

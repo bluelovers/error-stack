@@ -460,8 +460,19 @@ Object {
 
 exports[`parseMessage Error:  1`] = `
 Object {
+  "code": undefined,
   "message": "",
   "type": "Error",
+}
+`;
+
+exports[`parseMessage QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'" 1`] = `
+Object {
+  "code": "ERR_ASSERTION",
+  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
+  "type": "AssertionError",
 }
 `;
 

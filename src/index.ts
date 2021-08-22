@@ -16,7 +16,7 @@ const CR = '\n' as const
 // Error: foo
 // 2.
 // TypeError: foo
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*):(?: ([\s\S]*))?$/i
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?: \[(\w+)\])?:(?: ([\s\S]*))?$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
@@ -270,16 +270,17 @@ export function parseMessage(body: string): IParsedWithoutTrace
 {
 	try
 	{
-		const [, type, message] = body.match(REGEX_MATCH_MESSAGE)
+		const [, type, code, message] = body.match(REGEX_MATCH_MESSAGE)
 
 		return {
 			type,
+			code,
 			message,
 		}
 	}
 	catch (e: any)
 	{
-		e.message = `Failed to parse body.\nreason: ${e.message}\nbody=${inspect(body)}`;
+		e.message = `Failed to parse error message.\nreason: ${e.message}\nbody=${inspect(body)}`;
 
 		errcode(e, {
 			body,
@@ -371,9 +372,15 @@ export function formatEvalTrace({
 
 export function formatMessage({
 	type,
+	code,
 	message,
 }: IParsedWithoutTrace)
 {
+	if (code?.length)
+	{
+		type += ` [${code}]`;
+	}
+
 	return `${type}: ${message ?? ''}`;
 }
 
