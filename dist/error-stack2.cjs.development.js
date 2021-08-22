@@ -306,6 +306,9 @@ class ErrorStack {
   }
 
 }
+function formatTraces(traces) {
+  return traces === null || traces === void 0 ? void 0 : traces.map(formatTraceLine);
+}
 function stringifyErrorStack(parsed) {
   var _parsed$traces$map, _parsed$traces;
 
@@ -333,6 +336,7 @@ exports.formatMessage = formatMessage;
 exports.formatRawLineTrace = formatRawLineTrace;
 exports.formatTrace = formatTrace;
 exports.formatTraceLine = formatTraceLine;
+exports.formatTraces = formatTraces;
 exports.isEvalSource = isEvalSource;
 exports.isEvalTrace = isEvalTrace;
 exports.isRawLineTrace = isRawLineTrace;

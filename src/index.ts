@@ -391,6 +391,9 @@ export class ErrorStack implements IParsed
 	 */
 	message: string;
 	traces: IParsed["traces"];
+
+	readonly rawMessage?: string;
+	readonly rawTrace?: string[];
 	readonly rawStack?: string;
 
 	constructor(stack: string, detectMessage?: string)
@@ -415,6 +418,11 @@ export class ErrorStack implements IParsed
 	{
 		return stringifyErrorStack(this)
 	}
+}
+
+export function formatTraces(traces: IParsed["traces"])
+{
+	return traces?.map(formatTraceLine)
 }
 
 /**

@@ -298,6 +298,9 @@ class ErrorStack {
   }
 
 }
+function formatTraces(traces) {
+  return traces === null || traces === void 0 ? void 0 : traces.map(formatTraceLine);
+}
 function stringifyErrorStack(parsed) {
   var _parsed$traces$map, _parsed$traces;
 
@@ -316,5 +319,5 @@ function parseErrorStack(stack, detectMessage) {
   return new ErrorStack(stack, detectMessage);
 }
 
-export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatRawLineTrace, formatTrace, formatTraceLine, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
+export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatRawLineTrace, formatTrace, formatTraceLine, formatTraces, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
 //# sourceMappingURL=error-stack2.esm.js.map

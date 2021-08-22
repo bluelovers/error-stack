@@ -92,6 +92,8 @@ export declare class ErrorStack implements IParsed {
 	 */
 	message: string;
 	traces: IParsed["traces"];
+	readonly rawMessage?: string;
+	readonly rawTrace?: string[];
 	readonly rawStack?: string;
 	constructor(stack: string, detectMessage?: string);
 	/**
@@ -103,6 +105,7 @@ export declare class ErrorStack implements IParsed {
 	 */
 	format(): string;
 }
+export declare function formatTraces(traces: IParsed["traces"]): string[];
 /**
  * Format object parsed
  */
