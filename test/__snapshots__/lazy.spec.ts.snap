@@ -661,6 +661,86 @@ Object {
 }
 `;
 
+exports[`parseStack example.js:3:13) 1`] = `
+Object {
+  "message": "
+    Error: foo",
+  "rawMessage": "AggregateError: 
+    Error: foo",
+  "rawStack": "AggregateError: 
+    Error: foo
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:33)
+    Error: bar
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
+    Error: baz
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
+    at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)
+    at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
+  "rawTrace": Array [
+    "        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:33)",
+    "    Error: bar",
+    "        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
+    "    Error: baz",
+    "        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
+    "    at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)",
+    "    at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
+  ],
+  "traces": Array [
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "33",
+      "indent": "        ",
+      "line": "3",
+      "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
+    },
+    Object {
+      "indent": "    ",
+      "raw": true,
+      "rawLine": "Error: bar",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "13",
+      "indent": "        ",
+      "line": "3",
+      "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
+    },
+    Object {
+      "indent": "    ",
+      "raw": true,
+      "rawLine": "Error: baz",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "13",
+      "indent": "        ",
+      "line": "3",
+      "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
+    },
+    Object {
+      "callee": "AggregateError",
+      "calleeNote": undefined,
+      "col": "3",
+      "indent": "    ",
+      "line": "19",
+      "source": "/Users/sindresorhus/dev/aggregate-error/index.js",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "13",
+      "indent": "    ",
+      "line": "3",
+      "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
+    },
+  ],
+  "type": "AggregateError",
+}
+`;
+
 exports[`parseTrace     at new Promise (<anonymous>) 1`] = `
 Object {
   "callee": "new Promise",

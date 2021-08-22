@@ -1,3 +1,5 @@
+import { ITSPartialRecord } from 'ts-type/lib/type/record';
+
 export interface ISource
 {
 	/**
@@ -10,6 +12,8 @@ export interface ISource
 
 export interface ITrace extends ISource
 {
+	raw?: false
+
 	callee: string
 	calleeNote?: string
 	/**
@@ -28,6 +32,22 @@ export interface ITrace extends ISource
 	indent?: string,
 }
 
+export interface IRawLineTrace extends ITSPartialRecord<Exclude<keyof ITrace, 'raw' | 'indent' | 'rawLine'>, undefined>
+{
+	raw: true
+	indent?: string,
+	rawLine: string,
+}
+
+export interface IEvalTrace extends ITrace
+{
+	eval: true
+	callee: "eval",
+	evalTrace: ISource
+}
+
+export type ITraceValue = IRawLineTrace | ITrace | IEvalTrace;
+
 export interface IParsedWithoutTrace
 {
 	/**
@@ -42,7 +62,7 @@ export interface IParsedWithoutTrace
 
 export interface IParsed extends IParsedWithoutTrace
 {
-	traces: ITrace[];
+	traces: ITraceValue[];
 
 	rawMessage?: string,
 	rawTrace?: string[],

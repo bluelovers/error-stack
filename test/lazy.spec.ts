@@ -1,7 +1,7 @@
 import { basename } from 'path';
 import {
 	parseErrorStack,
-	formatLineTrace,
+	formatTraceLine,
 	parseEvalSource,
 	parseSource,
 	parseTrace,
@@ -10,6 +10,7 @@ import {
 import { IParsed, ISource } from '../src/types';
 import { inspect } from 'util';
 import { isNumOnly } from '../src/util/isNumOnly';
+import { isUnset } from '../src/util/isUnset';
 
 describe(parseSource.name, () =>
 {
@@ -48,7 +49,7 @@ describe(parseTrace.name, () =>
 
 			expect(actual).toMatchSnapshot();
 
-			let s = formatLineTrace(actual);
+			let s = formatTraceLine(actual);
 
 			expect(s).toMatchSnapshot();
 			expect(s).toStrictEqual(line);
@@ -334,13 +335,33 @@ describe(parseStack.name, () =>
 
 		}],
 
-	] as const).forEach(line =>
+		[
+			[
+				`AggregateError: 
+    Error: foo
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:33)
+    Error: bar
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
+    Error: baz
+        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
+    at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)
+    at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)`]
+		]
+
+	] as [[string, string?], any?][]).forEach(line =>
 	{
 		test(basename(line[0][0]), () =>
 		{
 			let actual = parseStack(...line[0]);
 
-			expect(actual).toMatchSnapshot(line[1]);
+			if (isUnset(line[1]))
+			{
+				expect(actual).toMatchSnapshot();
+			}
+			else
+			{
+				expect(actual).toMatchSnapshot(line[1]);
+			}
 
 			expect(stringifyErrorStack(actual)).toStrictEqual(line[0][0])
 
