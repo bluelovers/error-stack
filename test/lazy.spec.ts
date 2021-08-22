@@ -5,7 +5,7 @@ import {
 	parseEvalSource,
 	parseSource,
 	parseTrace,
-	stringifyErrorStack, parseMessage, parseBody, validPosition,
+	stringifyErrorStack, parseMessage, parseBody, validPosition, parseStack,
 } from '../src/index';
 import { ISource } from '../src/types';
 import { inspect } from 'util';
@@ -307,6 +307,45 @@ describe(isNumOnly.name, () =>
 		});
 
 	});
+
+});
+
+describe(parseStack.name, () =>
+{
+	([
+
+		[
+			[`AggregateError: ggregateError:
+    at Object.<anonymous> (<anonymous>:19:1)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)
+    at Module._compile (node:internal/modules/cjs/loader:1101:14)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)`,
+				'ggregateError:\n' +
+				'    at Object.<anonymous> (<anonymous>:19:1)'], {
+
+			message: 'ggregateError:\n    at Object.<anonymous> (<anonymous>:19:1)',
+
+		}],
+
+	] as const).forEach(line =>
+	{
+		test(basename(line[0][0]), () =>
+		{
+			let actual = parseStack(...line[0]);
+
+			expect(actual).toMatchSnapshot(line[1]);
+
+			expect(stringifyErrorStack(actual)).toStrictEqual(line[0][0])
+
+		});
+	})
 
 });
 

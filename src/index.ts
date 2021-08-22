@@ -1,5 +1,5 @@
 import { ITSPickExtra } from 'ts-type/lib/type/record';
-import { lineSplit } from 'crlf-normalize';
+import { lineSplit, R_CRLF } from 'crlf-normalize';
 import { IParsed, IParsedWithoutTrace, ISource, ITrace } from './types';
 // @ts-ignore
 import ssplit from 'string-split-keep';
@@ -181,14 +181,47 @@ export function validTrace(trace: ITrace)
 	return trace.eval || typeof trace.line === 'number' || (typeof trace.line === 'string' && /^\d+$/.test(trace.line));
 }
 
-export function parseBody(rawStack: string)
+export function parseBody(rawStack: string, detectMessage?: string)
 {
-	const [rawMessage, ...rawTrace] = lineSplit(rawStack)
+	let rawTrace: string[];
+	let messageLines: string[]
 
-	// A error message might have multiple lines
-	const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
+	if (!isUnset(detectMessage))
+	{
+		let { type } = parseMessage(rawStack);
 
-	const messageLines = [rawMessage, ...rawTrace.splice(0, index)]
+		let mf = formatMessage({
+			type,
+			message: detectMessage,
+		});
+
+		let i = rawStack.indexOf(mf)
+
+		if (i === 0)
+		{
+			let s = rawStack.replace(mf, '')
+			let m = R_CRLF.exec(s)
+
+			if (m?.index === 0)
+			{
+				rawTrace = lineSplit(m.input.replace(m[0], ''));
+
+				messageLines = lineSplit(mf)
+			}
+		}
+	}
+
+	if (!messageLines?.length)
+	{
+		let rawMessage: string;
+
+		([rawMessage, ...rawTrace] = lineSplit(rawStack));
+
+		// A error message might have multiple lines
+		const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
+
+		messageLines = [rawMessage, ...rawTrace.splice(0, index)]
+	}
 
 	return {
 		messageLines,
@@ -206,14 +239,14 @@ export function parseMessage(body: string): IParsedWithoutTrace
 	}
 }
 
-export function parseStack(rawStack: string): IParsed
+export function parseStack(rawStack: string, detectMessage?: string): IParsed
 {
 	if (typeof rawStack !== 'string')
 	{
 		throw new TypeError('stack must be a string')
 	}
 
-	const { messageLines, rawTrace } = parseBody(rawStack);
+	const { messageLines, rawTrace } = parseBody(rawStack, detectMessage);
 
 	const {
 		type, message,
@@ -303,9 +336,9 @@ export class ErrorStack implements IParsed
 	traces: ITrace[];
 	readonly rawStack?: string;
 
-	constructor(stack: string)
+	constructor(stack: string, detectMessage?: string)
 	{
-		Object.assign(this, parseStack(stack))
+		Object.assign(this, parseStack(stack, detectMessage))
 	}
 
 	/**
@@ -342,9 +375,9 @@ export function stringifyErrorStack(parsed: IParsed)
 		: messageLines
 }
 
-export function parseErrorStack(stack: string)
+export function parseErrorStack(stack: string, detectMessage?: string)
 {
-	return new ErrorStack(stack)
+	return new ErrorStack(stack, detectMessage)
 }
 
 export default parseErrorStack

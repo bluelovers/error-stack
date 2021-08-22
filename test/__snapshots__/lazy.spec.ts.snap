@@ -504,6 +504,108 @@ Object {
 }
 `;
 
+exports[`parseStack bin.ts:477:3) 1`] = `
+Object {
+  "message": "ggregateError:
+    at Object.<anonymous> (<anonymous>:19:1)",
+  "rawStack": "AggregateError: ggregateError:
+    at Object.<anonymous> (<anonymous>:19:1)
+    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:11:9)
+    at Module._compile (node:internal/modules/cjs/loader:1101:14)
+    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Module.load (node:internal/modules/cjs/loader:981:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
+    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
+  "traces": Array [
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "9",
+      "indent": "    ",
+      "line": "11",
+      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
+    },
+    Object {
+      "callee": "Module._compile",
+      "calleeNote": undefined,
+      "col": "14",
+      "indent": "    ",
+      "line": "1101",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Module.m._compile",
+      "calleeNote": undefined,
+      "col": "23",
+      "indent": "    ",
+      "line": "1225",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+    },
+    Object {
+      "callee": "Module._extensions..js",
+      "calleeNote": undefined,
+      "col": "10",
+      "indent": "    ",
+      "line": "1153",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Object.require.extensions.<computed>",
+      "calleeNote": "as .ts",
+      "col": "12",
+      "indent": "    ",
+      "line": "1228",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+    },
+    Object {
+      "callee": "Module.load",
+      "calleeNote": undefined,
+      "col": "32",
+      "indent": "    ",
+      "line": "981",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Function.Module._load",
+      "calleeNote": undefined,
+      "col": "12",
+      "indent": "    ",
+      "line": "822",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Function.executeUserEntryPoint",
+      "calleeNote": "as runMain",
+      "col": "12",
+      "indent": "    ",
+      "line": "79",
+      "source": "node:internal/modules/run_main",
+    },
+    Object {
+      "callee": "main",
+      "calleeNote": undefined,
+      "col": "12",
+      "indent": "    ",
+      "line": "330",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "3",
+      "indent": "    ",
+      "line": "477",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+    },
+  ],
+  "type": "AggregateError",
+}
+`;
+
 exports[`parseTrace     at new Promise (<anonymous>) 1`] = `
 Object {
   "callee": "new Promise",
