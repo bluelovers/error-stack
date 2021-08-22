@@ -371,10 +371,9 @@ export function formatEvalTrace({
 	})}, ${formatTrace(evalTrace)})`;
 }
 
-export function formatMessage({
+export function formatMessagePrefix({
 	type,
 	code,
-	message,
 }: IParsedWithoutTrace)
 {
 	if (code?.length)
@@ -382,7 +381,12 @@ export function formatMessage({
 		type += ` [${code}]`;
 	}
 
-	return `${type}: ${message ?? ''}`;
+	return `${type}`;
+}
+
+export function formatMessage(parsed: IParsedWithoutTrace)
+{
+	return `${formatMessagePrefix(parsed)}: ${parsed.message ?? ''}`;
 }
 
 export function formatRawLineTrace(trace: IRawLineTrace)

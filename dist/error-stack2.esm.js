@@ -278,16 +278,20 @@ function formatEvalTrace({
     calleeNote: evalCalleeNote
   })}, ${formatTrace(evalTrace)})`;
 }
-function formatMessage({
+function formatMessagePrefix({
   type,
-  code,
-  message
+  code
 }) {
   if (code !== null && code !== void 0 && code.length) {
     type += ` [${code}]`;
   }
 
-  return `${type}: ${message !== null && message !== void 0 ? message : ''}`;
+  return `${type}`;
+}
+function formatMessage(parsed) {
+  var _parsed$message;
+
+  return `${formatMessagePrefix(parsed)}: ${(_parsed$message = parsed.message) !== null && _parsed$message !== void 0 ? _parsed$message : ''}`;
 }
 function formatRawLineTrace(trace) {
   var _trace$indent;
@@ -338,5 +342,5 @@ function parseErrorStack(stack, detectMessage) {
   return new ErrorStack(stack, detectMessage);
 }
 
-export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatRawLineTrace, formatTrace, formatTraceLine, formatTraces, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
+export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatMessagePrefix, formatRawLineTrace, formatTrace, formatTraceLine, formatTraces, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
 //# sourceMappingURL=error-stack2.esm.js.map

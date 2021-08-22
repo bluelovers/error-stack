@@ -287,16 +287,20 @@ function formatEvalTrace({
     calleeNote: evalCalleeNote
   })}, ${formatTrace(evalTrace)})`;
 }
-function formatMessage({
+function formatMessagePrefix({
   type,
-  code,
-  message
+  code
 }) {
   if (code !== null && code !== void 0 && code.length) {
     type += ` [${code}]`;
   }
 
-  return `${type}: ${message !== null && message !== void 0 ? message : ''}`;
+  return `${type}`;
+}
+function formatMessage(parsed) {
+  var _parsed$message;
+
+  return `${formatMessagePrefix(parsed)}: ${(_parsed$message = parsed.message) !== null && _parsed$message !== void 0 ? _parsed$message : ''}`;
 }
 function formatRawLineTrace(trace) {
   var _trace$indent;
@@ -353,6 +357,7 @@ exports.breakBrackets = breakBrackets;
 exports['default'] = parseErrorStack;
 exports.formatEvalTrace = formatEvalTrace;
 exports.formatMessage = formatMessage;
+exports.formatMessagePrefix = formatMessagePrefix;
 exports.formatRawLineTrace = formatRawLineTrace;
 exports.formatTrace = formatTrace;
 exports.formatTraceLine = formatTraceLine;
