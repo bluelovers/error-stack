@@ -302,13 +302,14 @@ export function parseStack(rawStack: string, detectMessage?: string): IParsed
 		const { rawMessage, rawTrace } = parseBody(rawStack, detectMessage);
 
 		const {
-			type, message,
+			type, code, message,
 		} = parseMessage(rawMessage)
 
 		const traces = rawTrace.map(t => parseTrace(t, true))
 
 		return {
 			type,
+			code,
 			message,
 			traces,
 			rawMessage,
@@ -420,6 +421,8 @@ export class ErrorStack implements IParsed
 	 * Error type
 	 */
 	type: string;
+
+	code?: string;
 	/**
 	 * The message used by Error constructor
 	 */
@@ -464,8 +467,7 @@ export function formatTraces(traces: IParsed["traces"])
  */
 export function stringifyErrorStack(parsed: ITSRequireAtLeastOne<IParsed, 'traces' | 'rawTrace'>)
 {
-	const { type, message } = parsed
-	const messageLines = `${formatMessage({ type, message })}`
+	const messageLines = `${formatMessage(parsed)}`
 	const tracesLines = (parsed.traces?.map(formatTraceLine) ?? parsed.rawTrace)
 		.join(CR)
 

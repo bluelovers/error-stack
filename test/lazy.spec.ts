@@ -351,6 +351,16 @@ describe(parseStack.name, () =>
         at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
     at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)
     at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)`]
+		],
+
+		[
+			[
+				`AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"\n` +
+				'    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\lib\\cp.ts:93:51\n' +
+				'    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n' +
+				'    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\test\\temp.ts:42:2',
+			]
 		]
 
 	] as [[string, string?], any?][]).forEach(line =>

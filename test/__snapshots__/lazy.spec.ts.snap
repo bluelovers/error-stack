@@ -32,6 +32,7 @@ exports[`parseErrorStack AggregateErrorExtra: ggregateError:
     at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
     at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3) 1`] = `
 ErrorStack {
+  "code": undefined,
   "message": "ggregateError:
     at Object",
   "rawMessage": "AggregateErrorExtra: ggregateError:
@@ -158,6 +159,7 @@ exports[`parseErrorStack Error:
     at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
     at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3) 1`] = `
 ErrorStack {
+  "code": undefined,
   "message": "",
   "rawMessage": "Error: ",
   "rawStack": "Error: 
@@ -273,6 +275,7 @@ exports[`parseErrorStack Error: foo:eval
     at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)
     at <anonymous>:1:1 1`] = `
 ErrorStack {
+  "code": undefined,
   "message": "foo:eval",
   "rawMessage": "Error: foo:eval",
   "rawStack": "Error: foo:eval
@@ -323,6 +326,7 @@ exports[`parseErrorStack Error: foo:eval
     at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)
     at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12) 1`] = `
 ErrorStack {
+  "code": undefined,
   "message": "foo:eval",
   "rawMessage": "Error: foo:eval",
   "rawStack": "Error: foo:eval
@@ -558,6 +562,7 @@ Object {
 
 exports[`parseStack bin.ts:477:3) 1`] = `
 Object {
+  "code": undefined,
   "message": "ggregateError:
     at Object.<anonymous> (<anonymous>:19:1)",
   "rawMessage": "AggregateError: ggregateError:
@@ -674,6 +679,7 @@ Object {
 
 exports[`parseStack example.js:3:13) 1`] = `
 Object {
+  "code": undefined,
   "message": "
     Error: foo",
   "rawMessage": "AggregateError: 
@@ -749,6 +755,51 @@ Object {
     },
   ],
   "type": "AggregateError",
+}
+`;
+
+exports[`parseStack temp.ts:42:2 1`] = `
+Object {
+  "code": "ERR_ASSERTION",
+  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
+  "rawMessage": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
+  "rawStack": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"
+    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts:93:51
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts:42:2",
+  "rawTrace": Array [
+    "    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts:93:51",
+    "    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+    "    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts:42:2",
+  ],
+  "traces": Array [
+    Object {
+      "callee": undefined,
+      "col": "51",
+      "indent": "    ",
+      "line": "93",
+      "source": "G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts",
+    },
+    Object {
+      "callee": "processTicksAndRejections",
+      "calleeNote": undefined,
+      "col": "5",
+      "indent": "    ",
+      "line": "96",
+      "source": "node:internal/process/task_queues",
+    },
+    Object {
+      "callee": undefined,
+      "col": "2",
+      "indent": "    ",
+      "line": "42",
+      "source": "G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts",
+    },
+  ],
+  "type": "AssertionError",
 }
 `;
 
