@@ -76,10 +76,10 @@ function parseSource(rawSource) {
 function parseEvalSource(rawEvalSource) {
   const {
     indent,
-    line
+    rawLine
   } = _detectIndent(rawEvalSource);
 
-  const [rawTrace, rawEvalTrace] = line.replace(REGEX_STARTS_WITH_EVAL_AT, '').split(/,\s+/g).map(trim);
+  const [rawTrace, rawEvalTrace] = rawLine.replace(REGEX_STARTS_WITH_EVAL_AT, '').split(/,\s+/g).map(trim);
   const {
     eval: ev,
     callee: evalCallee,
@@ -96,19 +96,19 @@ function parseEvalSource(rawEvalSource) {
   };
 }
 function _detectIndent(trace) {
-  const [, indent, line] = REGEX_MATCH_INDENT.exec(trace);
+  const [, indent, rawLine] = REGEX_MATCH_INDENT.exec(trace);
   return {
     indent,
-    line
+    rawLine
   };
 }
 function parseTrace(trace, testEvalSource) {
   const {
     indent,
-    line
+    rawLine
   } = _detectIndent(trace);
 
-  const t = line.replace(REGEX_REMOVE_AT, '');
+  const t = rawLine.replace(REGEX_REMOVE_AT, '');
   let [rawCallee, rawSource] = breakBrackets(t, '(', ')');
 
   if (!rawSource) {
@@ -129,12 +129,42 @@ function parseTrace(trace, testEvalSource) {
     ret.eval = true;
   }
 
-  Object.assign(ret, testEvalSource && REGEX_STARTS_WITH_EVAL_AT.test(rawSource) ? parseEvalSource(rawSource) : parseSource(rawSource));
+  if (testEvalSource === true) {
+    if (!rawLine.startsWith(AT)) {
+      return {
+        raw: true,
+        indent,
+        rawLine
+      };
+    }
+  }
+
+  Object.assign(ret, testEvalSource && isEvalSource(rawSource) ? parseEvalSource(rawSource) : parseSource(rawSource));
+
+  if (testEvalSource === true) {
+    if (!validTrace(ret)) {
+      return {
+        raw: true,
+        indent,
+        rawLine
+      };
+    }
+  }
+
   ret.indent = indent;
   return ret;
 }
+function isEvalSource(rawSource) {
+  return REGEX_STARTS_WITH_EVAL_AT.test(rawSource);
+}
 function validTrace(trace) {
-  return trace.eval || typeof trace.line === 'number' || typeof trace.line === 'string' && /^\d+$/.test(trace.line);
+  var _trace$source;
+
+  if (isRawLineTrace(trace)) {
+    return false;
+  }
+
+  return trace.eval || isNumOnly(trace.line) || isUnset(trace.callee) && ((_trace$source = trace.source) === null || _trace$source === void 0 ? void 0 : _trace$source.length) > 0 && validPosition(trace);
 }
 function parseBody(rawStack, detectMessage) {
   var _rawMessage;
@@ -233,10 +263,25 @@ function formatMessage({
 }) {
   return `${type}: ${message !== null && message !== void 0 ? message : ''}`;
 }
-function formatLineTrace(trace) {
+function formatRawLineTrace(trace) {
   var _trace$indent;
 
-  return `${(_trace$indent = trace.indent) !== null && _trace$indent !== void 0 ? _trace$indent : '    '}at ${trace.eval ? formatEvalTrace(trace) : formatTrace(trace)}`;
+  return `${(_trace$indent = trace.indent) !== null && _trace$indent !== void 0 ? _trace$indent : '    '}${trace.rawLine}`;
+}
+function isRawLineTrace(trace) {
+  return trace.raw === true;
+}
+function isEvalTrace(trace) {
+  return trace.eval === true;
+}
+function formatTraceLine(trace) {
+  var _trace$indent2;
+
+  if (isRawLineTrace(trace)) {
+    return formatRawLineTrace(trace);
+  }
+
+  return `${(_trace$indent2 = trace.indent) !== null && _trace$indent2 !== void 0 ? _trace$indent2 : '    '}at ${isEvalTrace(trace) ? formatEvalTrace(trace) : formatTrace(trace)}`;
 }
 class ErrorStack {
   constructor(stack, detectMessage) {
@@ -264,12 +309,12 @@ function stringifyErrorStack(parsed) {
     type,
     message
   })}`;
-  const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatLineTrace)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(CR);
+  const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatTraceLine)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(CR);
   return tracesLines ? messageLines + CR + tracesLines : messageLines;
 }
 function parseErrorStack(stack, detectMessage) {
   return new ErrorStack(stack, detectMessage);
 }
 
-export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatLineTrace, formatMessage, formatTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
+export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatRawLineTrace, formatTrace, formatTraceLine, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
 //# sourceMappingURL=error-stack2.esm.js.map

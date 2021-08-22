@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.7...error-stack2@1.0.8) (2021-08-22)
+
+
+### ✨　Features
+
+* allow unsupported lines in traces ([50deae0](https://github.com/bluelovers/error-stack/commit/50deae073a75813f2cc0adba7d0ecf558a0a055c))
+
+
+
+
+
 ## [1.0.7](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.6...error-stack2@1.0.7) (2021-08-22)
 
 
