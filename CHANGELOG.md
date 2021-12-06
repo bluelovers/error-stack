@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.14](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.13...error-stack2@1.0.14) (2021-12-06)
+
+
+### 🐛　Bug Fixes
+
+* invalid "main" entry ([9dbaeab](https://github.com/bluelovers/error-stack/commit/9dbaeaba7d53cafad267059c71d44d1a4ce7dda5))
+
+
+
+
+
 ## [1.0.13](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.12...error-stack2@1.0.13) (2021-12-06)
 
 
