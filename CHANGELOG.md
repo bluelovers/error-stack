@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.12...error-stack2@1.0.13) (2021-12-06)
+
+
+### 🛠　Build System
+
+* update tsdx ([1d26382](https://github.com/bluelovers/error-stack/commit/1d263825597dfdc0f46c388b2f85b82d890cca4d))
+
+
+
+
+
 ## [1.0.12](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.11...error-stack2@1.0.12) (2021-08-22)
 
 **Note:** Version bump only for package error-stack2
