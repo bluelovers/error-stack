@@ -18,7 +18,7 @@
   },
   "license": "MIT",
   "author": "kaelzhang",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/error-stack2.esm.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
