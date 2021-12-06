@@ -1,6 +1,6 @@
 {
   "name": "error-stack2",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Parse and manipulate error.stack",
   "keywords": [
     "error-stack",
@@ -40,7 +40,7 @@
   ],
   "scripts": {
     "test": "tsdx test",
-    "posttest": "yarn run build",
+    "posttest": "echo posttest",
     "prebuild": "yarn run test",
     "build": "yarn run build:tsdx && yarn run build:dts",
     "build:dts": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner & echo build:dts",
