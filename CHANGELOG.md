@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.17](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.15...error-stack2@1.0.17) (2021-12-06)
+
+
+### ♻️　Chores
+
+* update package.json exports ([2466df4](https://github.com/bluelovers/error-stack/commit/2466df47d2c8be6b0126067cbef2915d243f487e))
+
+
+### 🔖　Miscellaneous
+
+* . ([9fd49be](https://github.com/bluelovers/error-stack/commit/9fd49be026f0f3a1e8f90f85005270453998b34e))
+
+
+
+
+
 ## [1.0.15](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.14...error-stack2@1.0.15) (2021-12-06)
 
 
