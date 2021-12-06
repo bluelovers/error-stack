@@ -6,7 +6,9 @@
     "error-stack",
     "error-stack-parser",
     "formatter",
-    "trace"
+    "trace",
+    "create-by-yarn-tool",
+    "create-by-tsdx"
   ],
   "homepage": "https://github.com/bluelovers/error-stack#readme",
   "bugs": {
@@ -18,6 +20,13 @@
   },
   "license": "MIT",
   "author": "kaelzhang",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "main": "dist/index.cjs",
   "module": "dist/index.esm.mjs",
   "types": "dist/index.d.ts",
@@ -31,6 +40,7 @@
   ],
   "scripts": {
     "test": "tsdx test",
+    "posttest": "yarn run build",
     "prebuild": "yarn run test",
     "build": "yarn run build:tsdx && yarn run build:dts",
     "build:dts": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner & echo build:dts",
@@ -38,15 +48,20 @@
     "npm:publish": "yarn run version:bump && npm publish",
     "npm:publish:bump": "yarn-tool version && npm publish",
     "preversion": "yarn run build",
+    "version": "echo version",
     "version:bump": "yt version",
+    "postversion": "echo postversion",
+    "prepublish": "echo prepublish",
     "prepublishOnly": "yarn run preversion",
     "prepublishOnly:check-bin": "ynpx --quiet @yarn-tool/check-pkg-bin",
     "prepublishOnly:update": "yarn run ncu && yarn run sort-package-json",
+    "publish": "echo publish",
     "postpublish": "yarn run postpublish:changelog && yarn run postpublish:git:commit && yarn run postpublish:git:tag && yarn run postpublish:git:push",
     "postpublish:changelog": "ynpx --quiet @yarn-tool/changelog && git add ./CHANGELOG.md",
     "postpublish:git:commit": "git commit -m \"chore(release): publish\" . & echo postpublish:git:commit",
     "postpublish:git:push": "git push --follow-tags",
     "postpublish:git:tag": "ynpx --quiet @yarn-tool/tag",
+    "postpublishOnly": "echo postpublishOnly",
     "ncu": "yarn-tool ncu -u",
     "sort-package-json": "yarn-tool sort",
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
@@ -63,5 +78,6 @@
     "@types/bluebird": "^3.5.36",
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.11"
-  }
+  },
+  "packageManager": "yarn@^1.22.11"
 }
