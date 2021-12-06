@@ -343,4 +343,4 @@ function parseErrorStack(stack, detectMessage) {
 }
 
 export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatMessagePrefix, formatRawLineTrace, formatTrace, formatTraceLine, formatTraces, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
-//# sourceMappingURL=error-stack2.esm.js.map
+//# sourceMappingURL=index.esm.mjs.map

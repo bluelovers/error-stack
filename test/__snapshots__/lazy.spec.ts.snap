@@ -814,6 +814,19 @@ Object {
 
 exports[`parseTrace     at new Promise (<anonymous>) 2`] = `"    at new Promise (<anonymous>)"`;
 
+exports[`parseTrace core.js:100:15) 1`] = `
+Object {
+  "callee": "Object.errorHandler",
+  "calleeNote": "as handleError",
+  "col": "15",
+  "indent": "        ",
+  "line": "100",
+  "source": "G:/Users/The Project/p2p/ws-ipfs/node_modules/ipfs-http-client/src/lib/core.js",
+}
+`;
+
+exports[`parseTrace core.js:100:15) 2`] = `"        at Object.errorHandler [as handleError] (G:/Users/The Project/p2p/ws-ipfs/node_modules/ipfs-http-client/src/lib/core.js:100:15)"`;
+
 exports[`stringifyErrorStack {
   type: 'AggregateErrorExtra',
   message: 'ggregateError: \\nat Object',

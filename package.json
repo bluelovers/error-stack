@@ -32,8 +32,9 @@
   "scripts": {
     "test": "tsdx test",
     "prebuild": "yarn run test",
-    "build": "tsdx build --target node",
-    "postbuild": "ynpx dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build": "yarn run build:tsdx && yarn run build:dts",
+    "build:dts": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner & echo build:dts",
+    "build:tsdx": "tsdx build --target node --name index",
     "npm:publish": "yarn run version:bump && npm publish",
     "npm:publish:bump": "yarn-tool version && npm publish",
     "preversion": "yarn run build",
@@ -54,14 +55,13 @@
     "crlf-normalize": "^1.0.6",
     "err-code": "^3.0.1",
     "string-split-keep": "^1.0.1",
-    "ts-type": "^1.2.39",
+    "ts-type": "^2.1.2",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@bluelovers/tsconfig": "^1.0.25",
+    "@bluelovers/tsconfig": "^1.0.26",
     "@types/bluebird": "^3.5.36",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.6.1",
-    "dts-bundle-generator": "^5.9.0"
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.11"
   }
 }

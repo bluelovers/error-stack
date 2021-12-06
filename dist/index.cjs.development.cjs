@@ -70,7 +70,7 @@ function validPosition(source) {
   return false;
 }
 function parseSource(rawSource) {
-  const [source, line, col] = ssplit__default['default'](rawSource, ':', -3);
+  const [source, line, col] = ssplit__default["default"](rawSource, ':', -3);
 
   if (!(col !== null && col !== void 0 && col.length) || !(line !== null && line !== void 0 && line.length)) {
     return {
@@ -225,7 +225,7 @@ function parseMessage(body) {
     };
   } catch (e) {
     e.message = `Failed to parse error message.\nreason: ${e.message}\nbody=${util.inspect(body)}`;
-    errcode__default['default'](e, {
+    errcode__default["default"](e, {
       body
     });
     throw e;
@@ -257,7 +257,7 @@ function parseStack(rawStack, detectMessage) {
       rawStack
     };
   } catch (e) {
-    errcode__default['default'](e, {
+    errcode__default["default"](e, {
       rawStack,
       detectMessage
     });
@@ -354,7 +354,7 @@ function parseErrorStack(stack, detectMessage) {
 exports.ErrorStack = ErrorStack;
 exports._detectIndent = _detectIndent;
 exports.breakBrackets = breakBrackets;
-exports['default'] = parseErrorStack;
+exports["default"] = parseErrorStack;
 exports.formatEvalTrace = formatEvalTrace;
 exports.formatMessage = formatMessage;
 exports.formatMessagePrefix = formatMessagePrefix;
@@ -375,4 +375,4 @@ exports.parseTrace = parseTrace;
 exports.stringifyErrorStack = stringifyErrorStack;
 exports.validPosition = validPosition;
 exports.validTrace = validTrace;
-//# sourceMappingURL=error-stack2.cjs.development.js.map
+//# sourceMappingURL=index.cjs.development.cjs.map

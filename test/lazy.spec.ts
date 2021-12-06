@@ -42,6 +42,7 @@ describe(parseTrace.name, () =>
 {
 	[
 		'    at new Promise (<anonymous>)',
+		'        at Object.errorHandler [as handleError] (G:/Users/The Project/p2p/ws-ipfs/node_modules/ipfs-http-client/src/lib/core.js:100:15)',
 	].forEach(line => {
 		test(basename(line), () =>
 		{
