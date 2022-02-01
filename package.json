@@ -1,6 +1,6 @@
 {
   "name": "error-stack2",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Parse and manipulate error.stack",
   "keywords": [
     "error-stack",

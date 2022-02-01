@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.18](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.17...error-stack2@1.0.18) (2022-02-01)
+
+
+### 📦　Code Refactoring
+
+* use string-split-keep2 ([02bb822](https://github.com/bluelovers/error-stack/commit/02bb822f6fc1a1b34335c64fc8907c63362e834f))
+
+
+
+
+
 ## [1.0.17](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.15...error-stack2@1.0.17) (2021-12-06)
 
 
