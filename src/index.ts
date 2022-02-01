@@ -1,8 +1,7 @@
 import { ITSPickExtra, ITSRequireAtLeastOne } from 'ts-type/lib/type/record';
 import { lineSplit, R_CRLF } from 'crlf-normalize';
 import { IEvalTrace, IParsed, IParsedWithoutTrace, ISource, ITrace, IRawLineTrace, ITraceValue } from './types';
-// @ts-ignore
-import ssplit from 'string-split-keep';
+import { stringSplitWithLimit } from 'string-split-keep2';
 import { trim } from './util/trim';
 import { isUnset } from './util/isUnset';
 import { isNumOnly } from './util/isNumOnly';
@@ -77,7 +76,7 @@ export function validPosition(source: {
 
 export function parseSource(rawSource: string): ISource
 {
-	const [source, line, col] = ssplit(rawSource, ':', -3);
+	const [source, line, col] = stringSplitWithLimit(rawSource, ':', -3);
 
 	if (!col?.length || !line?.length)
 	{

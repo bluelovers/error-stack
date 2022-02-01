@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@bluelovers/tsconfig@^1.0.26":
-  version "1.0.26"
-  resolved "https://registry.npmjs.org/@bluelovers/tsconfig/-/tsconfig-1.0.26.tgz#8c6ad5b51618044246135ef6c806bf429b26b640"
-  integrity sha512-j++mkh/TKt9spEkWy4Rtmwc6kYq0vz+utztFyuwDuZybCuKYL+lhpqQg4xo9pRIoFX8ZIl8/GAcpb6SAjADPhQ==
+"@bluelovers/tsconfig@^1.0.28":
+  version "1.0.28"
+  resolved "https://registry.npmjs.org/@bluelovers/tsconfig/-/tsconfig-1.0.28.tgz#6fb35c233af7b36ed1be568d5e15c71b8b486412"
+  integrity sha512-ncNfJUFO44Aa7zm8e+wH1ffwbtEmT+8HMEm9OnWXQpSvDDYml1NSSdOdmyXPvFSsRy4qObK6QVlLhL4meFthqA==
   dependencies:
     tslib "^2.3.0"
 
@@ -44,18 +44,18 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^27.0.3":
-  version "27.0.3"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-27.0.3.tgz#0cf9dfe9009e467f70a342f0f94ead19842a783a"
-  integrity sha512-cmmwv9t7gBYt7hNKH5Spu7Kuu/DotGa+Ff+JGRKZ4db5eh8PnKS4LuebJ3YLUoyOyIHraTGyULn23YtEAm0VSg==
+"@types/jest@^27.4.0":
+  version "27.4.0"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-27.4.0.tgz#037ab8b872067cae842a320841693080f9cb84ed"
+  integrity sha512-gHl8XuC1RZ8H2j5sHv/JqsaxXkDDM9iDOgu0Wp8sjs4u/snb2PVehyWXJPr+ORA0RPpgw231mnutWI1+0hgjIQ==
   dependencies:
     jest-diff "^27.0.0"
     pretty-format "^27.0.0"
 
-"@types/node@*", "@types/node@^16.11.11":
-  version "16.11.11"
-  resolved "https://registry.npmjs.org/@types/node/-/node-16.11.11.tgz#6ea7342dfb379ea1210835bada87b3c512120234"
-  integrity sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==
+"@types/node@*", "@types/node@^17.0.13":
+  version "17.0.13"
+  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.13.tgz#5ed7ed7c662948335fcad6c412bb42d99ea754e3"
+  integrity sha512-Y86MAxASe25hNzlDbsviXl8jQHb0RDvKt4c40ZJQ1Don0AAL0STLZSs4N+6gLEO55pedy7r2cLwS+ZDxPm/2Bw==
 
 "@types/yargs-parser@*":
   version "20.2.1"
@@ -106,12 +106,12 @@ color-name@~1.1.4:
   resolved "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-crlf-normalize@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/crlf-normalize/-/crlf-normalize-1.0.6.tgz#c0b7e0c976cbc1f70e78e8208035941c7d704acc"
-  integrity sha512-zaHJLQfY3XO/m5WpgW1c4rts81qhp3dSN0OaihoJ6CqdqUG5fLzPYhfnSViv1R/HGtQYB6DDv/8nDrElxg9IHQ==
+crlf-normalize@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/crlf-normalize/-/crlf-normalize-1.0.7.tgz#84044949d93b708b3623abd4661fe8173c3e543c"
+  integrity sha512-USifFsvW0fI8BuHpR0zqHjr2uQdbQ5awWmk0UbWF/Y3jScR+6gFqukzfavi2FzrjQ65ihSMPNGx07K6CPno8sQ==
   dependencies:
-    tslib "^2.3.0"
+    ts-type "^2.1.4"
 
 diff-sequences@^27.0.6:
   version "27.0.6"
@@ -158,10 +158,10 @@ react-is@^17.0.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-string-split-keep@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/string-split-keep/-/string-split-keep-1.0.1.tgz#a1b6fc540f685da7ede019ec28bc1ad63bf9ba7e"
-  integrity sha1-obb8VA9oXaft4BnsKLwa1jv5un4=
+string-split-keep2@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/string-split-keep2/-/string-split-keep2-1.0.2.tgz#db255a44f6d11e95004ebc0cf47b8fc8412076fa"
+  integrity sha512-/c6O1DASLhPV/fX17fiilLhRf2KmhVV+/tWOQczVt/9SQMBlio/1VsCcVWpjhRxIFuLc+P21zHWjQYZ8CsACTw==
 
 supports-color@^7.1.0:
   version "7.2.0"
@@ -170,10 +170,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-ts-type@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/ts-type/-/ts-type-2.1.2.tgz#2e7734e729806729d41b4071b4fd513c9cd5cfac"
-  integrity sha512-64/2XoaipFXa/bidwXChQCSJ3VaCUVKrEaRPXiP5gLIlkPoAHfnwOMC0EWr42DsTm/+qYYuNwzxc0VQroeDs+g==
+ts-type@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.npmjs.org/ts-type/-/ts-type-2.1.4.tgz#d268d52ac054ef3076bf1c3b2fde0d4d5496e6a3"
+  integrity sha512-wnajiiIMhn/RHJ1oPld95siKmMJrOgaT6+rMmC8vO1LORgDFEzKP2nBmEFM5b4XVe7Q0J5KcU9oRJFzju7UzrA==
   dependencies:
     tslib "^2.3.1"
     typedarray-dts "^1.0.0"

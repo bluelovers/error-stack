@@ -1,5 +1,5 @@
 import { R_CRLF, lineSplit } from 'crlf-normalize';
-import ssplit from 'string-split-keep';
+import { stringSplitWithLimit } from 'string-split-keep2';
 import errcode from 'err-code';
 import { inspect } from 'util';
 
@@ -61,7 +61,7 @@ function validPosition(source) {
   return false;
 }
 function parseSource(rawSource) {
-  const [source, line, col] = ssplit(rawSource, ':', -3);
+  const [source, line, col] = stringSplitWithLimit(rawSource, ':', -3);
 
   if (!(col !== null && col !== void 0 && col.length) || !(line !== null && line !== void 0 && line.length)) {
     return {

@@ -3,13 +3,12 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var crlfNormalize = require('crlf-normalize');
-var ssplit = require('string-split-keep');
+var stringSplitKeep2 = require('string-split-keep2');
 var errcode = require('err-code');
 var util = require('util');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var ssplit__default = /*#__PURE__*/_interopDefaultLegacy(ssplit);
 var errcode__default = /*#__PURE__*/_interopDefaultLegacy(errcode);
 
 function trim(s) {
@@ -70,7 +69,7 @@ function validPosition(source) {
   return false;
 }
 function parseSource(rawSource) {
-  const [source, line, col] = ssplit__default["default"](rawSource, ':', -3);
+  const [source, line, col] = stringSplitKeep2.stringSplitWithLimit(rawSource, ':', -3);
 
   if (!(col !== null && col !== void 0 && col.length) || !(line !== null && line !== void 0 && line.length)) {
     return {
