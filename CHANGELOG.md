@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.18...error-stack2@2.0.1) (2022-02-02)
+
+
+### 🐛　Bug Fixes
+
+* support AggregateError ([4c13bcb](https://github.com/bluelovers/error-stack/commit/4c13bcb6366f689f96aee2d52452062ab78f3487))
+
+
+### BREAKING CHANGE
+
+* if `message` is `undefined` will return without `:`
+
+
+
+
+
 ## [1.0.18](https://github.com/bluelovers/error-stack/compare/error-stack2@1.0.17...error-stack2@1.0.18) (2022-02-01)
 
 

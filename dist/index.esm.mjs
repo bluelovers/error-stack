@@ -1,4 +1,4 @@
-import { R_CRLF, lineSplit } from 'crlf-normalize';
+import { R_CRLF, lineSplit, LF } from 'crlf-normalize';
 import { stringSplitWithLimit } from 'string-split-keep2';
 import errcode from 'err-code';
 import { inspect } from 'util';
@@ -20,8 +20,7 @@ function isNumOnly(v) {
 }
 
 const AT = 'at';
-const CR = '\n';
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?: \[(\w+)\])?:(?: ([\s\S]*))?$/i;
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i;
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
 const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
@@ -198,7 +197,7 @@ function parseBody(rawStack, detectMessage) {
   if (!((_rawMessage = rawMessage) !== null && _rawMessage !== void 0 && _rawMessage.length)) {
     [rawMessage, ...rawTrace] = lineSplit(rawStack);
     const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
-    rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(CR);
+    rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(LF);
   }
 
   return {
@@ -289,9 +288,15 @@ function formatMessagePrefix({
   return `${type}`;
 }
 function formatMessage(parsed) {
-  var _parsed$message;
+  let line = formatMessagePrefix(parsed);
 
-  return `${formatMessagePrefix(parsed)}: ${(_parsed$message = parsed.message) !== null && _parsed$message !== void 0 ? _parsed$message : ''}`;
+  if (typeof parsed.message !== 'undefined') {
+    var _parsed$message;
+
+    line += `: ${(_parsed$message = parsed.message) !== null && _parsed$message !== void 0 ? _parsed$message : ''}`;
+  }
+
+  return line;
 }
 function formatRawLineTrace(trace) {
   var _trace$indent;
@@ -335,8 +340,8 @@ function stringifyErrorStack(parsed) {
   var _parsed$traces$map, _parsed$traces;
 
   const messageLines = `${formatMessage(parsed)}`;
-  const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatTraceLine)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(CR);
-  return tracesLines ? messageLines + CR + tracesLines : messageLines;
+  const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatTraceLine)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(LF);
+  return tracesLines ? messageLines + LF + tracesLines : messageLines;
 }
 function parseErrorStack(stack, detectMessage) {
   return new ErrorStack(stack, detectMessage);
