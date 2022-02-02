@@ -72,7 +72,7 @@ export declare function parseBody(rawStack: string, detectMessage?: string): {
 	rawMessage: string;
 	rawTrace: string[];
 };
-export declare function parseMessage(body: string): IParsedWithoutTrace;
+export declare function parseMessage(body: string, looseMode?: boolean): IParsedWithoutTrace;
 export declare function parseStack(rawStack: string, detectMessage?: string): IParsed;
 export declare function formatTrace({ callee, calleeNote, source, line, col, }: ITSPickExtra<ITrace, "source">): string;
 export declare function formatEvalTrace({ callee, evalTrace, evalCallee, evalCalleeNote, ...trace }: IEvalTrace): string;

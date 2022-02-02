@@ -21,6 +21,7 @@ function isNumOnly(v) {
 
 const AT = 'at';
 const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i;
+const REGEX_MATCH_MESSAGE_LOOSE = /*#__PURE__*/new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_MATCH_MESSAGE.flags + 'm');
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
 const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
@@ -175,11 +176,12 @@ function parseBody(rawStack, detectMessage) {
 
   if (!isUnset(detectMessage)) {
     let {
-      type
-    } = parseMessage(rawStack);
+      type,
+      message
+    } = parseMessage(rawStack, true);
     let mf = formatMessage({
       type,
-      message: detectMessage
+      message: detectMessage === '' ? message : detectMessage
     });
     let i = rawStack.indexOf(mf);
 
@@ -205,9 +207,9 @@ function parseBody(rawStack, detectMessage) {
     rawTrace
   };
 }
-function parseMessage(body) {
+function parseMessage(body, looseMode) {
   try {
-    const [, type, code, message] = body.match(REGEX_MATCH_MESSAGE);
+    const [, type, code, message] = body.match(looseMode ? REGEX_MATCH_MESSAGE_LOOSE : REGEX_MATCH_MESSAGE);
     return {
       type,
       code,
@@ -223,7 +225,10 @@ function parseMessage(body) {
 }
 function parseStack(rawStack, detectMessage) {
   if (typeof rawStack !== 'string') {
-    throw new TypeError('stack must be a string');
+    throw errcode(new TypeError('stack must be a string'), {
+      rawStack,
+      detectMessage
+    });
   }
 
   try {

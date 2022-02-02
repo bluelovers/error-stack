@@ -16,6 +16,8 @@ const AT = 'at' as const
 // TypeError: foo
 const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i
 
+const REGEX_MATCH_MESSAGE_LOOSE = new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_MATCH_MESSAGE.flags + 'm');
+
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
 
@@ -225,11 +227,11 @@ export function parseBody(rawStack: string, detectMessage?: string)
 
 	if (!isUnset(detectMessage))
 	{
-		let { type } = parseMessage(rawStack);
+		let { type, message } = parseMessage(rawStack, true);
 
 		let mf = formatMessage({
 			type,
-			message: detectMessage,
+			message: detectMessage === '' ? message : detectMessage,
 		});
 
 		let i = rawStack.indexOf(mf)
@@ -253,7 +255,8 @@ export function parseBody(rawStack: string, detectMessage?: string)
 		([rawMessage, ...rawTrace] = lineSplit(rawStack));
 
 		// A error message might have multiple lines
-		const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
+		const index = rawTrace.findIndex(line => line.trimLeft()
+			.startsWith(AT) && validTrace(parseTrace(trim(line), true)));
 
 		rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(LF)
 	}
@@ -264,11 +267,11 @@ export function parseBody(rawStack: string, detectMessage?: string)
 	}
 }
 
-export function parseMessage(body: string): IParsedWithoutTrace
+export function parseMessage(body: string, looseMode?: boolean): IParsedWithoutTrace
 {
 	try
 	{
-		const [, type, code, message] = body.match(REGEX_MATCH_MESSAGE)
+		const [, type, code, message] = body.match(looseMode ? REGEX_MATCH_MESSAGE_LOOSE : REGEX_MATCH_MESSAGE);
 
 		return {
 			type,
@@ -292,7 +295,10 @@ export function parseStack(rawStack: string, detectMessage?: string): IParsed
 {
 	if (typeof rawStack !== 'string')
 	{
-		throw new TypeError('stack must be a string')
+		throw errcode(new TypeError('stack must be a string'), {
+			rawStack,
+			detectMessage,
+		});
 	}
 
 	try
