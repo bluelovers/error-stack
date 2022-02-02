@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`empty 1`] = `
+ErrorStack {
+  "code": undefined,
+  "message": undefined,
+  "rawMessage": "AggregateError",
+  "rawStack": "AggregateError
+    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp2.ts:4:11)
+    at Module._compile (node:internal/modules/cjs/loader:1097:14)
+    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1371:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1149:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1374:12)
+    at Module.load (node:internal/modules/cjs/loader:975:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:331:12)
+    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:482:3)",
+  "rawTrace": Array [
+    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp2.ts:4:11)",
+    "    at Module._compile (node:internal/modules/cjs/loader:1097:14)",
+    "    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1371:23)",
+    "    at Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+    "    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1374:12)",
+    "    at Module.load (node:internal/modules/cjs/loader:975:32)",
+    "    at Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+    "    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)",
+    "    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:331:12)",
+    "    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:482:3)",
+  ],
+  "traces": Array [
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "11",
+      "indent": "    ",
+      "line": "4",
+      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp2.ts",
+    },
+    Object {
+      "callee": "Module._compile",
+      "calleeNote": undefined,
+      "col": "14",
+      "indent": "    ",
+      "line": "1097",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Module.m._compile",
+      "calleeNote": undefined,
+      "col": "23",
+      "indent": "    ",
+      "line": "1371",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+    },
+    Object {
+      "callee": "Module._extensions..js",
+      "calleeNote": undefined,
+      "col": "10",
+      "indent": "    ",
+      "line": "1149",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Object.require.extensions.<computed>",
+      "calleeNote": "as .ts",
+      "col": "12",
+      "indent": "    ",
+      "line": "1374",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+    },
+    Object {
+      "callee": "Module.load",
+      "calleeNote": undefined,
+      "col": "32",
+      "indent": "    ",
+      "line": "975",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Function.Module._load",
+      "calleeNote": undefined,
+      "col": "12",
+      "indent": "    ",
+      "line": "822",
+      "source": "node:internal/modules/cjs/loader",
+    },
+    Object {
+      "callee": "Function.executeUserEntryPoint",
+      "calleeNote": "as runMain",
+      "col": "12",
+      "indent": "    ",
+      "line": "77",
+      "source": "node:internal/modules/run_main",
+    },
+    Object {
+      "callee": "main",
+      "calleeNote": undefined,
+      "col": "12",
+      "indent": "    ",
+      "line": "331",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+    },
+    Object {
+      "callee": "Object.<anonymous>",
+      "calleeNote": undefined,
+      "col": "3",
+      "indent": "    ",
+      "line": "482",
+      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+    },
+  ],
+  "type": "AggregateError",
+}
+`;
+
+exports[`empty 2`] = `
+"AggregateError
+    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp2.ts:4:11)
+    at Module._compile (node:internal/modules/cjs/loader:1097:14)
+    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1371:23)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1149:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1374:12)
+    at Module.load (node:internal/modules/cjs/loader:975:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:822:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:77:12)
+    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:331:12)
+    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:482:3)"
+`;

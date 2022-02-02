@@ -2,6 +2,9 @@
   "extends": "@bluelovers/tsconfig/tsdx/index.json",
   "include": ["src", "types"],
   "compilerOptions": {
-    "importHelpers": true
+    "importHelpers": true,
+    "lib": [
+      "es2021"
+    ]
   }
 }

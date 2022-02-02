@@ -1,5 +1,5 @@
 import { ITSPickExtra, ITSRequireAtLeastOne } from 'ts-type/lib/type/record';
-import { lineSplit, R_CRLF } from 'crlf-normalize';
+import { lineSplit, R_CRLF, LF } from 'crlf-normalize';
 import { IEvalTrace, IParsed, IParsedWithoutTrace, ISource, ITrace, IRawLineTrace, ITraceValue } from './types';
 import { stringSplitWithLimit } from 'string-split-keep2';
 import { trim } from './util/trim';
@@ -9,13 +9,12 @@ import errcode from 'err-code';
 import { inspect } from 'util';
 
 const AT = 'at' as const
-const CR = '\n' as const
 
 // 1.
 // Error: foo
 // 2.
 // TypeError: foo
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?: \[(\w+)\])?:(?: ([\s\S]*))?$/i
+const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
@@ -254,9 +253,9 @@ export function parseBody(rawStack: string, detectMessage?: string)
 		([rawMessage, ...rawTrace] = lineSplit(rawStack));
 
 		// A error message might have multiple lines
-		const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)))
+		const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
 
-		rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(CR)
+		rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(LF)
 	}
 
 	return {
@@ -385,7 +384,14 @@ export function formatMessagePrefix({
 
 export function formatMessage(parsed: IParsedWithoutTrace)
 {
-	return `${formatMessagePrefix(parsed)}: ${parsed.message ?? ''}`;
+	let line = formatMessagePrefix(parsed);
+
+	if (typeof parsed.message !== 'undefined')
+	{
+		line += `: ${parsed.message ?? ''}`;
+	}
+
+	return line;
 }
 
 export function formatRawLineTrace(trace: IRawLineTrace)
@@ -472,10 +478,11 @@ export function stringifyErrorStack(parsed: ITSRequireAtLeastOne<IParsed, 'trace
 {
 	const messageLines = `${formatMessage(parsed)}`
 	const tracesLines = (parsed.traces?.map(formatTraceLine) ?? parsed.rawTrace)
-		.join(CR)
+		.join(LF)
+	;
 
 	return tracesLines
-		? messageLines + CR + tracesLines
+		? messageLines + LF + tracesLines
 		: messageLines
 }
 

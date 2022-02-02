@@ -42,7 +42,7 @@
   ],
   "scripts": {
     "pretest": "echo pretest",
-    "test": "tsdx test",
+    "test": "jest",
     "posttest": "echo posttest",
     "prebuild": "yarn run test",
     "build": "yarn run build:tsdx && yarn run build:dts:bundle",
@@ -87,7 +87,7 @@
     "@bluelovers/tsconfig": "^1.0.28",
     "@types/bluebird": "^3.5.36",
     "@types/jest": "^27.4.0",
-    "@types/node": "^17.0.13"
+    "@types/node": "^17.0.14"
   },
   "packageManager": "yarn@^1.22.11"
 }
