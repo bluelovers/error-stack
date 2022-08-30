@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parseBody Error: 1`] = `
-Object {
+{
   "rawMessage": "Error:",
-  "rawTrace": Array [],
+  "rawTrace": [],
 }
 `;
 
 exports[`parseBody loader:1101:14) 1`] = `
-Object {
+{
   "rawMessage": "Error:",
-  "rawTrace": Array [
-    "    at G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:20:8",
+  "rawTrace": [
+    "    at G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:20:8",
     "    at new Promise (<anonymous>)",
-    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:19:1)",
+    "    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:19:1)",
     "    at Module._compile (node:internal/modules/cjs/loader:1101:14)",
   ],
 }
@@ -39,38 +39,38 @@ ErrorStack {
     at Object",
   "rawStack": "AggregateErrorExtra: ggregateError:
     at Object
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\nodejs-yarn\\\\ws-error\\\\packages\\\\lazy-aggregate-error\\\\test\\\\temp.ts:9:9)
+    at Object.<anonymous> (G:\\Users\\The Project\\nodejs-yarn\\ws-error\\packages\\lazy-aggregate-error\\test\\temp.ts:9:9)
     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
     at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
     at Module.load (node:internal/modules/cjs/loader:981:32)
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
-    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
-    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
-  "rawTrace": Array [
-    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\nodejs-yarn\\\\ws-error\\\\packages\\\\lazy-aggregate-error\\\\test\\\\temp.ts:9:9)",
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
+  "rawTrace": [
+    "    at Object.<anonymous> (G:\\Users\\The Project\\nodejs-yarn\\ws-error\\packages\\lazy-aggregate-error\\test\\temp.ts:9:9)",
     "    at Module._compile (node:internal/modules/cjs/loader:1101:14)",
-    "    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)",
+    "    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)",
     "    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
-    "    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)",
+    "    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)",
     "    at Module.load (node:internal/modules/cjs/loader:981:32)",
     "    at Function.Module._load (node:internal/modules/cjs/loader:822:12)",
     "    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
-    "    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)",
-    "    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
+    "    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)",
+    "    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "9",
       "indent": "    ",
       "line": "9",
-      "source": "G:\\\\Users\\\\The Project\\\\nodejs-yarn\\\\ws-error\\\\packages\\\\lazy-aggregate-error\\\\test\\\\temp.ts",
+      "source": "G:\\Users\\The Project\\nodejs-yarn\\ws-error\\packages\\lazy-aggregate-error\\test\\temp.ts",
     },
-    Object {
+    {
       "callee": "Module._compile",
       "calleeNote": undefined,
       "col": "14",
@@ -78,15 +78,15 @@ ErrorStack {
       "line": "1101",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Module.m._compile",
       "calleeNote": undefined,
       "col": "23",
       "indent": "    ",
       "line": "1225",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module._extensions..js",
       "calleeNote": undefined,
       "col": "10",
@@ -94,15 +94,15 @@ ErrorStack {
       "line": "1153",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Object.require.extensions.<computed>",
       "calleeNote": "as .ts",
       "col": "12",
       "indent": "    ",
       "line": "1228",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module.load",
       "calleeNote": undefined,
       "col": "32",
@@ -110,7 +110,7 @@ ErrorStack {
       "line": "981",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.Module._load",
       "calleeNote": undefined,
       "col": "12",
@@ -118,7 +118,7 @@ ErrorStack {
       "line": "822",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.executeUserEntryPoint",
       "calleeNote": "as runMain",
       "col": "12",
@@ -126,21 +126,21 @@ ErrorStack {
       "line": "79",
       "source": "node:internal/modules/run_main",
     },
-    Object {
+    {
       "callee": "main",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "330",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "3",
       "indent": "    ",
       "line": "477",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
   ],
   "type": "AggregateErrorExtra",
@@ -163,38 +163,38 @@ ErrorStack {
   "message": "",
   "rawMessage": "Error: ",
   "rawStack": "Error: 
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:31:16)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:31:16)
     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
     at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
     at Module.load (node:internal/modules/cjs/loader:981:32)
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
-    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
-    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
-  "rawTrace": Array [
-    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:31:16)",
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
+  "rawTrace": [
+    "    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:31:16)",
     "    at Module._compile (node:internal/modules/cjs/loader:1101:14)",
-    "    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)",
+    "    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)",
     "    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
-    "    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)",
+    "    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)",
     "    at Module.load (node:internal/modules/cjs/loader:981:32)",
     "    at Function.Module._load (node:internal/modules/cjs/loader:822:12)",
     "    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
-    "    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)",
-    "    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
+    "    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)",
+    "    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "16",
       "indent": "    ",
       "line": "31",
-      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
+      "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts",
     },
-    Object {
+    {
       "callee": "Module._compile",
       "calleeNote": undefined,
       "col": "14",
@@ -202,15 +202,15 @@ ErrorStack {
       "line": "1101",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Module.m._compile",
       "calleeNote": undefined,
       "col": "23",
       "indent": "    ",
       "line": "1225",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module._extensions..js",
       "calleeNote": undefined,
       "col": "10",
@@ -218,15 +218,15 @@ ErrorStack {
       "line": "1153",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Object.require.extensions.<computed>",
       "calleeNote": "as .ts",
       "col": "12",
       "indent": "    ",
       "line": "1228",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module.load",
       "calleeNote": undefined,
       "col": "32",
@@ -234,7 +234,7 @@ ErrorStack {
       "line": "981",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.Module._load",
       "calleeNote": undefined,
       "col": "12",
@@ -242,7 +242,7 @@ ErrorStack {
       "line": "822",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.executeUserEntryPoint",
       "calleeNote": "as runMain",
       "col": "12",
@@ -250,21 +250,21 @@ ErrorStack {
       "line": "79",
       "source": "node:internal/modules/run_main",
     },
-    Object {
+    {
       "callee": "main",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "330",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "3",
       "indent": "    ",
       "line": "477",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
   ],
   "type": "Error",
@@ -281,19 +281,19 @@ ErrorStack {
   "rawStack": "Error: foo:eval
     at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)
     at <anonymous>:1:1",
-  "rawTrace": Array [
+  "rawTrace": [
     "    at eval (eval at <anonymous> (:1:1), <anonymous>:1:1)",
     "    at <anonymous>:1:1",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "eval",
       "calleeNote": undefined,
       "col": "1",
       "eval": true,
       "evalCallee": "<anonymous>",
       "evalCalleeNote": undefined,
-      "evalTrace": Object {
+      "evalTrace": {
         "col": "1",
         "line": "1",
         "source": "<anonymous>",
@@ -302,7 +302,7 @@ ErrorStack {
       "line": "1",
       "source": "",
     },
-    Object {
+    {
       "callee": undefined,
       "col": "1",
       "indent": "    ",
@@ -330,86 +330,86 @@ ErrorStack {
   "message": "foo:eval",
   "rawMessage": "Error: foo:eval",
   "rawStack": "Error: foo:eval
-    at eval (eval at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5), <anonymous>:1:1)
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5)
-    at Runtime._execModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:1394:24)
-    at Runtime._loadModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:996:12)
-    at Runtime.requireModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:828:12)
-    at jestAdapter (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-circus\\\\build\\\\legacy-code-todo-rewrite\\\\jestAdapter.js:79:13)
+    at eval (eval at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5), <anonymous>:1:1)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5)
+    at Runtime._execModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:1394:24)
+    at Runtime._loadModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:996:12)
+    at Runtime.requireModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:828:12)
+    at jestAdapter (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:13)
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at runTestInternal (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:389:16)
-    at runTest (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:481:34)
-    at Object.worker (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\testWorker.js:133:12)",
-  "rawTrace": Array [
-    "    at eval (eval at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5), <anonymous>:1:1)",
-    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts:41:5)",
-    "    at Runtime._execModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:1394:24)",
-    "    at Runtime._loadModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:996:12)",
-    "    at Runtime.requireModule (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js:828:12)",
-    "    at jestAdapter (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-circus\\\\build\\\\legacy-code-todo-rewrite\\\\jestAdapter.js:79:13)",
+    at runTestInternal (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:389:16)
+    at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)
+    at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12)",
+  "rawTrace": [
+    "    at eval (eval at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5), <anonymous>:1:1)",
+    "    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts:41:5)",
+    "    at Runtime._execModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:1394:24)",
+    "    at Runtime._loadModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:996:12)",
+    "    at Runtime.requireModule (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js:828:12)",
+    "    at jestAdapter (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js:79:13)",
     "    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
-    "    at runTestInternal (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:389:16)",
-    "    at runTest (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js:481:34)",
-    "    at Object.worker (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\testWorker.js:133:12)",
+    "    at runTestInternal (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:389:16)",
+    "    at runTest (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js:481:34)",
+    "    at Object.worker (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js:133:12)",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "eval",
       "calleeNote": undefined,
       "col": "5",
       "eval": true,
       "evalCallee": "Object.<anonymous>",
       "evalCalleeNote": undefined,
-      "evalTrace": Object {
+      "evalTrace": {
         "col": "1",
         "line": "1",
         "source": "<anonymous>",
       },
       "indent": "    ",
       "line": "41",
-      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+      "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "5",
       "indent": "    ",
       "line": "41",
-      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+      "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts",
     },
-    Object {
+    {
       "callee": "Runtime._execModule",
       "calleeNote": undefined,
       "col": "24",
       "indent": "    ",
       "line": "1394",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js",
     },
-    Object {
+    {
       "callee": "Runtime._loadModule",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "996",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js",
     },
-    Object {
+    {
       "callee": "Runtime.requireModule",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "828",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runtime\\\\build\\\\index.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runtime\\build\\index.js",
     },
-    Object {
+    {
       "callee": "jestAdapter",
       "calleeNote": undefined,
       "col": "13",
       "indent": "    ",
       "line": "79",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-circus\\\\build\\\\legacy-code-todo-rewrite\\\\jestAdapter.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-circus\\build\\legacy-code-todo-rewrite\\jestAdapter.js",
     },
-    Object {
+    {
       "callee": "processTicksAndRejections",
       "calleeNote": undefined,
       "col": "5",
@@ -417,29 +417,29 @@ ErrorStack {
       "line": "96",
       "source": "node:internal/process/task_queues",
     },
-    Object {
+    {
       "callee": "runTestInternal",
       "calleeNote": undefined,
       "col": "16",
       "indent": "    ",
       "line": "389",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js",
     },
-    Object {
+    {
       "callee": "runTest",
       "calleeNote": undefined,
       "col": "34",
       "indent": "    ",
       "line": "481",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\runTest.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\runTest.js",
     },
-    Object {
+    {
       "callee": "Object.worker",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "133",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\jest\\\\node_modules\\\\jest-runner\\\\build\\\\testWorker.js",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\jest\\node_modules\\jest-runner\\build\\testWorker.js",
     },
   ],
   "type": "Error",
@@ -447,23 +447,23 @@ ErrorStack {
 `;
 
 exports[`parseEvalSource error-stack.test.ts:41:5), <anonymous>:1:1 1`] = `
-Object {
+{
   "col": "5",
   "evalCallee": "Object.<anonymous>",
   "evalCalleeNote": undefined,
-  "evalTrace": Object {
+  "evalTrace": {
     "col": "1",
     "line": "1",
     "source": "<anonymous>",
   },
   "indent": "",
   "line": "41",
-  "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\error-stack.test.ts",
+  "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\error-stack.test.ts",
 }
 `;
 
 exports[`parseMessage Error:  1`] = `
-Object {
+{
   "code": undefined,
   "message": "",
   "type": "Error",
@@ -472,48 +472,48 @@ Object {
 
 exports[`parseMessage QmSJF5DHa4
 XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'" 1`] = `
-Object {
+{
   "code": "ERR_ASSERTION",
-  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
-XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
+  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"",
   "type": "AssertionError",
 }
 `;
 
 exports[`parseSource bin.ts:330:12 1`] = `
-Object {
+{
   "col": "12",
   "line": "330",
-  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+  "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
 }
 `;
 
 exports[`parseSource bin.ts:477:3 1`] = `
-Object {
+{
   "col": "3",
   "line": "477",
-  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+  "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
 }
 `;
 
 exports[`parseSource index.ts:1225:23 1`] = `
-Object {
+{
   "col": "23",
   "line": "1225",
-  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+  "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
 }
 `;
 
 exports[`parseSource index.ts:1228:12 1`] = `
-Object {
+{
   "col": "12",
   "line": "1228",
-  "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+  "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
 }
 `;
 
 exports[`parseSource loader:822:12 1`] = `
-Object {
+{
   "col": "12",
   "line": "822",
   "source": "node:internal/modules/cjs/loader",
@@ -521,7 +521,7 @@ Object {
 `;
 
 exports[`parseSource loader:981:32 1`] = `
-Object {
+{
   "col": "32",
   "line": "981",
   "source": "node:internal/modules/cjs/loader",
@@ -529,7 +529,7 @@ Object {
 `;
 
 exports[`parseSource loader:1101:14 1`] = `
-Object {
+{
   "col": "14",
   "line": "1101",
   "source": "node:internal/modules/cjs/loader",
@@ -537,7 +537,7 @@ Object {
 `;
 
 exports[`parseSource loader:1153:10 1`] = `
-Object {
+{
   "col": "10",
   "line": "1153",
   "source": "node:internal/modules/cjs/loader",
@@ -545,7 +545,7 @@ Object {
 `;
 
 exports[`parseSource run_main:79:12 1`] = `
-Object {
+{
   "col": "12",
   "line": "79",
   "source": "node:internal/modules/run_main",
@@ -553,15 +553,15 @@ Object {
 `;
 
 exports[`parseSource temp.ts:6:13 1`] = `
-Object {
+{
   "col": "13",
   "line": "6",
-  "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
+  "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts",
 }
 `;
 
 exports[`parseStack bin.ts:477:3) 1`] = `
-Object {
+{
   "code": undefined,
   "message": "ggregateError:
     at Object.<anonymous> (<anonymous>:19:1)",
@@ -569,38 +569,38 @@ Object {
     at Object.<anonymous> (<anonymous>:19:1)",
   "rawStack": "AggregateError: ggregateError:
     at Object.<anonymous> (<anonymous>:19:1)
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:11:9)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)
     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
     at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
     at Module.load (node:internal/modules/cjs/loader:981:32)
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
-    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
-    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
-  "rawTrace": Array [
-    "    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:11:9)",
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
+  "rawTrace": [
+    "    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)",
     "    at Module._compile (node:internal/modules/cjs/loader:1101:14)",
-    "    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)",
+    "    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)",
     "    at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)",
-    "    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)",
+    "    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)",
     "    at Module.load (node:internal/modules/cjs/loader:981:32)",
     "    at Function.Module._load (node:internal/modules/cjs/loader:822:12)",
     "    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)",
-    "    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)",
-    "    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)",
+    "    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)",
+    "    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "9",
       "indent": "    ",
       "line": "11",
-      "source": "G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts",
+      "source": "G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts",
     },
-    Object {
+    {
       "callee": "Module._compile",
       "calleeNote": undefined,
       "col": "14",
@@ -608,15 +608,15 @@ Object {
       "line": "1101",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Module.m._compile",
       "calleeNote": undefined,
       "col": "23",
       "indent": "    ",
       "line": "1225",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module._extensions..js",
       "calleeNote": undefined,
       "col": "10",
@@ -624,15 +624,15 @@ Object {
       "line": "1153",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Object.require.extensions.<computed>",
       "calleeNote": "as .ts",
       "col": "12",
       "indent": "    ",
       "line": "1228",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts",
     },
-    Object {
+    {
       "callee": "Module.load",
       "calleeNote": undefined,
       "col": "32",
@@ -640,7 +640,7 @@ Object {
       "line": "981",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.Module._load",
       "calleeNote": undefined,
       "col": "12",
@@ -648,7 +648,7 @@ Object {
       "line": "822",
       "source": "node:internal/modules/cjs/loader",
     },
-    Object {
+    {
       "callee": "Function.executeUserEntryPoint",
       "calleeNote": "as runMain",
       "col": "12",
@@ -656,21 +656,21 @@ Object {
       "line": "79",
       "source": "node:internal/modules/run_main",
     },
-    Object {
+    {
       "callee": "main",
       "calleeNote": undefined,
       "col": "12",
       "indent": "    ",
       "line": "330",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "3",
       "indent": "    ",
       "line": "477",
-      "source": "C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts",
+      "source": "C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts",
     },
   ],
   "type": "AggregateError",
@@ -678,7 +678,7 @@ Object {
 `;
 
 exports[`parseStack example.js:3:13) 1`] = `
-Object {
+{
   "code": undefined,
   "message": "
     Error: foo",
@@ -693,7 +693,7 @@ Object {
         at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)
     at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)
     at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
-  "rawTrace": Array [
+  "rawTrace": [
     "        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:33)",
     "    Error: bar",
     "        at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
@@ -702,8 +702,8 @@ Object {
     "    at AggregateError (/Users/sindresorhus/dev/aggregate-error/index.js:19:3)",
     "    at Object.<anonymous> (/Users/sindresorhus/dev/aggregate-error/example.js:3:13)",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "33",
@@ -711,12 +711,12 @@ Object {
       "line": "3",
       "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
     },
-    Object {
+    {
       "indent": "    ",
       "raw": true,
       "rawLine": "Error: bar",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "13",
@@ -724,12 +724,12 @@ Object {
       "line": "3",
       "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
     },
-    Object {
+    {
       "indent": "    ",
       "raw": true,
       "rawLine": "Error: baz",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "13",
@@ -737,7 +737,7 @@ Object {
       "line": "3",
       "source": "/Users/sindresorhus/dev/aggregate-error/example.js",
     },
-    Object {
+    {
       "callee": "AggregateError",
       "calleeNote": undefined,
       "col": "3",
@@ -745,7 +745,7 @@ Object {
       "line": "19",
       "source": "/Users/sindresorhus/dev/aggregate-error/index.js",
     },
-    Object {
+    {
       "callee": "Object.<anonymous>",
       "calleeNote": undefined,
       "col": "13",
@@ -759,31 +759,31 @@ Object {
 `;
 
 exports[`parseStack temp.ts:42:2 1`] = `
-Object {
+{
   "code": "ERR_ASSERTION",
-  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
-XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
-  "rawMessage": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
-XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"",
-  "rawStack": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID \\"'/ipfs/QmSJF5DHa4
-XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"
-    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts:93:51
+  "message": "'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"",
+  "rawMessage": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"",
+  "rawStack": "AssertionError [ERR_ASSERTION]: 'CID(QmQndiGjG2YFoUfYPtLsy3RcTxPVuFRmEZFE2WAEtSYh3x)' isSameCID "'/ipfs/QmSJF5DHa4
+XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'"
+    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\lib\\cp.ts:93:51
     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts:42:2",
-  "rawTrace": Array [
-    "    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts:93:51",
+    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\test\\temp.ts:42:2",
+  "rawTrace": [
+    "    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\lib\\cp.ts:93:51",
     "    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
-    "    at G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts:42:2",
+    "    at G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\test\\temp.ts:42:2",
   ],
-  "traces": Array [
-    Object {
+  "traces": [
+    {
       "callee": undefined,
       "col": "51",
       "indent": "    ",
       "line": "93",
-      "source": "G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\lib\\\\cp.ts",
+      "source": "G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\lib\\cp.ts",
     },
-    Object {
+    {
       "callee": "processTicksAndRejections",
       "calleeNote": undefined,
       "col": "5",
@@ -791,12 +791,12 @@ XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"
       "line": "96",
       "source": "node:internal/process/task_queues",
     },
-    Object {
+    {
       "callee": undefined,
       "col": "2",
       "indent": "    ",
       "line": "42",
-      "source": "G:\\\\Users\\\\The Project\\\\p2p\\\\ws-ipfs\\\\packages\\\\@lazy-ipfs\\\\compatible-files\\\\test\\\\temp.ts",
+      "source": "G:\\Users\\The Project\\p2p\\ws-ipfs\\packages\\@lazy-ipfs\\compatible-files\\test\\temp.ts",
     },
   ],
   "type": "AssertionError",
@@ -804,7 +804,7 @@ XogNVQh1AH1UTGM9QN1ZqAywEgvPrfPP9f28'\\"
 `;
 
 exports[`parseTrace     at new Promise (<anonymous>) 1`] = `
-Object {
+{
   "callee": "new Promise",
   "calleeNote": undefined,
   "indent": "    ",
@@ -815,7 +815,7 @@ Object {
 exports[`parseTrace     at new Promise (<anonymous>) 2`] = `"    at new Promise (<anonymous>)"`;
 
 exports[`parseTrace core.js:100:15) 1`] = `
-Object {
+{
   "callee": "Object.errorHandler",
   "calleeNote": "as handleError",
   "col": "15",
@@ -845,16 +845,16 @@ exports[`stringifyErrorStack {
 } 1`] = `
 "AggregateErrorExtra: ggregateError: 
 at Object
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:11:9)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)
     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
     at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
     at Module.load (node:internal/modules/cjs/loader:981:32)
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
-    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
-    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)"
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)"
 `;
 
 exports[`stringifyErrorStack {
@@ -945,14 +945,14 @@ exports[`stringifyErrorStack {
 } 1`] = `
 "AggregateErrorExtra: ggregateError: 
 at Object
-    at Object.<anonymous> (G:\\\\Users\\\\The Project\\\\fork\\\\error-stack\\\\test\\\\temp.ts:11:9)
+    at Object.<anonymous> (G:\\Users\\The Project\\fork\\error-stack\\test\\temp.ts:11:9)
     at Module._compile (node:internal/modules/cjs/loader:1101:14)
-    at Module.m._compile (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1225:23)
+    at Module.m._compile (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1225:23)
     at Module._extensions..js (node:internal/modules/cjs/loader:1153:10)
-    at Object.require.extensions.<computed> [as .ts] (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\index.ts:1228:12)
+    at Object.require.extensions.<computed> [as .ts] (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\index.ts:1228:12)
     at Module.load (node:internal/modules/cjs/loader:981:32)
     at Function.Module._load (node:internal/modules/cjs/loader:822:12)
     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
-    at main (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:330:12)
-    at Object.<anonymous> (C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\npm\\\\node_modules\\\\ts-node\\\\src\\\\bin.ts:477:3)"
+    at main (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:330:12)
+    at Object.<anonymous> (C:\\Users\\User\\AppData\\Roaming\\npm\\node_modules\\ts-node\\src\\bin.ts:477:3)"
 `;

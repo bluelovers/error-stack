@@ -34,7 +34,7 @@ export interface IEvalTrace extends ITrace {
 	callee: "eval";
 	evalTrace: ISource;
 }
-export declare type ITraceValue = IRawLineTrace | ITrace | IEvalTrace;
+export type ITraceValue = IRawLineTrace | ITrace | IEvalTrace;
 export interface IParsedWithoutTrace {
 	/**
 	 * Error type
@@ -112,6 +112,9 @@ export declare function formatTraces(traces: IParsed["traces"]): string[];
  */
 export declare function stringifyErrorStack(parsed: ITSRequireAtLeastOne<IParsed, "traces" | "rawTrace">): string;
 export declare function parseErrorStack(stack: string, detectMessage?: string): ErrorStack;
-export default parseErrorStack;
+
+export {
+	parseErrorStack as default,
+};
 
 export {};

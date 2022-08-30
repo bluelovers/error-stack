@@ -1,355 +1,232 @@
-import { R_CRLF, lineSplit, LF } from 'crlf-normalize';
-import { stringSplitWithLimit } from 'string-split-keep2';
-import errcode from 'err-code';
-import { inspect } from 'util';
+import { R_CRLF as e, lineSplit as r, LF as a } from "crlf-normalize";
 
-function trim(s) {
-  return s.trim();
+import { stringSplitWithLimit as t } from "string-split-keep2";
+
+import n from "err-code";
+
+import { inspect as s } from "util";
+
+function trim(e) {
+  return e.trim();
 }
 
-function isUnset(v) {
-  return typeof v === 'undefined' || v === null;
+function isUnset(e) {
+  return null == e;
 }
 
-function isNumOnly(v) {
-  if (typeof v === 'number' || typeof v === 'string') {
-    return /^\d+$/.test(v.toString());
-  }
-
-  return false;
+function isNumOnly(e) {
+  return ("number" == typeof e || "string" == typeof e) && /^\d+$/.test(e.toString());
 }
 
-const AT = 'at';
-const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i;
-const REGEX_MATCH_MESSAGE_LOOSE = /*#__PURE__*/new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_MATCH_MESSAGE.flags + 'm');
-const REGEX_REMOVE_AT = /^at\s+/;
-const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
-const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
-function breakBrackets(str, first, last) {
-  if (!str.endsWith(last)) {
-    return [str];
-  }
+const c = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, i = new RegExp(c.source, c.flags + "m"), o = /^at\s+/, l = /^eval\s+at\s+/, u = /^([ \t]*)(.+)$/;
 
-  let firstIndex;
-  let cursor = str.length - 1;
-  let count = 1;
-
-  while (--cursor >= 0) {
-    const char = str.charAt(cursor);
-
-    if (char === last) {
-      count++;
-    } else if (char === first) {
-      if (--count === 0) {
-        firstIndex = cursor;
-        break;
-      }
+function breakBrackets(e, r, a) {
+  if (!e.endsWith(a)) return [ e ];
+  let t, n = e.length - 1, s = 1;
+  for (;--n >= 0; ) {
+    const c = e.charAt(n);
+    if (c === a) s++; else if (c === r && 0 == --s) {
+      t = n;
+      break;
     }
   }
-
-  return [str.slice(0, firstIndex), str.slice(firstIndex + 1, -1)].map(trim);
+  return [ e.slice(0, t), e.slice(t + 1, -1) ].map(trim);
 }
-function validPosition(source) {
-  if (!isUnset(source)) {
-    if (typeof source === 'object' && isUnset(source.line) && isUnset(source.col)) {
-      return null;
-    }
 
-    return isNumOnly(source.line) && isNumOnly(source.col);
-  }
-
-  return false;
+function validPosition(e) {
+  return !isUnset(e) && ("object" == typeof e && isUnset(e.line) && isUnset(e.col) ? null : isNumOnly(e.line) && isNumOnly(e.col));
 }
-function parseSource(rawSource) {
-  const [source, line, col] = stringSplitWithLimit(rawSource, ':', -3);
 
-  if (!(col !== null && col !== void 0 && col.length) || !(line !== null && line !== void 0 && line.length)) {
-    return {
-      source: rawSource
-    };
-  }
-
-  return {
-    source,
-    line,
-    col
+function parseSource(e) {
+  const [r, a, n] = t(e, ":", -3);
+  return null != n && n.length && null != a && a.length ? {
+    source: r,
+    line: a,
+    col: n
+  } : {
+    source: e
   };
 }
-function parseEvalSource(rawEvalSource) {
-  const {
-    indent,
-    rawLine
-  } = _detectIndent(rawEvalSource);
 
-  const [rawTrace, rawEvalTrace] = rawLine.replace(REGEX_STARTS_WITH_EVAL_AT, '').split(/,\s+/g).map(trim);
-  const {
-    eval: ev,
-    callee: evalCallee,
-    calleeNote: evalCalleeNote,
-    ...trace
-  } = parseTrace(rawTrace);
-  const evalTrace = parseSource(rawEvalTrace);
+function parseEvalSource(e) {
+  const {indent: r, rawLine: a} = _detectIndent(e), [t, n] = a.replace(l, "").split(/,\s+/g).map(trim), {eval: s, callee: c, calleeNote: i, ...o} = parseTrace(t);
   return {
-    evalCallee,
-    evalCalleeNote,
-    ...trace,
-    evalTrace,
-    indent
+    evalCallee: c,
+    evalCalleeNote: i,
+    ...o,
+    evalTrace: parseSource(n),
+    indent: r
   };
 }
-function _detectIndent(trace) {
-  const [, indent, rawLine] = REGEX_MATCH_INDENT.exec(trace);
+
+function _detectIndent(e) {
+  const [, r, a] = u.exec(e);
   return {
-    indent,
-    rawLine
+    indent: r,
+    rawLine: a
   };
 }
-function parseTrace(trace, testEvalSource) {
-  const {
-    indent,
-    rawLine
-  } = _detectIndent(trace);
 
-  const t = rawLine.replace(REGEX_REMOVE_AT, '');
-  let [rawCallee, rawSource] = breakBrackets(t, '(', ')');
-
-  if (!rawSource) {
-    [rawCallee, rawSource] = [rawSource, rawCallee];
-  }
-
-  const ret = {};
-
-  if (rawCallee) {
-    const [callee, calleeNote] = breakBrackets(rawCallee, '[', ']');
-    ret.callee = callee;
-    ret.calleeNote = calleeNote;
-  } else {
-    ret.callee = rawCallee;
-  }
-
-  if (ret.callee === 'eval') {
-    ret.eval = true;
-  }
-
-  if (testEvalSource === true) {
-    if (!rawLine.startsWith(AT)) {
-      return {
-        raw: true,
-        indent,
-        rawLine
-      };
-    }
-  }
-
-  Object.assign(ret, testEvalSource && isEvalSource(rawSource) ? parseEvalSource(rawSource) : parseSource(rawSource));
-
-  if (testEvalSource === true) {
-    if (!validTrace(ret)) {
-      return {
-        raw: true,
-        indent,
-        rawLine
-      };
-    }
-  }
-
-  ret.indent = indent;
-  return ret;
+function parseTrace(e, r) {
+  const {indent: a, rawLine: t} = _detectIndent(e), n = t.replace(o, "");
+  let [s, c] = breakBrackets(n, "(", ")");
+  c || ([s, c] = [ c, s ]);
+  const i = {};
+  if (s) {
+    const [e, r] = breakBrackets(s, "[", "]");
+    i.callee = e, i.calleeNote = r;
+  } else i.callee = s;
+  return "eval" === i.callee && (i.eval = !0), !0 !== r || t.startsWith("at") ? (Object.assign(i, r && isEvalSource(c) ? parseEvalSource(c) : parseSource(c)), 
+  !0 !== r || validTrace(i) ? (i.indent = a, i) : {
+    raw: !0,
+    indent: a,
+    rawLine: t
+  }) : {
+    raw: !0,
+    indent: a,
+    rawLine: t
+  };
 }
-function isEvalSource(rawSource) {
-  return REGEX_STARTS_WITH_EVAL_AT.test(rawSource);
+
+function isEvalSource(e) {
+  return l.test(e);
 }
-function validTrace(trace) {
-  var _trace$source;
 
-  if (isRawLineTrace(trace)) {
-    return false;
-  }
-
-  return trace.eval || isNumOnly(trace.line) || isUnset(trace.callee) && ((_trace$source = trace.source) === null || _trace$source === void 0 ? void 0 : _trace$source.length) > 0 && validPosition(trace);
+function validTrace(e) {
+  var r;
+  return !isRawLineTrace(e) && (e.eval || isNumOnly(e.line) || isUnset(e.callee) && (null === (r = e.source) || void 0 === r ? void 0 : r.length) > 0 && validPosition(e));
 }
-function parseBody(rawStack, detectMessage) {
-  var _rawMessage;
 
-  let rawTrace;
-  let rawMessage;
-
-  if (!isUnset(detectMessage)) {
-    let {
-      type,
-      message
-    } = parseMessage(rawStack, true);
-    let mf = formatMessage({
-      type,
-      message: detectMessage === '' ? message : detectMessage
+function parseBody(t, n) {
+  var s;
+  let c, i;
+  if (!isUnset(n)) {
+    let {type: a, message: s} = parseMessage(t, !0), o = formatMessage({
+      type: a,
+      message: "" === n ? s : n
     });
-    let i = rawStack.indexOf(mf);
-
-    if (i === 0) {
-      let s = rawStack.replace(mf, '');
-      let m = R_CRLF.exec(s);
-
-      if ((m === null || m === void 0 ? void 0 : m.index) === 0) {
-        rawTrace = lineSplit(m.input.replace(m[0], ''));
-        rawMessage = mf;
-      }
+    if (0 === t.indexOf(o)) {
+      let a = t.replace(o, ""), n = e.exec(a);
+      0 === (null == n ? void 0 : n.index) && (c = r(n.input.replace(n[0], "")), i = o);
     }
   }
-
-  if (!((_rawMessage = rawMessage) !== null && _rawMessage !== void 0 && _rawMessage.length)) {
-    [rawMessage, ...rawTrace] = lineSplit(rawStack);
-    const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
-    rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(LF);
+  if (null === (s = i) || void 0 === s || !s.length) {
+    [i, ...c] = r(t);
+    const e = c.findIndex((e => e.trimLeft().startsWith("at") && validTrace(parseTrace(trim(e), !0))));
+    i = [ i, ...c.splice(0, e) ].join(a);
   }
-
   return {
-    rawMessage,
-    rawTrace
+    rawMessage: i,
+    rawTrace: c
   };
 }
-function parseMessage(body, looseMode) {
+
+function parseMessage(e, r) {
   try {
-    const [, type, code, message] = body.match(looseMode ? REGEX_MATCH_MESSAGE_LOOSE : REGEX_MATCH_MESSAGE);
+    const [, a, t, n] = e.match(r ? i : c);
     return {
-      type,
-      code,
-      message
+      type: a,
+      code: t,
+      message: n
     };
-  } catch (e) {
-    e.message = `Failed to parse error message.\nreason: ${e.message}\nbody=${inspect(body)}`;
-    errcode(e, {
-      body
-    });
-    throw e;
+  } catch (r) {
+    throw r.message = `Failed to parse error message.\nreason: ${r.message}\nbody=${s(e)}`, 
+    n(r, {
+      body: e
+    }), r;
   }
 }
-function parseStack(rawStack, detectMessage) {
-  if (typeof rawStack !== 'string') {
-    throw errcode(new TypeError('stack must be a string'), {
-      rawStack,
-      detectMessage
-    });
-  }
 
+function parseStack(e, r) {
+  if ("string" != typeof e) throw n(new TypeError("stack must be a string"), {
+    rawStack: e,
+    detectMessage: r
+  });
   try {
-    const {
-      rawMessage,
-      rawTrace
-    } = parseBody(rawStack, detectMessage);
-    const {
-      type,
-      code,
-      message
-    } = parseMessage(rawMessage);
-    const traces = rawTrace.map(t => parseTrace(t, true));
+    const {rawMessage: a, rawTrace: t} = parseBody(e, r), {type: n, code: s, message: c} = parseMessage(a);
     return {
-      type,
-      code,
-      message,
-      traces,
-      rawMessage,
-      rawTrace,
-      rawStack
+      type: n,
+      code: s,
+      message: c,
+      traces: t.map((e => parseTrace(e, !0))),
+      rawMessage: a,
+      rawTrace: t,
+      rawStack: e
     };
-  } catch (e) {
-    errcode(e, {
-      rawStack,
-      detectMessage
-    });
-    throw e;
+  } catch (a) {
+    throw n(a, {
+      rawStack: e,
+      detectMessage: r
+    }), a;
   }
 }
-function formatTrace({
-  callee,
-  calleeNote,
-  source,
-  line,
-  col
-}) {
-  const sourceTrace = [source, line, col].filter(v => typeof v !== 'undefined').join(':');
-  const note = calleeNote ? ` [${calleeNote}]` : '';
-  return callee ? `${callee}${note} (${sourceTrace})` : sourceTrace;
-}
-function formatEvalTrace({
-  callee,
-  evalTrace,
-  evalCallee,
-  evalCalleeNote,
-  ...trace
-}) {
-  return `${callee} (eval at ${formatTrace({ ...trace,
-    callee: evalCallee !== null && evalCallee !== void 0 ? evalCallee : '<anonymous>',
-    calleeNote: evalCalleeNote
-  })}, ${formatTrace(evalTrace)})`;
-}
-function formatMessagePrefix({
-  type,
-  code
-}) {
-  if (code !== null && code !== void 0 && code.length) {
-    type += ` [${code}]`;
-  }
 
-  return `${type}`;
+function formatTrace({callee: e, calleeNote: r, source: a, line: t, col: n}) {
+  const s = [ a, t, n ].filter((e => void 0 !== e)).join(":");
+  return e ? `${e}${r ? ` [${r}]` : ""} (${s})` : s;
 }
-function formatMessage(parsed) {
-  let line = formatMessagePrefix(parsed);
 
-  if (typeof parsed.message !== 'undefined') {
-    var _parsed$message;
-
-    line += `: ${(_parsed$message = parsed.message) !== null && _parsed$message !== void 0 ? _parsed$message : ''}`;
-  }
-
-  return line;
+function formatEvalTrace({callee: e, evalTrace: r, evalCallee: a, evalCalleeNote: t, ...n}) {
+  return `${e} (eval at ${formatTrace({
+    ...n,
+    callee: null != a ? a : "<anonymous>",
+    calleeNote: t
+  })}, ${formatTrace(r)})`;
 }
-function formatRawLineTrace(trace) {
-  var _trace$indent;
 
-  return `${(_trace$indent = trace.indent) !== null && _trace$indent !== void 0 ? _trace$indent : '    '}${trace.rawLine}`;
+function formatMessagePrefix({type: e, code: r}) {
+  return null != r && r.length && (e += ` [${r}]`), `${e}`;
 }
-function isRawLineTrace(trace) {
-  return trace.raw === true;
-}
-function isEvalTrace(trace) {
-  return trace.eval === true;
-}
-function formatTraceLine(trace) {
-  var _trace$indent2;
 
-  if (isRawLineTrace(trace)) {
-    return formatRawLineTrace(trace);
-  }
-
-  return `${(_trace$indent2 = trace.indent) !== null && _trace$indent2 !== void 0 ? _trace$indent2 : '    '}at ${isEvalTrace(trace) ? formatEvalTrace(trace) : formatTrace(trace)}`;
+function formatMessage(e) {
+  let r = formatMessagePrefix(e);
+  var a;
+  return void 0 !== e.message && (r += `: ${null !== (a = e.message) && void 0 !== a ? a : ""}`), 
+  r;
 }
+
+function formatRawLineTrace(e) {
+  var r;
+  return `${null !== (r = e.indent) && void 0 !== r ? r : "    "}${e.rawLine}`;
+}
+
+function isRawLineTrace(e) {
+  return !0 === e.raw;
+}
+
+function isEvalTrace(e) {
+  return !0 === e.eval;
+}
+
+function formatTraceLine(e) {
+  var r;
+  return isRawLineTrace(e) ? formatRawLineTrace(e) : `${null !== (r = e.indent) && void 0 !== r ? r : "    "}at ${isEvalTrace(e) ? formatEvalTrace(e) : formatTrace(e)}`;
+}
+
 class ErrorStack {
-  constructor(stack, detectMessage) {
-    Object.assign(this, parseStack(stack, detectMessage));
+  constructor(e, r) {
+    Object.assign(this, parseStack(e, r));
   }
-
-  filter(filter) {
-    this.traces = this.traces.filter(filter);
-    return this;
+  filter(e) {
+    return this.traces = this.traces.filter(e), this;
   }
-
   format() {
     return stringifyErrorStack(this);
   }
+}
 
+function formatTraces(e) {
+  return null == e ? void 0 : e.map(formatTraceLine);
 }
-function formatTraces(traces) {
-  return traces === null || traces === void 0 ? void 0 : traces.map(formatTraceLine);
-}
-function stringifyErrorStack(parsed) {
-  var _parsed$traces$map, _parsed$traces;
 
-  const messageLines = `${formatMessage(parsed)}`;
-  const tracesLines = ((_parsed$traces$map = (_parsed$traces = parsed.traces) === null || _parsed$traces === void 0 ? void 0 : _parsed$traces.map(formatTraceLine)) !== null && _parsed$traces$map !== void 0 ? _parsed$traces$map : parsed.rawTrace).join(LF);
-  return tracesLines ? messageLines + LF + tracesLines : messageLines;
+function stringifyErrorStack(e) {
+  var r, t;
+  const n = `${formatMessage(e)}`, s = (null !== (r = null === (t = e.traces) || void 0 === t ? void 0 : t.map(formatTraceLine)) && void 0 !== r ? r : e.rawTrace).join(a);
+  return s ? n + a + s : n;
 }
-function parseErrorStack(stack, detectMessage) {
-  return new ErrorStack(stack, detectMessage);
+
+function parseErrorStack(e, r) {
+  return new ErrorStack(e, r);
 }
 
 export { ErrorStack, _detectIndent, breakBrackets, parseErrorStack as default, formatEvalTrace, formatMessage, formatMessagePrefix, formatRawLineTrace, formatTrace, formatTraceLine, formatTraces, isEvalSource, isEvalTrace, isRawLineTrace, parseBody, parseErrorStack, parseEvalSource, parseMessage, parseSource, parseStack, parseTrace, stringifyErrorStack, validPosition, validTrace };
