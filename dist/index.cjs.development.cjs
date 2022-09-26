@@ -6,6 +6,7 @@ var crlfNormalize = require('crlf-normalize');
 var stringSplitKeep2 = require('string-split-keep2');
 var errcode = require('err-code');
 var util = require('util');
+var stringDetectIndent = require('string-detect-indent');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -32,7 +33,6 @@ const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))
 const REGEX_MATCH_MESSAGE_LOOSE = /*#__PURE__*/new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_MATCH_MESSAGE.flags + 'm');
 const REGEX_REMOVE_AT = /^at\s+/;
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/;
-const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
 function breakBrackets(str, first, last) {
   if (!str.endsWith(last)) {
     return [str];
@@ -106,7 +106,10 @@ function parseEvalSource(rawEvalSource) {
   };
 }
 function _detectIndent(trace) {
-  const [, indent, rawLine] = REGEX_MATCH_INDENT.exec(trace);
+  const {
+    indent,
+    body: rawLine
+  } = stringDetectIndent.detectIndentLine(trace);
   return {
     indent,
     rawLine

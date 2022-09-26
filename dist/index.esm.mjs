@@ -6,6 +6,8 @@ import n from "err-code";
 
 import { inspect as s } from "util";
 
+import { detectIndentLine as i } from "string-detect-indent";
+
 function trim(e) {
   return e.trim();
 }
@@ -18,14 +20,14 @@ function isNumOnly(e) {
   return ("number" == typeof e || "string" == typeof e) && /^\d+$/.test(e.toString());
 }
 
-const c = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, i = new RegExp(c.source, c.flags + "m"), o = /^at\s+/, l = /^eval\s+at\s+/, u = /^([ \t]*)(.+)$/;
+const c = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, o = new RegExp(c.source, c.flags + "m"), l = /^at\s+/, u = /^eval\s+at\s+/;
 
 function breakBrackets(e, r, a) {
   if (!e.endsWith(a)) return [ e ];
   let t, n = e.length - 1, s = 1;
   for (;--n >= 0; ) {
-    const c = e.charAt(n);
-    if (c === a) s++; else if (c === r && 0 == --s) {
+    const i = e.charAt(n);
+    if (i === a) s++; else if (i === r && 0 == --s) {
       t = n;
       break;
     }
@@ -49,10 +51,10 @@ function parseSource(e) {
 }
 
 function parseEvalSource(e) {
-  const {indent: r, rawLine: a} = _detectIndent(e), [t, n] = a.replace(l, "").split(/,\s+/g).map(trim), {eval: s, callee: c, calleeNote: i, ...o} = parseTrace(t);
+  const {indent: r, rawLine: a} = _detectIndent(e), [t, n] = a.replace(u, "").split(/,\s+/g).map(trim), {eval: s, callee: i, calleeNote: c, ...o} = parseTrace(t);
   return {
-    evalCallee: c,
-    evalCalleeNote: i,
+    evalCallee: i,
+    evalCalleeNote: c,
     ...o,
     evalTrace: parseSource(n),
     indent: r
@@ -60,7 +62,7 @@ function parseEvalSource(e) {
 }
 
 function _detectIndent(e) {
-  const [, r, a] = u.exec(e);
+  const {indent: r, body: a} = i(e);
   return {
     indent: r,
     rawLine: a
@@ -68,16 +70,16 @@ function _detectIndent(e) {
 }
 
 function parseTrace(e, r) {
-  const {indent: a, rawLine: t} = _detectIndent(e), n = t.replace(o, "");
-  let [s, c] = breakBrackets(n, "(", ")");
-  c || ([s, c] = [ c, s ]);
-  const i = {};
+  const {indent: a, rawLine: t} = _detectIndent(e), n = t.replace(l, "");
+  let [s, i] = breakBrackets(n, "(", ")");
+  i || ([s, i] = [ i, s ]);
+  const c = {};
   if (s) {
     const [e, r] = breakBrackets(s, "[", "]");
-    i.callee = e, i.calleeNote = r;
-  } else i.callee = s;
-  return "eval" === i.callee && (i.eval = !0), !0 !== r || t.startsWith("at") ? (Object.assign(i, r && isEvalSource(c) ? parseEvalSource(c) : parseSource(c)), 
-  !0 !== r || validTrace(i) ? (i.indent = a, i) : {
+    c.callee = e, c.calleeNote = r;
+  } else c.callee = s;
+  return "eval" === c.callee && (c.eval = !0), !0 !== r || t.startsWith("at") ? (Object.assign(c, r && isEvalSource(i) ? parseEvalSource(i) : parseSource(i)), 
+  !0 !== r || validTrace(c) ? (c.indent = a, c) : {
     raw: !0,
     indent: a,
     rawLine: t
@@ -89,7 +91,7 @@ function parseTrace(e, r) {
 }
 
 function isEvalSource(e) {
-  return l.test(e);
+  return u.test(e);
 }
 
 function validTrace(e) {
@@ -99,7 +101,7 @@ function validTrace(e) {
 
 function parseBody(t, n) {
   var s;
-  let c, i;
+  let i, c;
   if (!isUnset(n)) {
     let {type: a, message: s} = parseMessage(t, !0), o = formatMessage({
       type: a,
@@ -107,23 +109,23 @@ function parseBody(t, n) {
     });
     if (0 === t.indexOf(o)) {
       let a = t.replace(o, ""), n = e.exec(a);
-      0 === (null == n ? void 0 : n.index) && (c = r(n.input.replace(n[0], "")), i = o);
+      0 === (null == n ? void 0 : n.index) && (i = r(n.input.replace(n[0], "")), c = o);
     }
   }
-  if (null === (s = i) || void 0 === s || !s.length) {
-    [i, ...c] = r(t);
-    const e = c.findIndex((e => e.trimLeft().startsWith("at") && validTrace(parseTrace(trim(e), !0))));
-    i = [ i, ...c.splice(0, e) ].join(a);
+  if (null === (s = c) || void 0 === s || !s.length) {
+    [c, ...i] = r(t);
+    const e = i.findIndex((e => e.trimLeft().startsWith("at") && validTrace(parseTrace(trim(e), !0))));
+    c = [ c, ...i.splice(0, e) ].join(a);
   }
   return {
-    rawMessage: i,
-    rawTrace: c
+    rawMessage: c,
+    rawTrace: i
   };
 }
 
 function parseMessage(e, r) {
   try {
-    const [, a, t, n] = e.match(r ? i : c);
+    const [, a, t, n] = e.match(r ? o : c);
     return {
       type: a,
       code: t,
@@ -143,11 +145,11 @@ function parseStack(e, r) {
     detectMessage: r
   });
   try {
-    const {rawMessage: a, rawTrace: t} = parseBody(e, r), {type: n, code: s, message: c} = parseMessage(a);
+    const {rawMessage: a, rawTrace: t} = parseBody(e, r), {type: n, code: s, message: i} = parseMessage(a);
     return {
       type: n,
       code: s,
-      message: c,
+      message: i,
       traces: t.map((e => parseTrace(e, !0))),
       rawMessage: a,
       rawTrace: t,
