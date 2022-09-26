@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/bluelovers/error-stack/compare/error-stack2@2.0.3...error-stack2@2.0.4) (2022-09-26)
+
+
+
+### 🛠　Build System
+
+* update build ([de470b8](https://github.com/bluelovers/error-stack/commit/de470b8b6ab6003185e9e30b05eefafbce88ca87))
+
+
+### 📌　Dependencies
+
+* update deps ([af534cb](https://github.com/bluelovers/error-stack/commit/af534cbfdd246b3ecba533d8ac25db24e7e9dc02))
+* use string-detect-indent ([805da5c](https://github.com/bluelovers/error-stack/commit/805da5cf483355080ef896d0d0bb737a3e9a282d))
+
+
+
 ## [2.0.3](https://github.com/bluelovers/error-stack/compare/error-stack2@2.0.2...error-stack2@2.0.3) (2022-08-30)
 
 
