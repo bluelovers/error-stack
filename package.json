@@ -86,16 +86,17 @@
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
-    "crlf-normalize": "^1.0.12",
+    "crlf-normalize": "^1.0.14",
     "err-code": "^3.0.1",
-    "string-split-keep2": "^1.0.7",
+    "string-detect-indent": "^1.0.2",
+    "string-split-keep2": "^1.0.8",
     "ts-type": ">=2"
   },
   "devDependencies": {
     "@bluelovers/tsconfig": "^1.0.30",
-    "@types/bluebird": "^3.5.36",
-    "@types/jest": "^29.0.0",
-    "@types/node": "^18.7.14",
+    "@types/bluebird": "^3.5.37",
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.23",
     "tslib": "^2.4.0"
   },
   "packageManager": "yarn@^1.22.11"

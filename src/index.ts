@@ -7,6 +7,7 @@ import { isUnset } from './util/isUnset';
 import { isNumOnly } from './util/isNumOnly';
 import errcode from 'err-code';
 import { inspect } from 'util';
+import { detectIndentLine } from 'string-detect-indent';
 
 const AT = 'at' as const
 
@@ -20,8 +21,6 @@ const REGEX_MATCH_MESSAGE_LOOSE = new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_M
 
 const REGEX_REMOVE_AT = /^at\s+/
 const REGEX_STARTS_WITH_EVAL_AT = /^eval\s+at\s+/
-
-const REGEX_MATCH_INDENT = /^([ \t]*)(.+)$/;
 
 export function breakBrackets(str: string, first: string, last: string)
 {
@@ -122,7 +121,7 @@ export function parseEvalSource(rawEvalSource: string): Omit<IEvalTrace, 'callee
 
 export function _detectIndent(trace: string)
 {
-	const [, indent, rawLine] = REGEX_MATCH_INDENT.exec(trace)
+	const { indent, body: rawLine } = detectIndentLine(trace);
 
 	return {
 		indent,
