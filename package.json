@@ -86,9 +86,9 @@
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
-    "crlf-normalize": "^1.0.14",
+    "crlf-normalize": "^1.0.15",
     "err-code": "^3.0.1",
-    "string-detect-indent": "^1.0.2",
+    "string-detect-indent": "^1.0.3",
     "string-split-keep2": "^1.0.8",
     "ts-type": ">=2"
   },
