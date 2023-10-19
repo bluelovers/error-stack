@@ -20,7 +20,7 @@ function isNumOnly(e) {
   return ("number" == typeof e || "string" == typeof e) && /^\d+$/.test(e.toString());
 }
 
-const c = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, o = new RegExp(c.source, c.flags + "m"), l = /^at\s+/, u = /^eval\s+at\s+/;
+const c = "at", o = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, l = new RegExp(o.source, o.flags + "m"), u = /^at\s+/, f = /^eval\s+at\s+/;
 
 function breakBrackets(e, r, a) {
   if (!e.endsWith(a)) return [ e ];
@@ -51,7 +51,7 @@ function parseSource(e) {
 }
 
 function parseEvalSource(e) {
-  const {indent: r, rawLine: a} = _detectIndent(e), [t, n] = a.replace(u, "").split(/,\s+/g).map(trim), {eval: s, callee: i, calleeNote: c, ...o} = parseTrace(t);
+  const {indent: r, rawLine: a} = _detectIndent(e), [t, n] = a.replace(f, "").split(/,\s+/g).map(trim), {eval: s, callee: i, calleeNote: c, ...o} = parseTrace(t);
   return {
     evalCallee: i,
     evalCalleeNote: c,
@@ -70,16 +70,16 @@ function _detectIndent(e) {
 }
 
 function parseTrace(e, r) {
-  const {indent: a, rawLine: t} = _detectIndent(e), n = t.replace(l, "");
+  const {indent: a, rawLine: t} = _detectIndent(e), n = t.replace(u, "");
   let [s, i] = breakBrackets(n, "(", ")");
   i || ([s, i] = [ i, s ]);
-  const c = {};
+  const o = {};
   if (s) {
     const [e, r] = breakBrackets(s, "[", "]");
-    c.callee = e, c.calleeNote = r;
-  } else c.callee = s;
-  return "eval" === c.callee && (c.eval = !0), !0 !== r || t.startsWith("at") ? (Object.assign(c, r && isEvalSource(i) ? parseEvalSource(i) : parseSource(i)), 
-  !0 !== r || validTrace(c) ? (c.indent = a, c) : {
+    o.callee = e, o.calleeNote = r;
+  } else o.callee = s;
+  return "eval" === o.callee && (o.eval = !0), !0 !== r || t.startsWith(c) ? (Object.assign(o, r && isEvalSource(i) ? parseEvalSource(i) : parseSource(i)), 
+  !0 !== r || validTrace(o) ? (o.indent = a, o) : {
     raw: !0,
     indent: a,
     rawLine: t
@@ -91,7 +91,7 @@ function parseTrace(e, r) {
 }
 
 function isEvalSource(e) {
-  return u.test(e);
+  return f.test(e);
 }
 
 function validTrace(e) {
@@ -101,31 +101,31 @@ function validTrace(e) {
 
 function parseBody(t, n) {
   var s;
-  let i, c;
+  let i, o;
   if (!isUnset(n)) {
-    let {type: a, message: s} = parseMessage(t, !0), o = formatMessage({
+    let {type: a, message: s} = parseMessage(t, !0), c = formatMessage({
       type: a,
       message: "" === n ? s : n
     });
-    if (0 === t.indexOf(o)) {
-      let a = t.replace(o, ""), n = e.exec(a);
-      0 === (null == n ? void 0 : n.index) && (i = r(n.input.replace(n[0], "")), c = o);
+    if (0 === t.indexOf(c)) {
+      let a = t.replace(c, ""), n = e.exec(a);
+      0 === (null == n ? void 0 : n.index) && (i = r(n.input.replace(n[0], "")), o = c);
     }
   }
-  if (null === (s = c) || void 0 === s || !s.length) {
-    [c, ...i] = r(t);
-    const e = i.findIndex((e => e.trimLeft().startsWith("at") && validTrace(parseTrace(trim(e), !0))));
-    c = [ c, ...i.splice(0, e) ].join(a);
+  if (null === (s = o) || void 0 === s || !s.length) {
+    [o, ...i] = r(t);
+    const e = i.findIndex((e => e.trimLeft().startsWith(c) && validTrace(parseTrace(trim(e), !0))));
+    o = [ o, ...i.splice(0, e) ].join(a);
   }
   return {
-    rawMessage: c,
+    rawMessage: o,
     rawTrace: i
   };
 }
 
 function parseMessage(e, r) {
   try {
-    const [, a, t, n] = e.match(r ? o : c);
+    const [, a, t, n] = e.match(r ? l : o);
     return {
       type: a,
       code: t,
