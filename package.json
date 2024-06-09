@@ -56,7 +56,7 @@
     "build:dts:bundle": "ynpx dts-bundle-generator -o ./dist/index.d.ts ./src/index.ts --no-banner --inline-declare-global & echo build:dts:bundle",
     "build:dts:copy": "copy .\\src\\index.d.ts .\\dist\\index.d.ts & echo build:dts",
     "build:dts:tsc": "yarn run build:dts:tsc:emit && yarn run build:dts:copy",
-    "build:dts:tsc:emit": "tsc --emitDeclarationOnly --declaration --noEmit false",
+    "build:dts:tsc:emit": "tsc --emitDeclarationOnly --declaration --noEmit false & echo build:dts:tsc:emit",
     "build:tsdx": "ynpx @bluelovers/tsdx build --target node",
     "ci:install": "yarn install --frozen-lockfile && yarn add -W typescript@next jest ts-jest ts-node ynpx lerna yarn-tool",
     "ci:build": "echo ci:build",
@@ -86,18 +86,18 @@
     "tsc:showConfig": "ynpx get-current-tsconfig -p"
   },
   "dependencies": {
-    "crlf-normalize": "^1.0.19",
+    "crlf-normalize": "^1.0.20",
     "err-code": "^3.0.1",
     "string-detect-indent": "^1.0.7",
     "string-split-keep2": "^1.0.12",
     "ts-type": "^3.0.1"
   },
   "devDependencies": {
-    "@bluelovers/tsconfig": "^1.0.34",
-    "@types/bluebird": "^3.5.41",
-    "@types/jest": "^29.5.6",
-    "@types/node": "^20.8.7",
-    "tslib": "^2.6.2"
+    "@bluelovers/tsconfig": "^1.0.35",
+    "@types/bluebird": "^3.5.42",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.2",
+    "tslib": "^2.6.3"
   },
   "packageManager": "yarn@^1.22.11"
 }
