@@ -111,7 +111,7 @@ CASES.forEach(([title, stack, object, only], i) => {
 
 test('invalid stack', () => {
   // @ts-ignore
-  expect(() => parse()).toThrowError(TypeError)
+  expect(() => parse()).toThrow(TypeError)
 })
 
 test('filter and format', () => {

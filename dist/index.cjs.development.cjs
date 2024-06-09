@@ -24,10 +24,6 @@ function isNumOnly(v) {
 }
 
 const AT = 'at';
-// 1.
-// Error: foo
-// 2.
-// TypeError: foo
 const REGEX_MATCH_MESSAGE = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i;
 const REGEX_MATCH_MESSAGE_LOOSE = /*#__PURE__*/new RegExp(REGEX_MATCH_MESSAGE.source, REGEX_MATCH_MESSAGE.flags + 'm');
 const REGEX_REMOVE_AT = /^at\s+/;
@@ -38,7 +34,6 @@ function breakBrackets(str, first, last) {
   }
   let firstIndex;
   let cursor = str.length - 1;
-  // There is already the last one
   let count = 1;
   while (--cursor >= 0) {
     const char = str.charAt(cursor);
@@ -184,7 +179,6 @@ function parseBody(rawStack, detectMessage) {
   }
   if (!((_rawMessage = rawMessage) !== null && _rawMessage !== void 0 && _rawMessage.length)) {
     [rawMessage, ...rawTrace] = crlfNormalize.lineSplit(rawStack);
-    // A error message might have multiple lines
     const index = rawTrace.findIndex(line => line.trimLeft().startsWith(AT) && validTrace(parseTrace(trim(line), true)));
     rawMessage = [rawMessage, ...rawTrace.splice(0, index)].join(crlfNormalize.LF);
   }
@@ -303,27 +297,13 @@ function formatTraceLine(trace) {
   return `${(_trace$indent2 = trace.indent) !== null && _trace$indent2 !== void 0 ? _trace$indent2 : '    '}at ${isEvalTrace(trace) ? formatEvalTrace(trace) : formatTrace(trace)}`;
 }
 class ErrorStack {
-  /**
-   * Error type
-   */
-
-  /**
-   * The message used by Error constructor
-   */
-
   constructor(stack, detectMessage) {
     Object.assign(this, parseStack(stack, detectMessage));
   }
-  /**
-   * filterFunction Function the same as the callback function of Array.prototype.filter(callback)
-   */
   filter(filter) {
     this.traces = this.traces.filter(filter);
     return this;
   }
-  /**
-   * Format object parsed
-   */
   format() {
     return stringifyErrorStack(this);
   }
@@ -331,9 +311,6 @@ class ErrorStack {
 function formatTraces(traces) {
   return traces === null || traces === void 0 ? void 0 : traces.map(formatTraceLine);
 }
-/**
- * Format object parsed
- */
 function stringifyErrorStack(parsed) {
   var _parsed$traces$map, _parsed$traces;
   const messageLines = `${formatMessage(parsed)}`;

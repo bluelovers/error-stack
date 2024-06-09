@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](https://github.com/bluelovers/error-stack/compare/error-stack2@2.0.5...error-stack2@2.0.7) (2024-06-09)
+
+
+
+### 📌　Dependencies
+
+* update deps ([dbadaa8](https://github.com/bluelovers/error-stack/commit/dbadaa843f18662254aa8c00811cdcece1ef6c8f))
+
+
+
 ## [2.0.5](https://github.com/bluelovers/error-stack/compare/error-stack2@2.0.4...error-stack2@2.0.5) (2023-10-19)
 
 

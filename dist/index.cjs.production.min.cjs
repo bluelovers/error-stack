@@ -18,7 +18,7 @@ function isNumOnly(e) {
   return ("number" == typeof e || "string" == typeof e) && /^\d+$/.test(e.toString());
 }
 
-const n = "at", i = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, o = new RegExp(i.source, i.flags + "m"), c = /^at\s+/, l = /^eval\s+at\s+/;
+const n = "at", i = /^([a-z][a-z0-9_]*)(?:(?: \[(\w+)\])?:(?: ([\s\S]*))?)?$/i, o = /*#__PURE__*/ new RegExp(i.source, i.flags + "m"), c = /^at\s+/, l = /^eval\s+at\s+/;
 
 function breakBrackets(e, r, t) {
   if (!e.endsWith(t)) return [ e ];
